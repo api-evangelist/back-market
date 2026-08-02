@@ -1,0 +1,53 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+# Thinking you found a security vulnerability? Let's talk and take a responsible disclosure path together.
+# We are interested in real vulnerabilities that could substantially affect the availability, confidentiality
+# or integrity of Back Market's operation, not output by automated scanners. Your inputs are appreciated!
+
+# When submitting a vulnerability report, please always ensure to provide precise and detailed steps to
+# reproduce all described attack scenarios. Additionally, screenshots, samples, scripts, ... are all helpful.
+# Without precise information, we won't be able to qualify the submission as an exploitable security vulnerability.
+# Also, please be realistic: bugs requiring exceedingly unlikely user interaction such as manually entering an
+# attack payload, going through forged third party phishing pages, etc. may not meet the bar.
+# Due to large amount of emails, we might not be able to respond to all reports of vulnerabilities.
+# Additionally we under no obligation to reward the disclosure.
+Contact: mailto:security@backmarket.com
+
+# Sensitive information requires adequate protection, and cleartext in email body does not serve that objective.
+# Therefore, please always encrypt your vulnerability report and provide it as an email attachment.
+Encryption: https://www.backmarket.com/.well-known/security-pubkey.txt
+Encryption: https://keys.openpgp.org/search?q=security@backmarket.com
+Encryption: openpgp4fpr:9892b17f6da330e2fd01f9f82d8829b7e7d5a82d
+
+# Following vulnerabilities are examples of vulnerabilities that are *out-of-scope*:
+# * reports from automated tools or scans
+# * lack of, or insufficient, rate limiting on an endpoint
+# * outdated software without any noteworthy vulnerability
+# * missing security headers which do not lead directly to a vulnerability
+# * lack of CSRF tokens which do not lead directly to a vulnerability
+# * missing security best practice which do not lead directly to a vulnerability
+# * vulnerabilities previously disclosed to us or discovered by Back Market
+
+# Back Market is continually looking for new talents, this might be a good opportunity to reach out!
+Hiring: https://jobs.backmarket.com/
+
+# You know how it works, right? Past the expiration date, consuming info from this file is at your own risk.
+Expires: Tue, 18 Sep 2026 00:00:00 -0000
+-----BEGIN PGP SIGNATURE-----
+
+iQJMBAEBCgA2FiEEmJKxf22jMOL9Afn4LYgpt+fVqC0FAmbsFKsYHHNlY3VyaXR5
+QGJhY2ttYXJrZXQuY29tAAoJEC2IKbfn1agtFuMP/3L3nre0vhozxsh6dYD2Tu4J
+ivSx89ml0gKRT4PEjoYf60NHWrtb6CLmDHksnHNU8oX7FI8moZ9ei5s6kmDmBY+v
+k9jAJ/iFBP9qoD9snw2J/6GGCYVDYfTlkoXWvSimh50/8C23QDXA7P4+Wk4vUyLL
+pFAK6k2lX0r9hsp7oFQCZSIdPGGA1+KVZkS+SWRjP/T+bKr0ZqJRu9mXZv2+QdDT
+z51uffoKFjD1SXU9Z84f72DZ4g0qB5feHX+r4fm5qtMgj95Vsvd9nAsxRAgRfi4C
+wajwGoXFPUyQW9bxkW5nXatGMtyLaO3Bmesr4AwP+pr8jrOjncYAKE4LD771zfUk
+Fi7IL7zShF08St64CSYM0Y0+K+ltn5TkJeMfJaOwTZPsJ91EnaDPWGB++FbGyao4
+9mCmS+GBGTqmFa7dVcuAFVOyixVxXQe1bFszdq3/GlqjKS76jYr+PAOXwDMJyb3+
+YI95NYrKO/QoAIsxbHar/QtkVNpcYDkXjp6OO4ooqzs6TlpMQ8tujayFTV3J4EK8
+sVt58ii0BhgVM+iyu8jHFSe5TB5kKxUwXuSwbyjckm6nyC2p3GPwECBNEO5gYRHA
+Ngrfnwd8XdUQndTt6hg4gmkT+5LeaCE7EvO5MDEAMTQJhEAHv9Y67mCYguyFkCcN
+UT0wjSPv7CnDXWKfmOwH
+=0cp2
+-----END PGP SIGNATURE-----

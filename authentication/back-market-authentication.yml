@@ -1,0 +1,24 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/back-market-openapi-original.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: |-
+    Token authentication is done with Basic authentication.
+    Prefix the value with \"Basic\" and use the token you created in the backoffice in the Integrations option page.
+  sources:
+  - openapi/back-market-openapi-original.yml
+- name: BasicAuth
+  type: http
+  scheme: basic
+  sources:
+  - openapi/back-market-openapi-original.yml

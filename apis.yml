@@ -19,5 +19,13 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: VulnerabilityDisclosure
+  url: security/back-market-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/back-market-domain-security.yml
+- type: AgenticAccess
+  url: agentic-access/back-market-agentic-access.yml
+- type: Authentication
+  url: authentication/back-market-authentication.yml
 - type: Website
   url: https://forgeglobal.com/back-market_stock/

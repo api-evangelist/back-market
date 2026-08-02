@@ -1,0 +1,257 @@
+# Back Market — first-party Spectral ruleset (harvested VERBATIM)
+#
+# Provenance:
+#   generated: '2026-08-02'
+#   method: searched
+#   source: https://www.npmjs.com/package/@backmarket-api/rulesets (v1.7.0, MIT)
+#   repository: https://github.com/BackMarket/api-rulesets
+#   docs: https://github.com/BackMarket/api-rulesets/blob/main/ruleset.md
+#
+# This is Back Market's OWN internal API design ruleset, published to npm by the
+# Back Market API Chapter. 19 rules (8 error, 4 warn, 7 inherited-shorthand) on top
+# of spectral:oas recommended. Custom JS functions are saved verbatim in
+# rules/functions/ (functionsDir: ./src/spectral/ in the published package).
+# Nothing below this header was authored by API Evangelist.
+formats:
+  - oas3
+  - oas3.0
+  - oas3.1
+  - json-schema
+
+extends: [[spectral:oas, recommended]]
+
+documentationUrl: https://github.com/BackMarket/api-rulesets/blob/main/ruleset.md
+
+functionsDir: ./src/spectral/
+
+functions:
+  - allArraysHaveItemTypes
+  - propertiesHaveExamples
+  - serviceTierShouldBeValid
+  - cacheTTLShouldBeValid
+  - simpleDescription
+  - categoryShouldBeValid
+
+rules:
+  contact-properties: error
+  operation-tag-defined: false
+  tag-description: false
+  operation-description: false
+  openapi-tags: false
+  info-license: false
+  license-url: false
+
+  backmarket-ensure-contact-have-slack-contact:
+    description: Contact must have slack contact
+    given: $.info.contact
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      field: "x-slack"
+      function: truthy
+
+  backmarket-ensure-param-description:
+    description: Parameters must have a description.
+    given: $..*.parameters[*]
+    severity: warn
+    recommended: true
+    message: "{{error}}"
+    then:
+      field: description
+      function: truthy
+
+  backmarket-ensure-param-examples:
+    description: Parameters must have an example defined.
+    given: $..*.parameters[*]
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      function: xor
+      functionOptions:
+        properties:
+          - example
+          - examples
+
+  backmarket-ensure-properties-example:
+    description: Properties must have examples.
+    given: $..*.properties[*]
+    severity: warn
+    recommended: true
+    resolved: true
+    message: "{{error}}"
+    then:
+      function: propertiesHaveExamples
+
+  backmarket-ensure-every-endpoint-has-a-service-tier:
+    description: Ensures every endpoint has a service tier
+    # List of methods at: https://swagger.io/specification/#fixed-fields-7.
+    given: $.paths.*[get,put,post,delete,options,head,patch,trace]
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      field: "x-tier"
+      function: truthy
+
+  backmarket-ensure-service-tier:
+    description: Ensure an x-tier value is valid
+    given: $..*[x-tier]
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      function: serviceTierShouldBeValid
+
+  backmarket-ensure-cache-ttl:
+    description: Ensure that an x-cache-ttl matches an integer
+    given: $..*[x-cache-ttl]
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      function: cacheTTLShouldBeValid
+
+  backmarket-ensure-every-endpoint-has-a-category:
+    description: Ensures every endpoint has a category
+    # List of methods at: https://swagger.io/specification/#fixed-fields-7.
+    given: $.paths.*[get,put,post,delete,options,head,patch,trace]
+    severity: warn
+    recommended: true
+    message: "{{error}}"
+    then:
+      field: "x-category"
+      function: truthy
+
+  backmarket-ensure-category:
+    description: Ensure an x-category value is valid
+    given: $..*[x-category]
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      function: categoryShouldBeValid
+
+  backmarket-ensure-endpoint-summary:
+    description: Endpoints must have a summary.
+    # List of methods at: https://swagger.io/specification/#fixed-fields-7.
+    given: $.paths.*[get,put,post,delete,options,head,patch,trace]
+    severity: warn
+    recommended: true
+    message: "{{error}}"
+    then:
+      field: summary
+      function: truthy
+
+  backmarket-ensure-array-params-have-items-with-type:
+    description: Ensures all array parameters have an items attribute with a type
+    given: "$..*.parameters[*]"
+    severity: error
+    recommended: true
+    message: "{{error}}"
+    then:
+      function: allArraysHaveItemTypes
+
+  backmarket-paths-kebab-case:
+    description: All YAML/JSON paths MUST follow kebab-case
+    severity: error
+    recommended: true
+    message: "{{property}} is not kebab-case: {{error}}"
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^(\/[a-z0-9]+(-[a-z0-9]+)*|(\/{.+})|\/)*$\
+        |^\
+            (\/cart\/add_product)\
+            |(\/api\/update_quantity)\
+            |(\/cart\/update_quantity)\
+            |(\/cart\/update_option)\
+            |(\/cart\/accept_agreement)\
+            |(\/cart\/update_insurance_offer)\
+            |(\/ws\/shipping\/v1\/tracking\/parcel_lab\/events\/order)\
+            |(\/ws\/shipping\/v1\/tracking\/parcel_lab\/events\/buyback)\
+            |(\/ws\/shipping\/v1\/tracking\/parcel_lab\/events\/return)\
+            |(\/ws\/shipping\/v1\/tracking\/parcel_lab\/events\/return2)\
+            |(\/reviews\/v2\/products\/{product_id}\/rate_distribution)\
+            |(\/product_recommendation\/related_offers)\
+            |(\/product_recommendation\/related_offers\/{widgetId})\
+            |(\/payment\/payment_result\/{payment_id})\
+            |(\/payment\/payment_methods)\
+            |(\/payment\/authorise_sepa\/{blank_payment_id})\
+            |(\/payment\/authorise_ach\/{blank_payment_id})\
+            |(\/insurances\/gras_savoye_orders\/{pk}\/update)\
+            |(\/{orderlineId})\
+            |(\/bm\/catalog\/buyback\/bo_admin\/listings\/to-product-merchant)\
+            |(\/bm\/catalog\/buyback\/bo_admin\/products\/{akeneoProductId}\/listings)\
+            |(\/bm\/catalog\/buyback\/bo_admin\/products\/{akeneoProductId}\/competition)\
+            |(\/bm\/catalog\/buyback\/bo_admin\/products\/{akeneoProductId}\/backboxes)\
+            |(\/bm\/catalog\/buyback\/bo_admin\/merchants\/{merchantId}\/products\/{productId}\/listings\/{listingId})\
+            |(\/bm\/catalog\/buyback\/bo_admin\/merchants\/{merchantId}\/products\/{productId}\/listings)\
+            |(\/bm\/catalog\/products\/{bm_id}\/fields_meta_data\/)\
+            |(\/bm\/cms_attribute\/cms_attr\/{pk}\/order\/)\
+            |(\/bm\/merchants\/tools\/pricing-rules\/{pk}\/run_task)\
+            |(\/reviews\/landing_page\/showcase_list)\
+            |(\/reviews\/landing_page\/list)\
+            |(\/reviews\/landing_page\/rate_distribution)\
+            |(\/reviews\/landing_page\/breadcrumb)\
+            |(\/reviews\/landing_page\/rate)\
+            |(\/reviews\/rate_distribution)\
+            |(\/reviews\/merchant\/rate_distribution)\
+            |(\/reviews\/merchant\/{merchant_id}\/rate_distribution)\
+            |(\/bm\/catalog\/tools\/pricing-rules\/{pk}\/run_task)\
+            |(\/landing_page\/)\
+            |(\/landing_page\/vanishing_deals)\
+            |(\/landing_page\/showcase_list)\
+            |(\/order\/{orderId}\/sale_certificate)\
+            |(\/order\/{orderId}\/service_fee_bill)\
+            |(\/product\/{productId}\/best_offers)\
+            |(\/product\/{productId}\/v2\/best_offers)\
+            |(\/product\/{productId}\/v3\/best_offers)\
+            |(\/product\/grade_descriptions)\
+            |(\/product\/{productId}\/technical_specifications)\
+            |(\/product\/{productId}\/listing\/{listingId}\/warranty_services)\
+            |(\/navigation\/landing_page\/{pk})\
+            |(\/adwords_campaign)\
+            |(\/buyback_feed)\
+            |(\/sourcing\/merchant\/orders\/pending_reply)\
+            |(\/sourcing\/shipping_modes\/{listingId})\
+            |(\/sourcing\/swap\/initial_discount)\
+            |(\/client\/update_password)\
+            |(\/client\/identity_documents)\
+            |(\/client\/bank_details)\
+            |(\/mobile-ws\/client\/bank_details)\
+            |(\/mobile-ws\/payment\/payment_result\/{payment_id})\
+            |(\/mobile-ws\/payment\/loan_simulation)\
+            |(\/paypal\/pay_for_order)\
+            |(\/bm-ws\/loan_simulation)\
+            |(\/{customerRequestId}\/backcare_agent\/actions)\
+            |(\/{customerRequestId}\/backcare_agent\/discussion)\
+            |(\/{customerRequestId}\/backcare_agent\/message)\
+            |(\/{customerRequestId}\/backcare_agent\/open)\
+            |(\/{customerRequestId}\/backcare_agent\/close)\
+            |(\/backcare_agent\/templates)\
+            |(\/{customerRequestId}\/customer\/care_emergency)\
+            |(\/{customerRequestId}\/customer_notification)\
+            |(\/{customerRequestId}\/customer\/product_return)\
+            |(\/{customerRequestId}\/product_return)\
+            |(\/{customerRequestId}\/merchant\/product_returns\/manual)\
+            |(\/merchant\/product_returns\/pending)\
+            |(\/merchant\/invoice_requests)\
+            |(\/{customerRequestId}\/product_returns)\
+            |(\/{customerRequestId}\/remaining_hours)\
+            |(\/product_returns\/{productReturnId}\/archive)\
+            |(\/{customerRequestId}\/product_returns\/archive)\
+            |(\/customer_request\/{customerRequestId}\/information)\
+            |(\/customer_request\/{customerRequestId}\/customer\/discussion)\
+            |(\/customer_request\/{customerRequestId}\/customer_notification)\
+            |(\/customer_request\/{customerRequestId}\/customer\/message)\
+            |(\/customer_request\/message\/{messageId}\/rate)\
+            |(\/customer_request\/{customerRequestId}\/customer\/claims\/summary)\
+            |(\/customer_request\/{customerRequestId}\/customer\/care_emergency)\
+            |(\/customer_request\/{customerRequestId}\/customer\/actions)\
+            |(\/admin_tools\/sav\/{customerRequestId})\
+            |(\/admin_tools\/backcare_sav\/{customerRequestId})\
+            |(\/ws\/listings_bi)\
+        $"
