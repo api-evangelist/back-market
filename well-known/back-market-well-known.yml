@@ -1,0 +1,67 @@
+generated: '2026-08-02'
+method: searched
+source: live probes of the /.well-known/ surface on every Back Market host in apis.yml + OpenAPI servers[]
+description: >-
+  Index of the /.well-known/ discovery surface probed across the Back Market production
+  hosts (backmarket.com / backmarket.fr / backmarket.co.jp) and the developer docs host
+  (api.backmarket.dev). Only RFC 9116 security.txt is published — it is served identically
+  from every regional storefront, PGP-signed, and points at security@backmarket.com. There
+  is no OIDC/OAuth discovery document (the seller API uses a Back Office-issued Basic
+  token), no api-catalog, no ai-plugin.json, and no A2A agent card on any host.
+hosts:
+- host: https://www.backmarket.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    file: back-market-security.txt
+  - path: /.well-known/security-pubkey.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    note: PGP public key referenced by the security.txt Encryption field
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://www.backmarket.fr
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    content_type: text/plain; charset=utf-8
+    note: identical document to the .com host
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: https://www.backmarket.co.jp
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+- host: https://api.backmarket.dev
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+x-evidence:
+  fetched: '2026-08-02'
+  note: >-
+    404 bodies on www.backmarket.* are the storefront's JSON error envelope
+    ({"error": true, "url": ..., "status": 404}); 404 bodies on api.backmarket.dev
+    are the static-host HTML 404 page. No false-positive 200 HTML catch-alls observed.

@@ -1,0 +1,80 @@
+generated: '2026-08-02'
+method: searched
+source: https://api.backmarket.dev/ + derived from openapi/back-market-openapi-original.yml
+description: >-
+  Versioning, deprecation and operational-transparency posture for the Back Market seller
+  API. Back Market versions per product surface in the URI path rather than globally, and
+  communicates deprecations narratively inside the OpenAPI (operation descriptions and
+  `deprecated: true` schema fields) rather than through a published policy, Sunset headers,
+  or a changelog. No public status page and no SLA document were found.
+versioning:
+  scheme: uri-path, per product surface
+  global_version: none
+  spec_version: 0.1.1
+  spec_url: https://api.backmarket.dev/bundled_openapi.yaml
+  surfaces:
+  - prefix: /ws/
+    version: unversioned
+    scope: categories, listings, products, orders, orderlines, tasks, Care (sav), Backbox listings_bi
+  - prefix: /ws/buyback/v1/
+    version: v1
+    scope: BuyBack orders, messages, listings, counter-offer reasons
+  - prefix: /ws/buyback/v2/
+    version: v2
+    scope: BuyBack counter-offers
+  - prefix: /ws/shipping/v1/
+    version: v1
+    scope: Backship deliveries and returns
+  - prefix: /ws/backbox/v1/
+    version: v1
+    scope: Backbox competitor pricing
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  communication: >-
+    Deprecations are announced in-band in the OpenAPI - operation descriptions
+    ("This endpoint is being deprecated in favor of ...") and `deprecated: true` on
+    individual schema fields. Sellers are pointed at partner-support@backmarket.com for
+    migration help. There is no dated deprecation policy or Sunset/Deprecation header.
+deprecated_operations:
+- ref: 'openapi/back-market-openapi-original.yml#GET /ws/buyback/v1/competitors/{listingId}'
+  note: >-
+    "This endpoint is being deprecated in favor of the /ws/backbox/v1/competitors endpoint."
+    (no operationId declared in the spec)
+deprecated_transports:
+- name: FTP
+  status: deprecated
+  guidance: contact partner-support@backmarket.com to set up an API connection instead
+deprecated_fields:
+  count: 20
+  examples:
+  - 'ListingPublic.listing_id (integer) - deprecated, use the UUID `id`'
+  - 'product id (integer) - deprecated, use the UUID `product_id`'
+  - 'aesthetic grade (legacy) - deprecated, use the `grade` field'
+  note: >-
+    20 schema properties carry `deprecated: true` across the Order, OrderLine, Listing and
+    BuyBack schemas - largely the integer-to-UUID identifier migration.
+status_page:
+  url: null
+  found: false
+  probed:
+  - https://status.backmarket.com (DNS miss)
+  - https://status.backmarket.dev (DNS miss)
+  - https://backmarket.statuspage.io (redirects to the generic Atlassian Statuspage marketing site)
+sla:
+  url: null
+  uptime_target: null
+  note: no seller-facing SLA document published
+changelog:
+  url: null
+  found: false
+  note: >-
+    No dated API changelog or release-notes page was found on api.backmarket.dev or the
+    seller support center; version history is only visible as the OpenAPI info.version
+    (currently 0.1.1). No ChangeLog pointer is wired.
+support:
+  seller_support_center: https://merchant-support.backmarket.com/hc/en-us
+  email: partner-support@backmarket.com
+  security_email: security@backmarket.com

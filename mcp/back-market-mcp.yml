@@ -1,0 +1,229 @@
+generated: '2026-08-02'
+method: derived
+status: candidate
+source: openapi/back-market-openapi-original.yml
+notes: >-
+  No official hosted or remote Back Market MCP server was found. Probed the API Guidelines
+  at api.backmarket.dev, the Back Market GitHub org, the npm registry, and the public MCP
+  registries - nothing published. This is a CANDIDATE tool list derived one-to-one from the
+  published seller API operations so an agent implementer has a grounded starting point;
+  Back Market has not endorsed it. 9 of 39 operations carry no operationId in the
+  spec, so those tool names are derived from method plus path.
+server:
+  name: back-market
+  transport: http
+  url: null
+authentication:
+  scheme: 'HTTP Basic token issued in the seller Back Office (Authorization: Basic <token>)'
+  required_headers: [Authorization, Accept-Language, User-Agent, Content-type, Accept]
+  detail: authentication/back-market-authentication.yml
+conventions: conventions/back-market-conventions.yml
+tools:
+- name: get_bm_catalog_category
+  description: Get category tree
+  category: Categories
+  http: GET /ws/category/tree
+  source_operation: openapi/back-market-openapi-original.yml#get-bm-catalog-category
+- name: get_ws_category_tree_category_id
+  description: Get category branch
+  category: Categories
+  http: GET /ws/category/tree/{categoryId}
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/category/tree/{categoryId}
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: get_ws_listings
+  description: Get listings
+  category: Listings
+  http: GET /ws/listings
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/listings
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: post_ws_listings
+  description: Create or update products and listings
+  category: Listings
+  http: POST /ws/listings
+  source_operation: openapi/back-market-openapi-original.yml#POST /ws/listings
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: get_ws_listings_listing_id
+  description: Get specific listing
+  category: Listings
+  http: GET /ws/listings/{listingId}
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/listings/{listingId}
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: post_ws_listings_listing_id
+  description: Update specific listing
+  category: Listings
+  http: POST /ws/listings/{listingId}
+  source_operation: openapi/back-market-openapi-original.yml#POST /ws/listings/{listingId}
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: get_ws_listings_detail
+  description: Get listing details
+  category: Listings
+  http: GET /ws/listings/detail
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/listings/detail
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: get_ws_tasks_task_id
+  description: Get (batch) task
+  category: TaskManager
+  http: GET /ws/tasks/{taskId}
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/tasks/{taskId}
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: get_ws_buyback_v1_orders
+  description: List of BuyBack orders
+  category: BuyBack
+  http: GET /ws/buyback/v1/orders
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-orders
+- name: get_ws_buyback_v1_orders_pending_reply
+  description: List of BuyBack orders pending reply
+  category: BuyBack
+  http: GET /ws/buyback/v1/orders/pending-reply
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-orders-pending-reply
+- name: get_ws_buyback_v1_orders_suspend_reasons
+  description: List of suspend reasons
+  category: BuyBack
+  http: GET /ws/buyback/v1/orders/suspend-reasons
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-orders-suspend-reasons
+- name: get_ws_buyback_v1_order
+  description: Retrieve a BuyBack order
+  category: BuyBack
+  http: GET /ws/buyback/v1/orders/{buybackOrderId}
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-order
+- name: get_ws_buyback_v1_orders_messages
+  description: List of a BuyBack order messages
+  category: BuyBack
+  http: GET /ws/buyback/v1/orders/{buybackOrderId}/messages
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-orders-messages
+- name: post_ws_buyback_v1_orders_messages
+  description: Post a message on a BuyBack order
+  category: BuyBack
+  http: POST /ws/buyback/v1/orders/{buybackOrderId}/messages
+  source_operation: openapi/back-market-openapi-original.yml#post-ws-buyback-v1-orders-messages
+- name: put_ws_buyback_v1_orders_suspend
+  description: Suspend a BuyBack order
+  category: BuyBack
+  http: PUT /ws/buyback/v1/orders/{buybackOrderId}/suspend
+  source_operation: openapi/back-market-openapi-original.yml#put-ws-buyback-v1-orders-suspend
+- name: put_ws_buyback_v1_orders_validate
+  description: Validate BuyBack order
+  category: BuyBack
+  http: PUT /ws/buyback/v1/orders/{buybackOrderId}/validate
+  source_operation: openapi/back-market-openapi-original.yml#put-ws-buyback-v1-orders-validate
+- name: get_ws_counter_offer_reason
+  description: Retrieve counter offer reasons
+  category: BuyBack
+  http: GET /ws/buyback/v1/orders/{buybackOrderId}/counter-offers/reasons
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-counter-offer-reason
+- name: put_ws_refurbisher_counter_offer
+  description: Make a counteroffer
+  category: BuyBack
+  http: PUT /ws/buyback/v2/orders/{buybackOrderId}/counter-offers
+  source_operation: openapi/back-market-openapi-original.yml#put-ws-refurbisher-counter-offer
+- name: get_ws_buyback_v1_listings
+  description: List of BuyBack listings
+  category: BuyBack
+  http: GET /ws/buyback/v1/listings
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-listings
+- name: get_ws_buyback_v1_listing
+  description: Retrieve a Buyback listing
+  category: BuyBack
+  http: GET /ws/buyback/v1/listings/{buybackListingId}
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-buyback-v1-listing
+- name: put_ws_buyback_v1_listing
+  description: Update a Buyback listing
+  category: BuyBack
+  http: PUT /ws/buyback/v1/listings/{buybackListingId}
+  source_operation: openapi/back-market-openapi-original.yml#put-ws-buyback-v1-listing
+- name: get_ws_buyback_v1_competitors_listing_id
+  description: Get buyback competitors
+  category: BuyBack
+  http: GET /ws/buyback/v1/competitors/{listingId}
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/buyback/v1/competitors/{listingId}
+  note: no operationId in the source spec - tool name derived from method plus path
+- name: get_ws_list_order
+  description: Get the orders
+  category: Orders
+  http: GET /ws/orders
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-list-order
+- name: get_ws_specific_order
+  description: Get a specific order
+  category: Orders
+  http: GET /ws/orders/{order_id}
+  source_operation: openapi/back-market-openapi-original.yml#get-ws-specific-order
+- name: update_ws_specific_order
+  description: Update a specific order
+  category: Orders
+  http: POST /ws/orders/{order_id}
+  source_operation: openapi/back-market-openapi-original.yml#update-ws-specific-order
+- name: post_ws_specific_order_invoice
+  description: Update customer invoice for order
+  category: Orders
+  http: POST /ws/orders/{order_id}/invoice
+  source_operation: openapi/back-market-openapi-original.yml#post-ws-specific-order-invoice
+- name: update_ws_specific_orderline
+  description: Update a specific orderline
+  category: Orderline
+  http: PATCH /ws/orderlines/{orderline_id}
+  source_operation: openapi/back-market-openapi-original.yml#update-ws-specific-orderline
+- name: get_deliveries
+  description: Return deliveries list
+  category: Backship
+  http: GET /ws/shipping/v1/deliveries
+  source_operation: openapi/back-market-openapi-original.yml#GetDeliveries
+- name: get_returns
+  description: Return product returns list
+  category: Backship
+  http: GET /ws/shipping/v1/returns
+  source_operation: openapi/back-market-openapi-original.yml#GetReturns
+- name: get_delivery
+  description: Return details about a specific delivery
+  category: Backship
+  http: GET /ws/shipping/v1/deliveries/{id}
+  source_operation: openapi/back-market-openapi-original.yml#GetDelivery
+- name: get_return
+  description: Return details about a specific product return
+  category: Backship
+  http: GET /ws/shipping/v1/returns/{id}
+  source_operation: openapi/back-market-openapi-original.yml#GetReturn
+- name: get_care_folder_list
+  description: Get a list of Care Folders attached to a Seller
+  category: Care
+  http: GET /ws/sav
+  source_operation: openapi/back-market-openapi-original.yml#getCareFolderList
+- name: get_care_folder_details
+  description: Get the details of a Care Folder
+  category: Care
+  http: GET /ws/sav/{careFolderId}
+  source_operation: openapi/back-market-openapi-original.yml#getCareFolderDetails
+- name: post_problem
+  description: Declare a problem on a Care Folder
+  category: Care
+  http: POST /ws/sav/{careFolderId}/problem
+  source_operation: openapi/back-market-openapi-original.yml#postProblem
+- name: post_refund_create
+  description: Create a refund on an Orderline
+  category: Care
+  http: POST /ws/sav/refund
+  source_operation: openapi/back-market-openapi-original.yml#postRefundCreate
+- name: post_message
+  description: Post a message on the After Sales Platform for a Care Folder
+  category: Care
+  http: POST /ws/sav/{careFolderId}/msg
+  source_operation: openapi/back-market-openapi-original.yml#postMessage
+- name: post_item_transfer
+  description: Declare an item transfer back to customer
+  category: Care
+  http: POST /ws/sav/{careFolderId}/item-transfer
+  source_operation: openapi/back-market-openapi-original.yml#postItemTransfer
+- name: get_backbox_data
+  description: Return backbox data per listing list
+  category: Backbox
+  http: GET /ws/listings_bi
+  source_operation: openapi/back-market-openapi-original.yml#GetBackboxData
+- name: get_ws_backbox_v1_competitors_listing_id
+  description: Get competitors
+  category: Backbox
+  http: GET /ws/backbox/v1/competitors/{listingId}
+  source_operation: openapi/back-market-openapi-original.yml#GET /ws/backbox/v1/competitors/{listingId}
+  note: no operationId in the source spec - tool name derived from method plus path
+coverage:
+  operations: 39
+  tools: 39
+  with_operation_id: 30

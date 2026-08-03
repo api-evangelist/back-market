@@ -1,0 +1,72 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Back Market seller API
+  version: 1.0.0
+extends: openapi/back-market-openapi-original.yml
+x-generated: '2026-08-02'
+x-method: generated
+x-source: >-
+  API Evangelist enrichment pipeline. Captures the enhancements we would apply to the
+  harvested Back Market OpenAPI without mutating the original document
+  (https://api.backmarket.dev/bundled_openapi.yaml).
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: back-market
+    x-apievangelist-artifacts:
+      authentication: authentication/back-market-authentication.yml
+      conventions: conventions/back-market-conventions.yml
+      errors: errors/back-market-problem-types.yml
+      lifecycle: lifecycle/back-market-lifecycle.yml
+      rate_limits: rate-limits/back-market-rate-limits.yml
+      sandbox: sandbox/back-market-sandbox.yml
+      data_model: data-model/back-market-data-model.yml
+      agentic_access: agentic-access/back-market-agentic-access.yml
+      skills: skills/_index.yml
+    x-source-spec: https://api.backmarket.dev/bundled_openapi.yaml
+- target: $
+  update:
+    tags:
+    - name: Categories
+      description: The Back Market marketplace taxonomy - the category tree every product hangs from.
+    - name: Listings
+      description: Products and seller offers (listings), including batch create/update via the task queue.
+    - name: TaskManager
+      description: Polling handles for asynchronous batch listing and product writes.
+    - name: Orders
+      description: Marketplace orders and customer invoices.
+    - name: Orderline
+      description: Individual order lines - the unit shipping, refunds and after-sales attach to.
+    - name: BuyBack
+      description: The trade-in flow - buyback orders, messages, suspensions, validations, counter-offers and listings.
+    - name: Backship
+      description: Back Market-managed shipping - deliveries and product returns.
+    - name: Care
+      description: The after-sales platform - care folders, problems, messages, refunds and item transfers.
+    - name: Backbox
+      description: Competitive pricing intelligence for a seller's listings.
+- target: $.info
+  update:
+    x-conventions:
+      required_headers:
+      - 'Authorization: Basic <Back Office token>'
+      - 'Accept-Language: <country code, e.g. fr-fr>'
+      - 'User-Agent: BM-{CompanyName}-{IntegrationName};company@companydomain.com (mandatory)'
+      idempotency: not supported - no Idempotency-Key contract published
+      events: none - no webhook or streaming surface; poll with date_modification filters
+      error_envelopes: [ErrorResponseV1, ErrorResponseV2, ErrorResponseV3, Problem]
+      request_tracing: requestId field in the JSON error body
+- target: $.servers
+  update:
+    x-environments:
+      preprod: [https://preprod.backmarket.fr, https://preprod.backmarket.com, https://preprod.backmarket.co.jp]
+      production: [https://www.backmarket.fr, https://www.backmarket.com, https://www.backmarket.co.jp]
+      note: >-
+        Preprod requires a separate Back Office account and a separate token - see
+        sandbox/back-market-sandbox.yml
+- target: "$.paths['/ws/buyback/v1/competitors/{listingId}'].get"
+  update:
+    deprecated: true
+    x-deprecation-note: >-
+      Documented in the operation description as being deprecated in favor of
+      /ws/backbox/v1/competitors/{listingId}; flagged here so tooling can see it.

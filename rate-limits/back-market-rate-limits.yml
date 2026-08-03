@@ -1,0 +1,126 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+generated: '2026-08-02'
+method: searched
+provider: Back Market
+providerId: back-market
+created: '2026-08-02'
+modified: '2026-08-02'
+tags:
+- Rate Limiting
+- Marketplace
+- E-Commerce
+description: >-
+  Back Market publishes two layers of throttling for its seller API: a platform-wide edge
+  limit enforced by Cloudflare on the seller endpoints, and per-endpoint limits documented
+  in the OpenAPI operation descriptions for the Care (after-sales) surface. A separate data
+  limitation caps how many SKU lines may be submitted per hour on the listing-update
+  endpoints. All throttling surfaces as HTTP 429 with the ErrorResponseV1 envelope.
+sources:
+- https://api.backmarket.dev/
+- openapi/back-market-openapi-original.yml
+responseCodes:
+  throttled: 429
+  blocked_by_waf: 403
+headers:
+  request_id: none published — errors carry a `requestId` field in the JSON body
+  retry_after: not documented
+  rate_limit_headers: not documented (no X-RateLimit-* / RateLimit-* headers published)
+limits:
+- name: Standard seller endpoints (edge / Cloudflare)
+  scope: client
+  metric: requests_per_10_seconds
+  limit: 200
+  timeFrame: 10 seconds
+  penalty: blocked for 10 seconds
+  note: >-
+    "Usually you will find the range above 200 requests in 10 seconds being blocked for
+    10 seconds" — API Guidelines, Traffic limitation.
+- name: Catalog / sensitive endpoints (edge / Cloudflare)
+  scope: client
+  metric: requests_per_10_seconds
+  limit: 20
+  timeFrame: 10 seconds
+  penalty: blocked for 10 seconds
+- name: List Care Folders (GET /ws/sav)
+  scope: seller
+  metric: requests_per_minute
+  limit: 520
+  timeFrame: minute
+  source_operation: openapi/back-market-openapi-original.yml#getCareFolderList
+- name: List Care Folders — daily (GET /ws/sav)
+  scope: seller
+  metric: requests_per_day
+  limit: 4000
+  timeFrame: day
+  source_operation: openapi/back-market-openapi-original.yml#getCareFolderList
+- name: Care Folder details (GET /ws/sav/{careFolderId})
+  scope: seller
+  metric: requests_per_minute
+  limit: 600
+  timeFrame: minute
+  source_operation: openapi/back-market-openapi-original.yml#getCareFolderDetails
+- name: Care Folder details — daily
+  scope: seller
+  metric: requests_per_day
+  limit: 40000
+  timeFrame: day
+  source_operation: openapi/back-market-openapi-original.yml#getCareFolderDetails
+- name: Declare a problem (POST /ws/sav/{careFolderId}/problem)
+  scope: seller
+  metric: requests_per_minute
+  limit: 750
+  timeFrame: minute
+  source_operation: openapi/back-market-openapi-original.yml#postProblem
+- name: Declare a problem — daily
+  scope: seller
+  metric: requests_per_day
+  limit: 1000
+  timeFrame: day
+  source_operation: openapi/back-market-openapi-original.yml#postProblem
+- name: Create a refund (POST /ws/sav/refund)
+  scope: seller
+  metric: requests_per_day
+  limit: 500
+  timeFrame: day
+  source_operation: openapi/back-market-openapi-original.yml#postRefundCreate
+- name: Post a Care message (POST /ws/sav/{careFolderId}/msg)
+  scope: seller
+  metric: requests_per_minute
+  limit: 560
+  timeFrame: minute
+  source_operation: openapi/back-market-openapi-original.yml#postMessage
+- name: Post a Care message — daily
+  scope: seller
+  metric: requests_per_day
+  limit: 40000
+  timeFrame: day
+  source_operation: openapi/back-market-openapi-original.yml#postMessage
+- name: Declare an item transfer (POST /ws/sav/{careFolderId}/item-transfer)
+  scope: seller
+  metric: requests_per_minute
+  limit: 292
+  timeFrame: minute
+  source_operation: openapi/back-market-openapi-original.yml#postItemTransfer
+- name: Declare an item transfer — daily
+  scope: seller
+  metric: requests_per_day
+  limit: 500
+  timeFrame: day
+  source_operation: openapi/back-market-openapi-original.yml#postItemTransfer
+data_limits:
+- name: SKU lines submitted per hour
+  limit: 2000
+  timeFrame: hour
+  applies_to:
+  - POST /ws/listings
+  - POST /ws/listings/{listingId}
+  behaviour: >-
+    "We might not accept more than 2k lines of SKUs to process per hour"; beyond it Back
+    Market may refuse the task and return HTTP 429.
+waf:
+  provider: Cloudflare
+  behaviour: >-
+    The WAF / bot management may block requests with HTTP 403 (HTML body, or a JSON body
+    with code `bot-need-challenge` and a `challengePath`). Capture the `cf-ray` response
+    header and send it to your seller contact for investigation.

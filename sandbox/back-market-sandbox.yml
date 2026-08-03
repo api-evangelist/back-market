@@ -1,0 +1,71 @@
+generated: '2026-08-02'
+method: searched
+source: https://api.backmarket.dev/ (API Guidelines — Getting Started / Account)
+description: >-
+  Back Market operates a full preproduction mirror of each of its three regional seller
+  platforms. A seller creates a separate Back Office account on the preprod platform, issues
+  a separate API token there, and points the same OpenAPI operations at the preprod host —
+  there is no key-prefix scheme and no in-band test mode. Back Market publishes no magic
+  test identifiers, test cards, fixtures, or time-simulation tooling; the sandbox is a
+  parallel environment, not a synthetic-data harness.
+model: separate preproduction environment per region (no test/live key prefixes)
+environments:
+- name: Preprod — EU
+  base_url: https://preprod.backmarket.fr
+  console: https://preprod.backmarket.fr/bo-seller
+  region: EU
+- name: Preprod — North America
+  base_url: https://preprod.backmarket.com
+  console: https://preprod.backmarket.com/bo-seller
+  region: NA
+- name: Preprod — Asia-Pacific
+  base_url: https://preprod.backmarket.co.jp
+  console: https://preprod.backmarket.co.jp/bo-seller
+  region: AP
+- name: Production — EU
+  base_url: https://www.backmarket.fr
+  console: https://www.backmarket.fr/bo-seller
+  region: EU
+  live: true
+- name: Production — North America
+  base_url: https://www.backmarket.com
+  console: https://www.backmarket.com/bo-seller
+  region: NA
+  live: true
+- name: Production — Asia-Pacific
+  base_url: https://www.backmarket.co.jp
+  console: https://www.backmarket.co.jp/bo-seller
+  region: AP
+  live: true
+credentials:
+  issuance: >-
+    Tokens are generated per environment in the seller Back Office under the Integrations
+    option page. A preprod account must be created separately from the production account;
+    a production token is not valid on preprod.
+  format: 'opaque token sent as `Authorization: Basic <token>`'
+  prefixes: none published
+  rotation: >-
+    Sellers report that changing the Back Office password invalidates the token and a new
+    one must be requested (third-party integrator documentation; not stated in the API
+    Guidelines).
+test_values:
+  published: false
+  note: >-
+    Back Market publishes no test card numbers, magic identifiers, sandbox SKUs, or seeded
+    fixture data. Preprod catalogs are populated by the seller. NEVER invent test values
+    for this provider.
+tooling:
+  test_clocks: none
+  fixtures: none
+  triggers: none
+  cli: none
+  cookbooks:
+  - name: Winning the BackBox based on small price efforts
+    url: https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing
+    kind: Google Colab notebook published in the API Guidelines
+onboarding:
+  signup: https://www.backmarket.com/en-us/seller/home
+  approval_required: true
+  note: >-
+    Accounts are granted only after validation by the Back Market team; company information
+    must be supplied before either the production or preprod Back Office is opened.

@@ -1,0 +1,179 @@
+generated: '2026-08-02'
+method: searched
+source: >-
+  https://api.backmarket.dev/ (API Guidelines — Technical Requirements, Traffic limitation,
+  Data limitation) + derived from openapi/back-market-openapi-original.yml
+description: >-
+  Cross-cutting request/response semantics for the Back Market seller API — the rules that
+  apply to every operation rather than to any single endpoint. Back Market's marquee
+  conventions are the mandatory descriptive User-Agent, the Accept-Language country code
+  that selects the marketplace locale a write applies to, three co-existing error envelope
+  generations, and Cloudflare-enforced throttling. Notably, Back Market documents NO
+  idempotency contract and no webhook/event surface — integrations are poll-based.
+base_urls:
+  EU: https://www.backmarket.fr
+  NA: https://www.backmarket.com
+  AP: https://www.backmarket.co.jp
+  preprod: see sandbox/back-market-sandbox.yml
+api_style: REST over HTTPS, JSON request and response bodies, path prefix /ws/
+
+authentication:
+  scheme: 'HTTP Basic — an opaque Back Office token sent as `Authorization: Basic <token>`'
+  schemes_in_spec: [ApiKeyAuth (apiKey, header, Authorization), BasicAuth (http basic)]
+  issuance: seller Back Office → Integrations option page
+  detail: authentication/back-market-authentication.yml
+  docs: https://api.backmarket.dev/#technical-requirements
+
+required_headers:
+- name: Authorization
+  value: 'Basic YOUR_ACCESS_TOKEN'
+  required: true
+- name: Content-type
+  value: application/json
+  required: true
+- name: Accept
+  value: application/json
+  required: true
+- name: Accept-Language
+  value: COUNTRY_CODE (e.g. fr-fr, en-us, ja-jp)
+  required: true
+  note: >-
+    Selects both the language and the marketplace country a call applies to. Country-specific
+    listing/product fields (comment, price, warranty_delay, description, title, price_new)
+    are read and written per country code; country-agnostic fields (quantity, weight, EAN)
+    apply everywhere.
+- name: User-Agent
+  value: 'BM-{CompanyName}-{IntegrationName};company@companydomain.com'
+  required: true
+  note: >-
+    Mandatory. Requests without a descriptive User-Agent may be refused by the platform.
+    Examples published by Back Market: `BM-Ebay-Invoices;contact@ebay.com`,
+    `BM-bouygues-automations;contact@bouygues.fr`.
+
+locales:
+  header: Accept-Language
+  AP: [ja-jp, en-au]
+  EU: [fr-fr, fr-be, es-es, de-de, de-at, it-it, en-gb, nl-nl, pt-pt, en-ie, el-gr, sk-sk, sv-se]
+  NA: [en-us]
+
+idempotency:
+  supported: false
+  mechanism: none published
+  note: >-
+    Back Market documents no Idempotency-Key header or equivalent, and no such parameter
+    appears anywhere in the OpenAPI. Retrying a POST/PUT is not safe by contract. Batch
+    listing writes return a task id (GET /ws/tasks/{taskId}) which is the closest thing to
+    a de-duplication handle — poll the task rather than re-submitting. No `Idempotency`
+    pointer is wired in apis.yml because the capability genuinely does not exist.
+
+pagination:
+  styles:
+  - style: cursor
+    applies_to:
+    - GET /ws/buyback/v1/listings
+    request_params:
+      cursor: UUID cursor for the next page
+      pageSize: integer, min 1, max 100, default 100
+    response_fields: [results, next, previous]
+  - style: page-number
+    applies_to:
+    - GET /ws/shipping/v1/deliveries
+    - GET /ws/shipping/v1/returns
+    - GET /ws/sav
+    request_params:
+      page: integer page number
+      last_id: (Care only) continue after this care-folder id
+  - style: none
+    applies_to:
+    - GET /ws/category/tree
+    - GET /ws/listings
+    - GET /ws/orders
+    note: filtered by query parameters rather than paged
+
+filtering:
+  orders: [date_creation, date_modification, country_code, state]
+  listings: [publication_state, min_quantity, max_quantity]
+  shipping: [order_id, start_date, end_date, pickup_start_date, pickup_end_date, order_state, hub_scanned]
+  care: [state, orderline, last_modification_date, last_message_date]
+
+async_processing:
+  pattern: task handle
+  description: >-
+    Bulk listing/product writes (POST /ws/listings) are queued and return a task id; poll
+    GET /ws/tasks/{taskId} for the outcome. CSV import/export through the Back Office uses
+    the same queueing model.
+  operations:
+  - POST /ws/listings
+  - GET /ws/tasks/{taskId}
+
+error_envelope:
+  generations:
+  - name: ErrorResponseV1
+    shape: '{ "error": { "code", "message", "data", "docLink", "target" }, "requestId" }'
+    used_by: rate-limited responses, order/orderline validation errors
+  - name: ErrorResponseV2
+    shape: '{ "errors": [ { "code", "message", ... } ], "requestId" }'
+    used_by: listing writes, WAF bot-challenge responses
+  - name: ErrorResponseV3
+    shape: '{ "error": {...}, "status", "title", "type", "requestId" }'
+    used_by: BuyBack v1/v2 endpoints
+  - name: Problem / ProblemValidation
+    shape: RFC 7807-flavored — type, title, status, detail, instance, errors[]
+    deviation: >-
+      `type` is deliberately NOT a URI. Back Market documents it as a readable
+      `[a-z-/]*` identifier such as `/errors/authorization-failed`, defaulting to
+      `/errors/unknown`. Responses are served as application/json, not
+      application/problem+json.
+  detail: errors/back-market-problem-types.yml
+
+request_tracing:
+  field: requestId
+  location: JSON error body (not a response header)
+  purpose: >-
+    "Let you trace errors in applicative logs" — quote this id to seller support.
+  waf_trace: cf-ray response header on Cloudflare 403 blocks
+
+rate_limiting:
+  edge: 200 requests / 10 seconds (20 / 10 seconds on catalog endpoints), blocked for 10s
+  per_endpoint: documented per operation on the Care surface
+  status: 429 with ErrorResponseV1
+  headers: none published
+  detail: rate-limits/back-market-rate-limits.yml
+
+versioning:
+  scheme: uri-path, per product surface (not a global API version)
+  observed:
+  - '/ws/* — unversioned legacy surface (categories, listings, orders, orderlines, tasks, sav)'
+  - '/ws/buyback/v1/*, /ws/buyback/v2/* — BuyBack'
+  - '/ws/shipping/v1/* — Backship'
+  - '/ws/backbox/v1/* — Backbox'
+  spec_version: 0.1.1 (OpenAPI info.version of the published bundle)
+  detail: lifecycle/back-market-lifecycle.yml
+
+bulk_and_file_formats:
+  csv:
+    separator: ';'
+    line_ending: "\\n"
+    quoting: fields must be surrounded by double quotes
+    note: all files imported through the Back Office or the API must be CSV in this format
+  data_limit: no more than 2,000 SKU lines processed per hour on listing-update endpoints
+
+events:
+  webhooks: none published
+  streaming: none published
+  note: >-
+    Back Market exposes no webhook, callback or event subscription surface. Order, BuyBack
+    and Care state changes are discovered by polling the list endpoints with the
+    date_modification / last_modification_date filters.
+
+security_edge:
+  waf: Cloudflare
+  bot_management: >-
+    Protected endpoints may answer HTTP 403 with
+    {"errors":[{"code":"bot-need-challenge","message":"Forbidden","challengePath":"..."}]}.
+  guidance: capture cf-ray from the response headers and escalate to your seller contact
+
+deprecated_transports:
+- name: FTP
+  status: deprecated
+  guidance: contact partner-support@backmarket.com to migrate to the API

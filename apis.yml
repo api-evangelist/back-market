@@ -1,31 +1,159 @@
 aid: back-market
 name: Back Market
-description: 'Back Market is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Back Market is a French-founded global online marketplace dedicated exclusively
+  to refurbished consumer electronics — smartphones, laptops, tablets, consoles, watches,
+  audio and home appliances — operating across 17 countries on three regional platforms
+  (EU via backmarket.fr, North America via backmarket.com, Asia-Pacific via backmarket.co.jp).
+  For the ~1,800 professional refurbishers selling on the platform, Back Market publishes a
+  seller-facing REST API (the "Back Market API Guidelines") covering the marketplace taxonomy,
+  product and listing management, order and orderline workflows, BuyBack (trade-in) orders and
+  listings, Backship deliveries and returns, the Care after-sales platform (claims, messages,
+  refunds, item transfers), and Backbox competitive pricing data. The API is documented as an
+  OpenAPI 3.0.3 contract rendered with Stoplight Elements at api.backmarket.dev, authenticated
+  with a Basic token issued from the seller Back Office, and mirrored by preprod environments
+  on every regional platform.'
 url: https://raw.githubusercontent.com/api-evangelist/back-market/refs/heads/main/apis.yml
+image: https://api.backmarket.dev/statics/backmarket-logo.svg
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
 - Company
-apis: []
+- E-Commerce
+- Marketplace
+- Retail
+- Refurbished Electronics
+- Circular Economy
+- Orders
+- Listings
+- Product Catalog
+- Logistics
+- Customer Support
+apis:
+- name: Back Market API
+  description: 'The Back Market seller (partner) API — a REST API over JSON that lets
+    professional refurbishers manage their presence on the Back Market marketplace: browse the
+    marketplace category tree, create and update products and listings, list and update orders
+    and orderlines, upload customer invoices, run the BuyBack trade-in flow (orders, messages,
+    suspensions, validations, counter-offers, listings), read Backship deliveries and returns,
+    operate the Care after-sales platform (care folders, problems, messages, refunds, item
+    transfers), and pull Backbox competitive pricing data. Requests are authenticated with a
+    Basic token generated in the seller Back Office and require a descriptive User-Agent and an
+    Accept-Language country code.'
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Marketplace
+  - E-Commerce
+  - Orders
+  - Listings
+  - Product Catalog
+  - Trade-In
+  - Shipping
+  - After-Sales
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-openapi-original.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Overlay
+    url: overlays/back-market-api-overlay.yaml
+  - type: Rules
+    url: rules/back-market-rules.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Website
+  url: https://www.backmarket.com/
+- type: DeveloperPortal
+  url: https://api.backmarket.dev/
+- type: Documentation
+  url: https://api.backmarket.dev/
+- type: APIReference
+  url: https://api.backmarket.dev/
+- type: GettingStarted
+  url: https://api.backmarket.dev/#getting-started
+- type: Support
+  url: https://merchant-support.backmarket.com/hc/en-us
+- type: HelpCenter
+  url: https://www.backmarket.com/en-us/help
+- type: Blog
+  url: https://www.backmarket.com/en-us/c
+- type: GitHubOrganization
+  url: https://github.com/BackMarket
+- type: SignUp
+  url: https://www.backmarket.com/en-us/seller/home
+- type: Login
+  url: https://www.backmarket.com/bo-seller
+- type: TermsOfService
+  url: https://www.backmarket.com/en-us/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.backmarket.com/en-us/legal/data-protection
+- type: OpenAPI
+  url: openapi/back-market-openapi-original.yml
+- type: Authentication
+  url: authentication/back-market-authentication.yml
+- type: Security
+  url: https://www.backmarket.com/.well-known/security.txt
 - type: VulnerabilityDisclosure
   url: security/back-market-vulnerability-disclosure.yml
+- type: SecurityTxt
+  url: well-known/back-market-security.txt
+- type: WellKnown
+  url: well-known/back-market-well-known.yml
 - type: DomainSecurity
   url: security/back-market-domain-security.yml
 - type: AgenticAccess
   url: agentic-access/back-market-agentic-access.yml
-- type: Authentication
-  url: authentication/back-market-authentication.yml
-- type: Website
-  url: https://forgeglobal.com/back-market_stock/
+- type: Packages
+  url: packages/back-market-packages.yml
+- type: RateLimits
+  url: rate-limits/back-market-rate-limits.yml
+- type: Sandbox
+  url: sandbox/back-market-sandbox.yml
+- type: Conventions
+  url: conventions/back-market-conventions.yml
+- type: ErrorCatalog
+  url: errors/back-market-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/back-market-lifecycle.yml
+- type: Conformance
+  url: conformance/back-market-conformance.yml
+- type: DataModel
+  url: data-model/back-market-data-model.yml
+- type: MCPServer
+  url: mcp/back-market-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/back-market-llms.txt
+- type: Overlay
+  url: overlays/back-market-api-overlay.yaml
+- type: Rules
+  url: rules/back-market-rules.yml
+x-enrichment:
+  date: '2026-08-02'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

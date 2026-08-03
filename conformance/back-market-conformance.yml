@@ -1,0 +1,91 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/back-market-openapi-original.yml + https://api.backmarket.dev/
+description: >-
+  Cross-cutting standards conformance for the Back Market seller API, derived from the
+  published OpenAPI and the API Guidelines. Back Market publishes a modern OpenAPI 3.0.3
+  contract and governs it with its own Spectral ruleset, but the runtime contract is
+  deliberately un-standardised in places: authentication is a Basic-token scheme rather
+  than OAuth 2.0/OIDC, errors are an RFC 7807-flavored shape served as application/json
+  with non-URI `type` values, and there is no idempotency, event, or catalog standard in
+  play. No public certification or compliance program (SOC 2, ISO 27001, PCI DSS) is
+  published for the seller API, so no `Compliance` pointer is wired.
+standards:
+- id: openapi-3.0
+  conforms: true
+  evidence: 'openapi: 3.0.3 bundle published at https://api.backmarket.dev/bundled_openapi.yaml'
+- id: openapi-3.1
+  conforms: false
+  evidence: spec pins 3.0.3
+- id: spectral-governance
+  conforms: true
+  evidence: >-
+    Back Market publishes its own Spectral ruleset (@backmarket-api/rulesets, MIT) and
+    applies it to its API designs; harvested to rules/back-market-rules.yml
+- id: oauth2
+  conforms: false
+  evidence: no oauth2 securityScheme in the spec and no OAuth documented; Basic token only
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404 on every host
+- id: http-basic-auth
+  conforms: true
+  evidence: 'components.securitySchemes.BasicAuth (type http, scheme basic) applied to every operation'
+- id: rfc7807-problem-details
+  conforms: partial
+  evidence: >-
+    components.schemas.Problem is explicitly documented as an RFC 7807 problem detail and
+    used by the Backship + BuyBack listing surfaces, but `type` is deliberately a readable
+    path rather than a URI and responses are served as application/json, not
+    application/problem+json
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: no application/problem+json media type anywhere in the spec
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: PGP-signed /.well-known/security.txt served from every regional storefront
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: no Sunset or Deprecation header documented; deprecation is narrative only
+- id: idempotency-keys
+  conforms: false
+  evidence: no Idempotency-Key header or equivalent in the spec or the docs
+- id: pagination
+  conforms: partial
+  evidence: >-
+    cursor + pageSize on BuyBack listings, page-number on Backship and Care, none on
+    catalog/listings/orders - three different styles across one API
+- id: json-api
+  conforms: false
+  evidence: plain JSON envelopes, not JSON:API media type or document structure
+- id: odata
+  conforms: false
+- id: scim2
+  conforms: false
+- id: fhir-r4
+  conforms: false
+- id: psd2
+  conforms: false
+- id: fapi
+  conforms: false
+- id: asyncapi
+  conforms: false
+  evidence: no event, webhook or streaming surface published
+- id: rate-limit-headers-rfc9239
+  conforms: false
+  evidence: 429 is returned but no RateLimit-* / X-RateLimit-* headers are documented
+- id: gs1-ean
+  conforms: true
+  evidence: product schema carries EAN as the cross-marketplace product identifier
+- id: iso-3166-language-tags
+  conforms: true
+  evidence: >-
+    Accept-Language country codes follow BCP 47 language-region form (fr-fr, en-us, ja-jp,
+    ...) and CountryCode/MarketCode schemas enumerate the 17 supported markets
+compliance_program:
+  published: false
+  note: >-
+    Back Market publishes a corporate impact report and an RFC 9116 security.txt, but no
+    trust center and no named security certifications (SOC 2 / ISO 27001 / PCI DSS) were
+    found on any host. Probed trust.backmarket.com, security.backmarket.com,
+    backmarket.com/security, backmarket.com/trust, backmarket.com/compliance - all miss.

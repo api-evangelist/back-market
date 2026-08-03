@@ -1,0 +1,368 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/back-market-openapi-original.yml
+docs: https://api.backmarket.dev/
+description: >-
+  Entity-relationship graph derived from the Back Market seller OpenAPI: every
+  components.schemas object, the $ref links between them, and the operations that serve
+  each entity. Back Market's model has four largely independent domains that meet at the
+  order line - Catalog (categories, products, listings), Commerce (orders, orderlines),
+  BuyBack (trade-in orders, listings, messages, counter-offers) and Care (after-sales
+  folders, claims, messages, refunds, item transfers) - plus Backship (deliveries,
+  returns) and Backbox (competitive pricing) as read-only projections.
+domains:
+- name: Catalog
+  entities: [CategoryTree, ListingPublic, product, category_3, Locale, MarketCode, CountryCode]
+  operations: [get-bm-catalog-category]
+  paths: ['/ws/category/tree', '/ws/category/tree/{categoryId}', '/ws/listings', '/ws/listings/{listingId}', '/ws/listings/detail']
+  keys:
+    listing_id: UUID (legacy integer listing_id deprecated)
+    product_id: UUID (legacy integer product id deprecated)
+- name: Commerce
+  entities: [Order, OrderLine, UpdateOrder, Address, OrderState, OrderLineState, VatType, ReturnReason, ProductCondition]
+  operations: [get-ws-list-order, get-ws-specific-order, update-ws-specific-order, post-ws-specific-order-invoice, update-ws-specific-orderline]
+  paths: ['/ws/orders', '/ws/orders/{order_id}', '/ws/orders/{order_id}/invoice', '/ws/orderlines/{orderline_id}']
+- name: BuyBack
+  entities: [buyback-order, buyback-listing, buyback-message, buyback-counter-offer-payload, buyback-counter-offer-reasons, buyback-reason, buybackKycDocuments, buybackCompetitor]
+  operations: [get-ws-buyback-v1-orders, get-ws-buyback-v1-order, get-ws-buyback-v1-orders-messages, post-ws-buyback-v1-orders-messages, put-ws-buyback-v1-orders-suspend, put-ws-buyback-v1-orders-validate, get-ws-counter-offer-reason, put-ws-refurbisher-counter-offer, get-ws-buyback-v1-listings, get-ws-buyback-v1-listing, put-ws-buyback-v1-listing]
+  paths: ['/ws/buyback/v1/orders', '/ws/buyback/v1/listings', '/ws/buyback/v2/orders/{buybackOrderId}/counter-offers']
+- name: Backship
+  entities: [Delivery, Return, PickupInfo, Shipper]
+  operations: [GetDeliveries, GetDelivery, GetReturns, GetReturn]
+  paths: ['/ws/shipping/v1/deliveries', '/ws/shipping/v1/returns']
+- name: Care
+  entities: [careFolder, getCareFolderListResponse, getCareFolderDetailsResponse, claim, issue, message, client, seller, tile, snapshot, orderline, order, attachment, lightAttachment, returnLabel, postProblemRequest, postRefundCreateRequest, postMessageRequest, postItemTransferCreateRequest]
+  operations: [getCareFolderList, getCareFolderDetails, postProblem, postMessage, postRefundCreate, postItemTransfer]
+  paths: ['/ws/sav', '/ws/sav/{careFolderId}', '/ws/sav/refund']
+- name: Backbox
+  entities: [Backbox, Competitor]
+  operations: [GetBackboxData]
+  paths: ['/ws/listings_bi', '/ws/backbox/v1/competitors/{listingId}']
+entities:
+- name: Address
+  type: object
+  properties: 11
+- name: AestheticGradeValue
+  type: string
+  served_by: ['POST /ws/listings/{listingId}']
+- name: Backbox
+  type: object
+  title: Backbox
+  properties: 9
+  served_by: ['GetBackboxData']
+  relationships:
+  - {kind: has_one, target: 'ProductCondition', via: 'condition'}
+- name: CategoryTree
+  type: object
+  properties: 5
+  served_by: ['GET /ws/category/tree/{categoryId}', 'get-bm-catalog-category']
+- name: Competitor
+  type: object
+  title: Competitor
+  properties: 8
+  served_by: ['GET /ws/backbox/v1/competitors/{listingId}']
+  relationships:
+  - {kind: has_one, target: 'MonetaryAmount', via: 'min_price'}
+  - {kind: has_one, target: 'MonetaryAmount', via: 'price'}
+  - {kind: has_one, target: 'MonetaryAmount', via: 'price_to_win'}
+  - {kind: has_one, target: 'MonetaryAmount', via: 'winner_price'}
+  - {kind: has_one, target: 'MarketCode', via: 'market'}
+- name: CountryCode
+  type: string
+- name: Delivery
+  type: object
+  title: Delivery
+  properties: 17
+  served_by: ['GetDeliveries', 'GetDelivery']
+  relationships:
+  - {kind: has_one, target: 'PickupInfo', via: 'pickupInfo'}
+- name: Error
+  type: object
+  properties: 5
+- name: ErrorResponseV1
+  type: object
+  properties: 2
+  served_by: ['GET /ws/category/tree/{categoryId}', 'GET /ws/listings', 'GET /ws/listings/detail', 'GET /ws/listings/{listingId}', 'GET /ws/tasks/{taskId}', 'POST /ws/listings', 'POST /ws/listings/{listingId}']
+  relationships:
+  - {kind: has_one, target: 'Error', via: 'error'}
+- name: ErrorResponseV2
+  type: object
+  properties: 2
+  served_by: ['get-bm-catalog-category']
+  relationships:
+  - {kind: has_many, target: 'Error', via: 'errors'}
+- name: ErrorResponseV3
+  type: object
+  properties: 5
+  served_by: ['GetBackboxData', 'get-ws-buyback-v1-order', 'get-ws-buyback-v1-orders', 'get-ws-buyback-v1-orders-messages', 'get-ws-buyback-v1-orders-pending-reply', 'get-ws-buyback-v1-orders-suspend-reasons', 'get-ws-counter-offer-reason', 'post-ws-buyback-v1-orders-messages']
+  relationships:
+  - {kind: has_one, target: 'Error', via: 'error'}
+- name: ListingPublic
+  type: object
+  properties: 18
+  served_by: ['GET /ws/listings', 'GET /ws/listings/detail', 'GET /ws/listings/{listingId}']
+  relationships:
+  - {kind: has_one, target: 'ListingStateValue', via: 'state'}
+  - {kind: has_one, target: 'AestheticGradeValue', via: 'grade'}
+- name: ListingStateValue
+  type: integer
+  served_by: ['POST /ws/listings/{listingId}']
+- name: Locale
+  type: string
+- name: MarketCode
+  type: string
+- name: MonetaryAmount
+  type: object
+  title: MonetaryAmount
+  properties: 2
+- name: Order
+  type: object
+  properties: 23
+  served_by: ['get-ws-list-order', 'get-ws-specific-order', 'update-ws-specific-order']
+  relationships:
+  - {kind: has_one, target: 'Address', via: 'shipping_address'}
+  - {kind: has_one, target: 'Address', via: 'billing_address'}
+  - {kind: has_one, target: 'OrderState', via: 'state'}
+  - {kind: has_many, target: 'OrderLine', via: 'orderlines'}
+  - {kind: has_one, target: 'CountryCode', via: 'country_code'}
+- name: OrderIdValidationError
+  type: object
+  properties: 2
+  served_by: ['GetDeliveries', 'GetReturns']
+- name: OrderLine
+  type: object
+  properties: 22
+  relationships:
+  - {kind: has_one, target: 'OrderLineState', via: 'state'}
+  - {kind: has_one, target: 'ReturnReason', via: 'return_reason'}
+  - {kind: has_one, target: 'ProductCondition', via: 'condition'}
+- name: OrderLineState
+  type: integer
+- name: OrderState
+  type: integer
+- name: PickupInfo
+  type: object
+  title: Pickup Info
+  properties: 7
+- name: Price
+  type: scalar
+  title: Price
+  relationships:
+  - {kind: extends, target: 'MonetaryAmount', via: '$ref'}
+- name: Problem
+  type: object
+  title: Problem Details for HTTP APIs
+  properties: 5
+  served_by: ['get-ws-buyback-v1-listing', 'get-ws-buyback-v1-listings', 'put-ws-buyback-v1-listing']
+- name: ProblemValidation
+  type: object
+  title: ProblemValidation
+  served_by: ['get-ws-buyback-v1-listing', 'get-ws-buyback-v1-listings', 'put-ws-buyback-v1-listing']
+  relationships:
+  - {kind: extends, target: 'Problem', via: '$ref'}
+  - {kind: has_many, target: 'ProblemValidationErrorMember', via: 'errors'}
+- name: ProblemValidationErrorMember
+  type: object
+  properties: 5
+- name: ProductCondition
+  type: integer
+- name: Return
+  type: object
+  title: Return
+  properties: 16
+  served_by: ['GetReturn', 'GetReturns']
+- name: ReturnReason
+  type: integer
+- name: Shipper
+  type: string
+- name: UpdateOrder
+  type: object
+  properties: 12
+  relationships:
+  - {kind: has_one, target: 'OrderLineState', via: 'new_state'}
+  - {kind: has_one, target: 'VatType', via: 'vat_type'}
+  - {kind: has_one, target: 'ReturnReason', via: 'return_reason'}
+- name: ValidationErrorResponseV3
+  type: object
+  served_by: ['post-ws-buyback-v1-orders-messages', 'put-ws-buyback-v1-orders-suspend', 'put-ws-buyback-v1-orders-validate']
+  relationships:
+  - {kind: extends, target: 'ErrorResponseV3', via: '$ref'}
+- name: VatType
+  type: string
+- name: address
+  type: object
+  properties: 11
+- name: attachment
+  type: object
+  properties: 4
+- name: buyback-aesthetic-grade-code
+  type: string
+  title: Buyback aesthetic grade code
+- name: buyback-base-paginated
+  type: object
+  title: base_paginated
+  properties: 3
+  served_by: ['get-ws-buyback-v1-orders', 'get-ws-buyback-v1-orders-messages', 'get-ws-buyback-v1-orders-pending-reply']
+- name: buyback-counter-offer-payload
+  type: object
+  properties: 4
+- name: buyback-counter-offer-reasons
+  type: array
+  served_by: ['get-ws-counter-offer-reason']
+- name: buyback-listing
+  type: object
+  title: Buyback listing
+  properties: 6
+  served_by: ['get-ws-buyback-v1-listing']
+  relationships:
+  - {kind: has_one, target: 'buyback-aesthetic-grade-code', via: 'aestheticGradeCode'}
+- name: buyback-message
+  type: object
+  properties: 4
+  served_by: ['get-ws-buyback-v1-orders-messages', 'post-ws-buyback-v1-orders-messages']
+  relationships:
+  - {kind: has_one, target: 'buybackMessageAuthor', via: 'author'}
+- name: buyback-message-payload
+  type: object
+  properties: 2
+- name: buyback-order
+  type: object
+  properties: 20
+  served_by: ['get-ws-buyback-v1-order', 'get-ws-buyback-v1-orders', 'get-ws-buyback-v1-orders-pending-reply', 'put-ws-buyback-v1-orders-suspend', 'put-ws-buyback-v1-orders-validate']
+  relationships:
+  - {kind: has_one, target: 'buybackOrderState', via: 'status'}
+  - {kind: has_many, target: 'buyback-reason', via: 'suspendReasons'}
+  - {kind: has_many, target: 'buyback-reason', via: 'counterOfferReasons'}
+- name: buyback-order-suspension-payload
+  type: object
+  properties: 1
+- name: buyback-paginated-listing-response
+  type: object
+  title: BuyBack paginated listing response
+  properties: 2
+  served_by: ['get-ws-buyback-v1-listings']
+  relationships:
+  - {kind: has_many, target: 'buyback-listing', via: 'results'}
+- name: buyback-reason
+  type: object
+  title: Suspend or counter offer reason
+  properties: 3
+  served_by: ['get-ws-buyback-v1-orders-suspend-reasons']
+- name: buybackCompetitor
+  type: object
+  title: BuybackCompetitor
+  properties: 6
+  served_by: ['GET /ws/buyback/v1/competitors/{listingId}']
+  relationships:
+  - {kind: has_one, target: 'MarketCode', via: 'market'}
+  - {kind: has_one, target: 'MonetaryAmount', via: 'price'}
+  - {kind: has_one, target: 'MonetaryAmount', via: 'price_to_win'}
+- name: buybackCounterOfferReasonCategory
+  type: string
+- name: buybackKycDocuments
+  type: string
+- name: buybackListingGrade
+  type: string
+- name: buybackMessageAuthor
+  type: string
+- name: buybackOrderState
+  type: string
+- name: careFolder
+  type: object
+  properties: 12
+- name: category_3
+  type: object
+  properties: 2
+  relationships:
+  - {kind: has_one, target: 'category_3', via: 'parent'}
+- name: claim
+  type: object
+  properties: 12
+  relationships:
+  - {kind: has_many, target: 'tile', via: 'tiles'}
+  - {kind: has_many, target: 'issue', via: 'issues'}
+  - {kind: has_many, target: 'returnLabel', via: 'return_labels'}
+- name: client
+  type: object
+  properties: 5
+- name: getCareFolderDetailsResponse
+  type: object
+  properties: 13
+  served_by: ['getCareFolderDetails']
+  relationships:
+  - {kind: has_one, target: 'client', via: 'client'}
+  - {kind: has_many, target: 'claim', via: 'lines'}
+  - {kind: has_one, target: 'seller', via: 'merchant'}
+  - {kind: has_many, target: 'message', via: 'messages'}
+  - {kind: has_one, target: 'orderline', via: 'orderline'}
+- name: getCareFolderListResponse
+  type: object
+  properties: 4
+  served_by: ['getCareFolderList']
+  relationships:
+  - {kind: has_many, target: 'careFolder', via: 'results'}
+- name: issue
+  type: object
+  properties: 2
+- name: lightAttachment
+  type: object
+  properties: 3
+- name: message
+  type: object
+  properties: 7
+  relationships:
+  - {kind: has_many, target: 'lightAttachment', via: 'attachments'}
+- name: order
+  type: object
+  properties: 16
+  relationships:
+  - {kind: has_one, target: 'address', via: 'shipping_address'}
+  - {kind: has_one, target: 'address', via: 'billing_address'}
+- name: orderline
+  type: object
+  properties: 7
+  relationships:
+  - {kind: has_one, target: 'order', via: 'order'}
+  - {kind: has_one, target: 'snapshot', via: 'snapshot'}
+- name: postItemTransferCreateRequest
+  type: object
+  properties: 3
+- name: postMessageRequest
+  type: object
+  properties: 2
+- name: postMessageResponse
+  type: object
+  properties: 7
+  served_by: ['postMessage']
+  relationships:
+  - {kind: has_one, target: 'attachment', via: 'attachment'}
+  - {kind: has_many, target: 'attachment', via: 'attachments'}
+- name: postProblemRequest
+  type: object
+  properties: 3
+- name: postRefundCreateRequest
+  type: object
+  properties: 3
+- name: product
+  type: object
+  properties: 2
+  relationships:
+  - {kind: has_one, target: 'category_3', via: 'category_3'}
+- name: returnLabel
+  type: object
+  properties: 5
+- name: seller
+  type: object
+  properties: 4
+- name: snapshot
+  type: object
+  properties: 6
+  relationships:
+  - {kind: has_one, target: 'product', via: 'product'}
+- name: tile
+  type: object
+  properties: 2
+counts:
+  schemas: 73
+  relationships: 55
+  operations: 39

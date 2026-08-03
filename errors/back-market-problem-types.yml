@@ -1,0 +1,481 @@
+generated: '2026-08-02'
+method: derived
+source: openapi/back-market-openapi-original.yml
+docs: https://api.backmarket.dev/
+format: rfc7807-flavored
+description: >-
+  Error catalog derived from every 4xx/5xx response declared in the Back Market seller
+  OpenAPI, grouped by status + envelope + description. Back Market ships four co-existing
+  error envelopes (ErrorResponseV1/V2/V3 and an RFC 7807-flavored Problem), all served as
+  application/json rather than application/problem+json, with a `type` that is deliberately
+  a readable path (e.g. /errors/authorization-failed) instead of a URI. Many operations
+  declare a status with a human description but no response schema at all — those are
+  recorded here with `schema: null` so the gap stays visible.
+envelopes:
+- name: ErrorResponseV1
+  shape: '{ error: { code, message, data, docLink, target }, requestId }'
+- name: ErrorResponseV2
+  shape: '{ errors: [ { code, message, data, docLink, target } ], requestId }'
+- name: ErrorResponseV3
+  shape: '{ error: {...}, status, title, type, requestId }'
+- name: ValidationErrorResponseV3
+  shape: 'ErrorResponseV3 plus errors: [ { type, title, detail, target, context } ]'
+- name: Problem / ProblemValidation
+  shape: 'RFC 7807 members (type, title, status, detail, instance) plus errors[]'
+  deviation: 'type is a readable [a-z-/]* path, not a URI; media type is application/json'
+- name: OrderIdValidationError
+  shape: '{ error: { code, message }, data: { fields: {...} } }'
+known_codes:
+- code: bot-need-challenge
+  status: '403'
+  envelope: ErrorResponseV2
+  meaning: Cloudflare bot management requires the client to complete a challenge
+  remediation: Follow challengePath, or capture cf-ray and escalate to your seller contact
+  source: https://api.backmarket.dev/ (Technical Requirements — WAF and Bot management)
+- code: E009
+  status: '422'
+  envelope: OrderIdValidationError
+  meaning: Validation error on the order id (example published in the spec)
+  source: openapi/back-market-openapi-original.yml#/components/schemas/OrderIdValidationError
+problems:
+- status: '401'
+  title: Unauthenticated.
+  schema: ErrorResponseV2
+  media_type: application/json
+  occurrences: 1
+  operations:
+  - get-bm-catalog-category
+- status: '403'
+  title: Forbidden. Authenticated user is not a merchant.
+  schema: ErrorResponseV2
+  media_type: application/json
+  occurrences: 1
+  operations:
+  - get-bm-catalog-category
+- status: '401'
+  title: Unauthenticated.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 6
+  operations:
+  - GET /ws/category/tree/{categoryId}
+  - GET /ws/listings
+  - POST /ws/listings
+  - GET /ws/listings/{listingId}
+  - POST /ws/listings/{listingId}
+  - GET /ws/listings/detail
+- status: '403'
+  title: Forbidden. Authenticated user is not a merchant.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 4
+  operations:
+  - GET /ws/category/tree/{categoryId}
+  - GET /ws/listings
+  - GET /ws/listings/{listingId}
+  - GET /ws/listings/detail
+- status: '404'
+  title: Category not found.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 1
+  operations:
+  - GET /ws/category/tree/{categoryId}
+- status: '400'
+  title: Request data is invalid. A required field might be missing.
+  schema: inline
+  media_type: application/json
+  occurrences: 2
+  operations:
+  - POST /ws/listings
+  - POST /ws/listings/{listingId}
+- status: '403'
+  title: Forbidden. This ingestion channel could be disabled for the merchant.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 2
+  operations:
+  - POST /ws/listings
+  - POST /ws/listings/{listingId}
+- status: '429'
+  title: Too many requests. Client has been rate limited.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 2
+  operations:
+  - POST /ws/listings
+  - POST /ws/listings/{listingId}
+- status: '400'
+  title: "Invalid inputs (bad type\u2026)."
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 2
+  operations:
+  - GET /ws/listings/{listingId}
+  - GET /ws/listings/detail
+- status: '404'
+  title: Listing not found, or it does not belong to the authenticated merchant.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 3
+  operations:
+  - GET /ws/listings/{listingId}
+  - POST /ws/listings/{listingId}
+  - GET /ws/listings/detail
+- status: '401'
+  title: Unauthorized. The client making the request is not authenticated.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 1
+  operations:
+  - GET /ws/tasks/{taskId}
+- status: '404'
+  title: Task does not exist, or is not accessible for the authenticated user.
+  schema: ErrorResponseV1
+  media_type: application/json
+  occurrences: 1
+  operations:
+  - GET /ws/tasks/{taskId}
+- status: '401'
+  title: Unauthorized
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 10
+  operations:
+  - get-ws-buyback-v1-orders
+  - get-ws-buyback-v1-orders-pending-reply
+  - get-ws-buyback-v1-orders-suspend-reasons
+  - get-ws-buyback-v1-order
+  - get-ws-buyback-v1-orders-messages
+  - post-ws-buyback-v1-orders-messages
+  - put-ws-buyback-v1-orders-suspend
+  - put-ws-buyback-v1-orders-validate
+  - get-ws-counter-offer-reason
+  - put-ws-refurbisher-counter-offer
+- status: '403'
+  title: Permission denied
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 11
+  operations:
+  - get-ws-buyback-v1-orders
+  - get-ws-buyback-v1-orders-pending-reply
+  - get-ws-buyback-v1-orders-suspend-reasons
+  - get-ws-buyback-v1-order
+  - get-ws-buyback-v1-orders-messages
+  - post-ws-buyback-v1-orders-messages
+  - put-ws-buyback-v1-orders-suspend
+  - put-ws-buyback-v1-orders-validate
+  - get-ws-counter-offer-reason
+  - put-ws-refurbisher-counter-offer
+  - GetBackboxData
+- status: '404'
+  title: Not Found
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 4
+  operations:
+  - get-ws-buyback-v1-order
+  - get-ws-buyback-v1-orders-messages
+  - post-ws-buyback-v1-orders-messages
+  - put-ws-buyback-v1-orders-suspend
+- status: '5XX'
+  title: Internal Error
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 7
+  operations:
+  - get-ws-buyback-v1-order
+  - get-ws-buyback-v1-orders-messages
+  - post-ws-buyback-v1-orders-messages
+  - put-ws-buyback-v1-orders-suspend
+  - put-ws-buyback-v1-orders-validate
+  - get-ws-counter-offer-reason
+  - put-ws-refurbisher-counter-offer
+- status: '422'
+  title: Unprocessable Entity
+  schema: ValidationErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 3
+  operations:
+  - post-ws-buyback-v1-orders-messages
+  - put-ws-buyback-v1-orders-suspend
+  - put-ws-buyback-v1-orders-validate
+- status: '404'
+  title: Order not Found
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - get-ws-counter-offer-reason
+- status: '400'
+  title: Invalid request payload
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - put-ws-refurbisher-counter-offer
+- status: '404'
+  title: Order id not found
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - put-ws-refurbisher-counter-offer
+- status: '422'
+  title: Unprocessable request
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - put-ws-refurbisher-counter-offer
+- status: '429'
+  title: Too Many Requests
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - put-ws-refurbisher-counter-offer
+- status: '400'
+  title: Bad Request
+  schema: ProblemValidation
+  media_type: application/json
+  occurrences: 3
+  operations:
+  - get-ws-buyback-v1-listings
+  - get-ws-buyback-v1-listing
+  - put-ws-buyback-v1-listing
+- status: '422'
+  title: Unprocessable Entity
+  schema: ProblemValidation
+  media_type: application/json
+  occurrences: 3
+  operations:
+  - get-ws-buyback-v1-listings
+  - get-ws-buyback-v1-listing
+  - put-ws-buyback-v1-listing
+- status: '500'
+  title: Internal Server Error
+  schema: Problem
+  media_type: application/json
+  occurrences: 3
+  operations:
+  - get-ws-buyback-v1-listings
+  - get-ws-buyback-v1-listing
+  - put-ws-buyback-v1-listing
+- status: '503'
+  title: Service Unavailable
+  schema: Problem
+  media_type: application/json
+  occurrences: 3
+  operations:
+  - get-ws-buyback-v1-listings
+  - get-ws-buyback-v1-listing
+  - put-ws-buyback-v1-listing
+- status: '401'
+  title: Unauthorized
+  schema: null
+  media_type: null
+  occurrences: 2
+  operations:
+  - GET /ws/buyback/v1/competitors/{listingId}
+  - GET /ws/backbox/v1/competitors/{listingId}
+- status: '404'
+  title: Not Found
+  schema: null
+  media_type: null
+  occurrences: 2
+  operations:
+  - GET /ws/buyback/v1/competitors/{listingId}
+  - GET /ws/backbox/v1/competitors/{listingId}
+- status: '422'
+  title: Unprocessable Entity
+  schema: null
+  media_type: null
+  occurrences: 2
+  operations:
+  - GET /ws/buyback/v1/competitors/{listingId}
+  - GET /ws/backbox/v1/competitors/{listingId}
+- status: '400'
+  title: Bad request
+  schema: null
+  media_type: null
+  occurrences: 5
+  operations:
+  - get-ws-list-order
+  - get-ws-specific-order
+  - update-ws-specific-order
+  - post-ws-specific-order-invoice
+  - update-ws-specific-orderline
+- status: '403'
+  title: Forbidden
+  schema: null
+  media_type: null
+  occurrences: 6
+  operations:
+  - get-ws-list-order
+  - get-ws-specific-order
+  - update-ws-specific-order
+  - post-ws-specific-order-invoice
+  - update-ws-specific-orderline
+  - postProblem
+- status: '404'
+  title: Webservices unavailable
+  schema: null
+  media_type: null
+  occurrences: 2
+  operations:
+  - get-ws-list-order
+  - get-ws-specific-order
+- status: '404'
+  title: The listing doesn't exist
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - update-ws-specific-order
+- status: '404'
+  title: Order doesn't exist
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - post-ws-specific-order-invoice
+- status: '404'
+  title: The orderline doesn't exist
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - update-ws-specific-orderline
+- status: '422'
+  title: Unprocessable entity
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - update-ws-specific-orderline
+- status: '422'
+  title: Unprocessable Entity
+  schema: OrderIdValidationError
+  media_type: application/json
+  occurrences: 2
+  operations:
+  - GetDeliveries
+  - GetReturns
+- status: '404'
+  title: Delivery entry not found
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - GetDelivery
+- status: '404'
+  title: Return entry not found
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - GetReturn
+- status: '401'
+  title: Guest user not allowed
+  schema: null
+  media_type: null
+  occurrences: 5
+  operations:
+  - getCareFolderList
+  - getCareFolderDetails
+  - postProblem
+  - postRefundCreate
+  - postMessage
+- status: '403'
+  title: Authenticated user not allowed
+  schema: null
+  media_type: null
+  occurrences: 5
+  operations:
+  - getCareFolderList
+  - getCareFolderDetails
+  - postRefundCreate
+  - postMessage
+  - postItemTransfer
+- status: '404'
+  title: Care Folder does not exist
+  schema: null
+  media_type: null
+  occurrences: 3
+  operations:
+  - getCareFolderDetails
+  - postProblem
+  - postMessage
+- status: '413'
+  title: File too large or too many attachments
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postProblem
+- status: '422'
+  title: Attachments are mandatory for this problem type / Only OTHER problem type is allowed for IDs lower than 100,000,000 / Cannot declare problem on this Care Folder
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postProblem
+- status: '400'
+  title: Payload not acceptable
+  schema: null
+  media_type: null
+  occurrences: 2
+  operations:
+  - postRefundCreate
+  - postMessage
+- status: '404'
+  title: Orderline does not exist
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postRefundCreate
+- status: '400'
+  title: An item transfer with this tracking number already exists
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postItemTransfer
+- status: '404'
+  title: Care folder does not exit
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postItemTransfer
+- status: '422'
+  title: Cannot create item transfer / Care folders with ID above 100,000,000 are not yet supported on this endpoint due to an ongoing internal migration
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postItemTransfer
+- status: '500'
+  title: Shipment registration failed or Internal server error
+  schema: null
+  media_type: null
+  occurrences: 1
+  operations:
+  - postItemTransfer
+- status: '404'
+  title: Webservices unavailable
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - GetBackboxData
+- status: '429'
+  title: Too many calls
+  schema: ErrorResponseV3
+  media_type: application/problem+json
+  occurrences: 1
+  operations:
+  - GetBackboxData

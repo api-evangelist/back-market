@@ -1,0 +1,56 @@
+generated: '2026-08-02'
+method: searched
+source: npm registry search, PyPI, Packagist, GitHub (BackMarket org), api.backmarket.dev docs
+description: >-
+  Package-registry surface for Back Market. Back Market publishes NO first-party client SDK
+  for its seller API in any language — the API Guidelines at api.backmarket.dev document raw
+  HTTP only, and no SDK/library links appear in the docs. The one clearly first-party API
+  package on a public registry is the Spectral ruleset Back Market uses to govern its own API
+  designs (@backmarket-api/rulesets, published from github.com/BackMarket/api-rulesets and
+  already harvested into rules/ in this repo). Community-maintained wrappers exist but are
+  not endorsed by Back Market.
+packages:
+- language: javascript
+  registry: npm
+  name: "@backmarket-api/rulesets"
+  url: https://www.npmjs.com/package/@backmarket-api/rulesets
+  install: npm install @backmarket-api/rulesets
+  version: 1.7.0
+  published: '2024-03-22'
+  license: MIT
+  repository: https://github.com/BackMarket/api-rulesets
+  official: true
+  kind: governance-ruleset
+  description: >-
+    Back Market's own Spectral ruleset for API design governance. Not a client library —
+    it is the linting contract Back Market applies to its OpenAPI definitions. Harvested
+    into rules/back-market-rules.yml + rules/functions/ in this repo.
+community:
+- language: php
+  registry: github
+  name: BackMarket_Merchant_API
+  url: https://github.com/GuozhiTang/BackMarket_Merchant_API
+  official: false
+  description: >-
+    Third-party PHP script bundle wrapping the Back Market merchant API (listings and
+    orders). Community-maintained; not published to Packagist and not endorsed by
+    Back Market.
+not_found:
+  pypi: [backmarket, back-market, backmarket-api]
+  packagist: no Back Market seller-API package
+  maven_central: not searched — no JVM SDK referenced in the docs
+  nuget: no first-party package referenced in the docs
+  rubygems: no first-party package referenced in the docs
+  crates_io: no first-party package referenced in the docs
+notes: >-
+  The npm scope @backmarket/* holds a set of Vue UI micro-components (button, carousel,
+  modal, sticky, ...) last published in 2018 by a Back Market front-end engineer. They are
+  storefront design-system experiments, not API client libraries, and are not documented or
+  supported as part of the seller API — recorded here for completeness, not counted as SDKs.
+  Because no official client SDK exists, no `SDKs` pointer is wired in apis.yml.
+  The github.com/BackMarket organization exists (HTTP 200) but exposes zero public
+  repositories — github.com/BackMarket/api-rulesets, referenced by the npm package
+  metadata, is not publicly readable. Two Postman teams whose handles contain
+  "backmarket" answer 200 (postman.com/backmarket-mobile,
+  postman.com/backmarket-jira-782969) but neither could be verified as Back Market-operated
+  or as carrying a seller-API collection, so no `Postman` pointer is wired.
