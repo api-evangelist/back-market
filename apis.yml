@@ -32,30 +32,16 @@ tags:
 - Logistics
 - Customer Support
 apis:
-- name: Back Market API
-  description: 'The Back Market seller (partner) API — a REST API over JSON that lets
-    professional refurbishers manage their presence on the Back Market marketplace: browse the
-    marketplace category tree, create and update products and listings, list and update orders
-    and orderlines, upload customer invoices, run the BuyBack trade-in flow (orders, messages,
-    suspensions, validations, counter-offers, listings), read Backship deliveries and returns,
-    operate the Care after-sales platform (care folders, problems, messages, refunds, item
-    transfers), and pull Backbox competitive pricing data. Requests are authenticated with a
-    Basic token generated in the seller Back Office and require a descriptive User-Agent and an
-    Accept-Language country code.'
+- aid: back-market:back-market-backbox-api
+  name: Back Market Backbox API
+  description: The Backbox API from Back Market — 2 operation(s) for backbox.
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
-  - Marketplace
-  - E-Commerce
-  - Orders
-  - Listings
-  - Product Catalog
-  - Trade-In
-  - Shipping
-  - After-Sales
+  - Backbox
   properties:
   - type: OpenAPI
-    url: openapi/back-market-openapi-original.yml
+    url: openapi/back-market-backbox-api-openapi.yml
   - type: Documentation
     url: https://api.backmarket.dev/
   - type: APIReference
@@ -74,8 +60,246 @@ apis:
     url: conventions/back-market-conventions.yml
   - type: DataModel
     url: data-model/back-market-data-model.yml
-  - type: Overlay
-    url: overlays/back-market-api-overlay.yaml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-backship-api
+  name: Back Market Backship API
+  description: The Backship API from Back Market — 4 operation(s) for backship.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Backship
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-backship-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-buyback-api
+  name: Back Market Buy Back API
+  description: The BuyBack API from Back Market — 12 operation(s) for buyback.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - BuyBack
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-buyback-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-care-api
+  name: Back Market Care API
+  description: The Care API from Back Market — 6 operation(s) for care.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Care
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-care-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-categories-api
+  name: Back Market Categories API
+  description: The Categories API from Back Market — 2 operation(s) for categories.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Categories
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-categories-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-listings-api
+  name: Back Market Listings API
+  description: The Listings API from Back Market — 3 operation(s) for listings.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Listings
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-listings-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-orderline-api
+  name: Back Market Orderline API
+  description: The Orderline API from Back Market — 1 operation(s) for orderline.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Orderline
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-orderline-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-orders-api
+  name: Back Market Orders API
+  description: The Orders API from Back Market — 3 operation(s) for orders.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - Orders
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-orders-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-taskmanager-api
+  name: Back Market Task Manager API
+  description: The TaskManager API from Back Market — 1 operation(s) for taskmanager.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - TaskManager
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-taskmanager-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
   - type: Rules
     url: rules/back-market-rules.yml
 maintainers:
@@ -111,7 +335,7 @@ common:
 - type: PrivacyPolicy
   url: https://www.backmarket.com/en-us/legal/data-protection
 - type: OpenAPI
-  url: openapi/back-market-openapi-original.yml
+  url: openapi/_original/back-market-openapi-original.yml
 - type: Authentication
   url: authentication/back-market-authentication.yml
 - type: Security
