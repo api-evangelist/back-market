@@ -16,7 +16,7 @@ url: https://raw.githubusercontent.com/api-evangelist/back-market/refs/heads/mai
 image: https://api.backmarket.dev/statics/backmarket-logo.svg
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
 tags:
