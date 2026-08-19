@@ -1,0 +1,532 @@
+{
+  "item": [
+    {
+      "id": "a70a8ef1-fe8e-401d-9010-4ce364af2b9e",
+      "name": "Backbox",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "84f6bacb-e6e8-48d5-bbae-1fd54978fdc1",
+          "name": "Return backbox data per listing list",
+          "request": {
+            "name": "Return backbox data per listing list",
+            "description": {
+              "content": "\nGet the Backbox data related to your competitors, i.e. your online listings competing in a Backbox. You can call this endpoint twice every hour for each country.\n\nBackbox (previously named Buybox) is the listing displayed at a given time on the website when it has the best ratio quality score per price.\n\nThis endpoint is being deprecated in favor of the /ws/backbox/v1/competitors endpoint.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "listings_bi"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-size",
+                  "value": "10",
+                  "description": "The page size for pagination"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e362e478-3fbf-4426-9654-105236697d29",
+              "name": "List of backbox data per listing",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings_bi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 42,\n  \"next\": \"https://www.backmarket.fr/ws/listings_bi/?page=2\",\n  \"previous\": \"https://www.backmarket.fr/ws/listings_bi/?page=1\",\n  \"results\": [\n    {\n      \"product\": 42,\n      \"sku\": \"SuperSKU\",\n      \"price\": 70,\n      \"quantity\": 10,\n      \"buybox\": false,\n      \"price_for_buybox\": 60,\n      \"condition\": 10,\n      \"same_merchant_winner\": false,\n      \"currency\": \"EUR\"\n    },\n    {\n      \"product\": 42,\n      \"sku\": \"SuperSKU\",\n      \"price\": 70,\n      \"quantity\": 10,\n      \"buybox\": false,\n      \"price_for_buybox\": 60,\n      \"condition\": 10,\n      \"same_merchant_winner\": false,\n      \"currency\": \"EUR\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f60f48f7-f6d1-4cd0-a85f-17f0c52b3e6f",
+              "name": "Permission denied",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings_bi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"status\": 6115,\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7494c5e7-9aad-4f54-ba28-787f1ab03b81",
+              "name": "Webservices unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings_bi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"status\": 6115,\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "14bb0988-02be-4fd7-9eb1-9669947ebb64",
+              "name": "Too many calls",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings_bi"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/problem+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/problem+json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"status\": 6115,\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "205c8589-158b-403d-ba0d-75260c2ee4af",
+          "name": "Get competitors",
+          "request": {
+            "name": "Get competitors",
+            "description": {
+              "content": "Get the Backbox data related to your competitors, i.e. your online listings competing in a Backbox.\n\nYou can call this endpoint twice per second per API token.\n\n[Here is an example](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing) of how you can use the Listings and the BackBox APIs together, in order to adjust your listings' prices in case there are some good opportunities. This can allow you to win more BackBoxes automatically with small prices reductions.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "backbox",
+                "v1",
+                "competitors",
+                ":listingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "listingId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3df5bab6-0992-4bea-aa76-15f6b358ad3c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "backbox",
+                    "v1",
+                    "competitors",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"listing_id\": \"4fff833a-a708-1b55-083b-2b8e4fd774e6\",\n    \"product_id\": \"05f9c25f-efb0-77fc-f0db-50318bd1ba6c\",\n    \"price\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"min_price\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"price_to_win\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"winner_price\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"is_winning\": false,\n    \"market\": \"FR\"\n  },\n  {\n    \"listing_id\": \"b2991b6a-5e7c-673b-06cb-a2d6ae10a51e\",\n    \"product_id\": \"7333571a-5a32-89c8-9a0a-99c957a3e40a\",\n    \"price\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"min_price\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"price_to_win\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"winner_price\": {\n      \"amount\": \"42\",\n      \"currency\": \"EUR\"\n    },\n    \"is_winning\": true,\n    \"market\": \"FR\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06e268df-1c57-4a74-b0db-6e8c6210da8c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "backbox",
+                    "v1",
+                    "competitors",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bc8da174-4b75-4a6b-8aec-f65033a1b059",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "backbox",
+                    "v1",
+                    "competitors",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cc658215-2801-40c8-94af-effd21c8ebcc",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "backbox",
+                    "v1",
+                    "competitors",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://preprod.backmarket.co.jp",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "dfdc4eb8-2a02-4ffd-bfbc-c8d4af16d103",
+    "name": "Back Market - API Guidelines Backbox API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Table of contents\n\n1. [Introduction](#introduction)\n1. [Getting started](#getting-started)\n1. [Technical requirements](#technical-requirements)\n1. [F.A.Q. and Contact](#faq-and-contact)\n1. [Cookbooks](#cookbooks)\n\n## Introduction\n\nWelcome to Back Market, the leading online marketplace dedicated to refurbished products.\n\nOur back-office and our web-services have been created in order to allow Seller to manage their products\neasily on our marketplace. This documentation is meant to help you integrate our marketplace and learn how to manage\nyour `Products`, `Offers` and `Orders` on Back Market.\n\n### Overview of what this documentation is talking about\n\n* Our Taxonomy : This part will describe the organization and classification of our marketplace\n* Products & Offers : You will learn how to create `Products` as well as create, update and list `Offers` on Back Market\n* Your Orders : The `Orders` workflow, listing and update will be explained\n\nDifferent solutions are offered in order to use our marketplace. It's possible to work with a combination of\nthese solutions or to switch from one to another at a later stage.\n\n1 - Back Market API:\n\nThis is the best solution for big and/or small sellers with their own technical team. Working with our API will\nenable you to synchronize your information with our database in real time. It is especially suitable for sellers\nwith long-tail catalogs as well as a large amount of sales.\n\n2 - Back-office:\n\nOur <a target=\"_blank\" href=\"https://www.backmarket.fr/bo_merchant/\"> back-office</a> offers a graphic user\ninterface which allows you to manage everything simply and efficiently.\n\nOur back-office also gives you the possibility to import and export CSV files\nwith `Products`, `Offers` and `Orders` information.\nThis allows you to work with more `Offers` comfortably.\n\n3 - DEPRECATED FTP :\n\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n### Other information\n\nOn this website, we've collected all the information you might need to get on board as smoothly as possible.\nAlso, be sure to check our [F.A.Q.](#f-a-q-and-contact) to get answers to your questions.\n[Contact us](#f-a-q-and-contact) if you still have further questions.\n\n### Feedback\n\nAt Back Market, we always want to improve our solutions.\nPlease [Give Us Feedback](mailto:<partner-support@backmarket.com>?subject=Feedback Back Market Doc) and let us\n know about possible improvement we could make, be it on this documentation, our web services,\n our back-office or whatever you might think of.\nPlease note that this mail is temporary as we will deploy a new Seller support center\nthat will assist you.\n\n## Getting Started\n\nIf you did not yet read the page on [taxonomy](operations/get-bm-catalog-category#taxonomy), please do it before proceeding.\n\n### Account\n\nAfter validation by our team, each Seller gains access to an account. This account gives you access to the Back\nMarket Back Office and our API.\n\nUse one of the following links to access your Back Office account or create one if you haven't done so already.\nYou will need to provide information about your company and we will get back to you as soon as possible:\n\n* <a target=\"_blank\" href=\"https://www.backmarket.co.jp/bo-seller\">AP platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.fr/bo-seller\">EU platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.com/bo-seller\">US platform</a>\n\nFor creating or accessing an account on the preprod, you can use the following links:\n\n* <a target=\"_blank\" href=\"https://preprod.backmarket.co.jp/bo-seller\">AP preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.fr/bo-seller\">EU preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.com/bo-seller\">US preprod platform</a>\n\n### Country code\n\nBack Market is international so you can sell products abroad. The\ncountry code matches both the targeted language and country for the\naction you'd like to perform (ex: update the price for a listing in\nItaly).\nInformation about every countries are contained in the same instance\nof an object `Product` or a `Listing`.\n\nIndeed, you don't need to create one `Listing` for each country. This\n`Listing` will contain some fields which are the same for all the countries (_listing_id, quantity, ..._) and other\n country specific fields (_comment, price and warranty_delay_).\nTherefore, if you wish to edit the _**stock**_ (field :\n'quantity'), the change will apply to all the countries, but for the\n_**comment**_ you will have to change it for each country.\n\nIn the same way, some fields of the `Product` are common for all\ncountries (_weight, EAN, ..._), and others depend on the country\n(_description, title and price_new_).\n\n**COUNTRY_CODES** - Accepted values are :\n\n* AP platform:\n\n  * ja-jp     : Japan\n  * en-au     : Australia\n\n* EU platform:\n\n  * fr-fr     : France\n  * fr-be     : Belgium\n  * es-es     : Spain\n  * de-de     : Germany\n  * de-at     : Austria\n  * it-it     : Italy\n  * en-gb     : United Kingdom\n  * nl-nl     : Netherlands\n  * pt-pt     : Portugal\n  * en-ie     : Ireland\n  * el-gr     : Greece\n  * sk-sk     : Slovakia\n  * sv-se     : Sweden\n\n* US platform:\n\n  * en-us     : United States\n\n### CSV file format\n\nAll files imported through our Back Office or imported using Back Market's API must be in CSV format.\n\nRequired field separator is ';'.\n\nRequired line separator is the line feed '\\n'.\n\nFields must be surrounded by double quotes.\n## Technical Requirements\n\n### API Identification\n>\n> HTTP Header (will remain the same for every API call):\n\n```http\nContent-type: application/json\nAccept: application/json\nAccept-Language: COUNTRY_CODE\nAuthorization: Basic YOUR_ACCESS_TOKEN\nUser-Agent: YOUR_USER_AGENT\n```\n\nEach Integrator or Seller should use the following HTTP Header when calling Back Market API endpoints.\n\nThe User-Agent is mandatory. Any request without it might be refused by our System.\n\nIt should include your company name, application name, version, and a contact email address in this format:\n\n```http\nBM-{CompanyName}-{IntegrationName};company@companydomain.com.\n```\n\nFor example:\n\n```http\nBM-Ebay-Invoices;contact@ebay.com\nBM-bouygues-automations;contact@bouygues.fr\n```\n\n### Web application firewall (WAF) and Bot management\n\nThe WAF or bot management may block your requests for security reason. You'll typically receive an HTTP 403 Forbidden\nresponse, possibly with a response body to tell you to challenge your client with Cloudflare.\n\nIn case you judge that your request should not be blocked by Cloudflare, from the response headers, you can get the value of cf-ray and send it to your seller contact for investigation.\n\nExample HTTP 403 response from WAF:\n\n```http\nHTTP/2 403\ndate: Wed, 16 Apr 2025 11:26:41 GMT\ncontent-type: text/html; charset=UTF-8\nreferrer-policy: same-origin\ncache-control: max-age=15\nexpires: Wed, 16 Apr 2025 11:26:56 GMT\n...\nx-content-type-options: nosniff\nx-frame-options: SAMEORIGIN\nserver: cloudflare\ncf-ray: 931354450813d142-CDG\nalt-svc: h3=\":443\"; ma=86400\n```\n\nExample HTTP 403 response for Bot Management protected endpoints:\n\n```json\n{\n  \"errors\": [\n    {\n      \"code\": \"bot-need-challenge\",\n      \"message\": \"Forbidden\",\n      \"challengePath\": \"/testchallengepage\"\n    }\n  ]\n}\n```\n\n### Traffic limitation\n\nOur standard rate limits are will allow your automations to run fast enough to finish your processes.\nHowever, in case of too many requests beyond what we except on sellers endpoints, you will be presented with an HTTP 429 response from Cloudflare.\n\nUsually you will find the range above 200 requests in 10 seconds being blocked for 10 seconds and for more sensible\nendpoints like catalog for example above 20 requests in 10 seconds being blocked for 10 seconds.\n\n### Data limitation\n\nTo make sure we can handle and process all the incoming data correctly, we have set-up the following limitation:\n**We might not accept more than 2k lines of SKUs to process per hour** on the\n following endpoints ([Update Several listings](#update-several-listings) or\n  on [Update specific listing](#update-specific-listing)) and [Update Listings](#update-listings)) files.\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n**If this limit is reached, Back Market may refuse the task**, in this case you will receive HTTP responses\nwith the \"429 Too Many Requests\" status.\n\nIf you have lots of active SKUs, please take into account the [Best Practice](#best-practices)\npart of the documentation.\n\n### Questions ?\n\nIf you have any questions, please send an email to <partner-support@backmarket.com>\nPlease note that this mail is temporary as we will deploy a new seller support center\nthat will assist you.\n## F.A.Q. and Contact\n\nPlease [click here](https://merchant-support.backmarket.com/hc/en-us) to access your Seller Support Center\n where you can find our F.A.Q. or contact us.\n\nIf you have never signed in to the Seller Support Center, you can\n read this [tutorial](statics/How-to-connect-to-SSC.pdf) which helps you setup you connection for the first time.\n\nIf you have any more questions and are already selling on Back Market, we invite you to contact your account manager.\n## Cookbooks\n\nA list of notebooks showcasing different API use cases:\n\n[Winning the BackBox based on small price efforts](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing)\n\n\nContact Support:\n Name: Seller Support Center\n Email: NA@NA.com",
+      "type": "text/plain"
+    }
+  }
+}

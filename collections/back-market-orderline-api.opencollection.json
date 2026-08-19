@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Orderline API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orderline",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Update a specific orderline\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://preprod.backmarket.co.jp/ws/orderlines/:orderline_id",
+            "params": [
+              {
+                "name": "orderline_id",
+                "value": "1",
+                "type": "path",
+                "description": "The orderline identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update a specific orderline\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

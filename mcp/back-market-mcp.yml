@@ -2,20 +2,23 @@ generated: '2026-08-02'
 method: derived
 status: candidate
 source: openapi/back-market-openapi-original.yml
-notes: >-
-  No official hosted or remote Back Market MCP server was found. Probed the API Guidelines
-  at api.backmarket.dev, the Back Market GitHub org, the npm registry, and the public MCP
-  registries - nothing published. This is a CANDIDATE tool list derived one-to-one from the
-  published seller API operations so an agent implementer has a grounded starting point;
-  Back Market has not endorsed it. 9 of 39 operations carry no operationId in the
-  spec, so those tool names are derived from method plus path.
+notes: No official hosted or remote Back Market MCP server was found. Probed the API Guidelines at api.backmarket.dev,
+  the Back Market GitHub org, the npm registry, and the public MCP registries - nothing published. This
+  is a CANDIDATE tool list derived one-to-one from the published seller API operations so an agent implementer
+  has a grounded starting point; Back Market has not endorsed it. 9 of 39 operations carry no operationId
+  in the spec, so those tool names are derived from method plus path.
 server:
   name: back-market
   transport: http
   url: null
 authentication:
   scheme: 'HTTP Basic token issued in the seller Back Office (Authorization: Basic <token>)'
-  required_headers: [Authorization, Accept-Language, User-Agent, Content-type, Accept]
+  required_headers:
+  - Authorization
+  - Accept-Language
+  - User-Agent
+  - Content-type
+  - Accept
   detail: authentication/back-market-authentication.yml
 conventions: conventions/back-market-conventions.yml
 tools:
@@ -227,3 +230,9 @@ coverage:
   operations: 39
   tools: 39
   with_operation_id: 30
+deployment:
+  mode: none
+  verified: derived
+  tools: 39
+  checked: '2026-08-12'
+  source: catalog MCP census

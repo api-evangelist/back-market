@@ -1,0 +1,42 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Task Manager API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TaskManager",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get (batch) task",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/tasks/:taskId",
+            "params": [
+              {
+                "name": "taskId",
+                "value": "4312",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nWhen a merchant creates a `Product` and/or `Listing`, we have to check there is no problem _i.e._  that all the mandatory information has been provided. For every creation a `batch ID` will be provided thus allowing you to check the corresponding batch (all errors will be returned).\n\nYou will have to check the batch every time you perform a POST request on:\n\n`https://www.backmarket.fr/ws/listings/`.\n\nTo create `Listings` and/or `Products` (or update several `Listings`), you need to provide a CS"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

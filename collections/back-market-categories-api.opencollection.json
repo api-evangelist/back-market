@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Categories API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Categories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get category tree",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/category/tree",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n## Taxonomy\n\n### Categorization & products\n\n`Categories` tree diagram :\n<img class=\"myImg\" src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/\ncategory_tree_schema.png\" width=100% height=auto alt=\"\">\n\nDiagram of matching `Product` with a leaf `Category` :\n\n<img class=\"myImg\"\n src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/category_product.png\"\n width=100% height=auto alt=\"\">\n<br>\n\nThe matching of a `Product` to a `Category` i"
+        },
+        {
+          "info": {
+            "name": "Get category branch",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/category/tree/:categoryId",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "params": [
+              {
+                "name": "categoryId",
+                "value": "1",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "\nRetrieve a specific `Category` branch. This will only give you access to what's below on the branch. This means that you won't be able to access the parent `Categories`, but only children `Categories` and `Attributes`.\n\nYou can retrieve `Attributes` from a specific `leaf Category` with the following endpoint, by providing its category ID.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

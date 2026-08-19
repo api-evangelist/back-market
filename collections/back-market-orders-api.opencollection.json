@@ -1,0 +1,158 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Orders API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Orders",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/orders",
+            "params": [
+              {
+                "name": "date_creation",
+                "value": "2014-06-24T12:55:57Z",
+                "type": "query",
+                "description": "Filter to get orders by their date of creation in RFC3339 format"
+              },
+              {
+                "name": "date_modification",
+                "value": "2014-06-24T12:55:57Z",
+                "type": "query",
+                "description": "Filter to get orders by their date of last modification in RFC3339 format"
+              },
+              {
+                "name": "country_code",
+                "value": "fr-fr",
+                "type": "query",
+                "description": "Filter on the order country of origin"
+              },
+              {
+                "name": "state",
+                "value": "1",
+                "type": "query",
+                "description": "Filter on the order state. See OrderState object for more details."
+              },
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query",
+                "description": "The page number for pagination"
+              },
+              {
+                "name": "page-size",
+                "value": "20",
+                "type": "query",
+                "description": "The page size for pagination"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Gets the orders for a given merchant and set of filters.\nRetrieves all the orders that are neither in state=0 (New Order) nor state=8 (Order not paid).\n\n## Orders\n\nSummary of the `Product`/`Listing` structure :\n<img src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/group_order.png\"\nwidth=\"100%\" height=\"auto\" alt=\"Product / Listing structure\">\n\n`Orders` workflow diagram :\n<img src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/ord"
+        },
+        {
+          "info": {
+            "name": "Get a specific order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/orders/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "1",
+                "type": "path",
+                "description": "The order identifier"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get a specific order"
+        },
+        {
+          "info": {
+            "name": "Update a specific order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/orders/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "1",
+                "type": "path",
+                "description": "The order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "During shipping all orderlines are gathered in the same package. It is not necessary to specify the SKU when\nupdating an order to state 3; indeed, every orderline of this order will be set to this state automatically.\n\nMerchants recover an order on state 1.\n"
+        },
+        {
+          "info": {
+            "name": "Update customer invoice for order\n",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/orders/:order_id/invoice",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "1",
+                "type": "path",
+                "description": "The order identifier"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "invoice",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Update customer invoice for order\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,741 @@
+openapi: 3.2.0
+info:
+  version: 0.1.1
+  title: Back Market - API Guidelines Orders API
+  description: "## Table of contents\n\n1. [Introduction](#introduction)\n1. [Getting started](#getting-started)\n1. [Technical requirements](#technical-requirements)\n1. [F.A.Q. and Contact](#faq-and-contact)\n1. [Cookbooks](#cookbooks)\n\n## Introduction\n\nWelcome to Back Market, the leading online marketplace dedicated to refurbished products.\n\nOur back-office and our web-services have been created in order to allow Seller to manage their products\neasily on our marketplace. This documentation is meant to help you integrate our marketplace and learn how to manage\nyour `Products`, `Offers` and `Orders` on Back Market.\n\n### Overview of what this documentation is talking about\n\n* Our Taxonomy : This part will describe the organization and classification of our marketplace\n* Products & Offers : You will learn how to create `Products` as well as create, update and list `Offers` on Back Market\n* Your Orders : The `Orders` workflow, listing and update will be explained\n\nDifferent solutions are offered in order to use our marketplace. It's possible to work with a combination of\nthese solutions or to switch from one to another at a later stage.\n\n1 - Back Market API:\n\nThis is the best solution for big and/or small sellers with their own technical team. Working with our API will\nenable you to synchronize your information with our database in real time. It is especially suitable for sellers\nwith long-tail catalogs as well as a large amount of sales.\n\n2 - Back-office:\n\nOur <a target=\"_blank\" href=\"https://www.backmarket.fr/bo_merchant/\"> back-office</a> offers a graphic user\ninterface which allows you to manage everything simply and efficiently.\n\nOur back-office also gives you the possibility to import and export CSV files\nwith `Products`, `Offers` and `Orders` information.\nThis allows you to work with more `Offers` comfortably.\n\n3 - DEPRECATED FTP :\n\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n### Other information\n\nOn this website, we've collected all the information you might need to get on board as smoothly as possible.\nAlso, be sure to check our [F.A.Q.](#f-a-q-and-contact) to get answers to your questions.\n[Contact us](#f-a-q-and-contact) if you still have further questions.\n\n### Feedback\n\nAt Back Market, we always want to improve our solutions.\nPlease [Give Us Feedback](mailto:<partner-support@backmarket.com>?subject=Feedback Back Market Doc) and let us\n know about possible improvement we could make, be it on this documentation, our web services,\n our back-office or whatever you might think of.\nPlease note that this mail is temporary as we will deploy a new Seller support center\nthat will assist you.\n\n## Getting Started\n\nIf you did not yet read the page on [taxonomy](operations/get-bm-catalog-category#taxonomy), please do it before proceeding.\n\n### Account\n\nAfter validation by our team, each Seller gains access to an account. This account gives you access to the Back\nMarket Back Office and our API.\n\nUse one of the following links to access your Back Office account or create one if you haven't done so already.\nYou will need to provide information about your company and we will get back to you as soon as possible:\n\n* <a target=\"_blank\" href=\"https://www.backmarket.co.jp/bo-seller\">AP platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.fr/bo-seller\">EU platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.com/bo-seller\">US platform</a>\n\nFor creating or accessing an account on the preprod, you can use the following links:\n\n* <a target=\"_blank\" href=\"https://preprod.backmarket.co.jp/bo-seller\">AP preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.fr/bo-seller\">EU preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.com/bo-seller\">US preprod platform</a>\n\n### Country code\n\nBack Market is international so you can sell products abroad. The\ncountry code matches both the targeted language and country for the\naction you'd like to perform (ex: update the price for a listing in\nItaly).\nInformation about every countries are contained in the same instance\nof an object `Product` or a `Listing`.\n\nIndeed, you don't need to create one `Listing` for each country. This\n`Listing` will contain some fields which are the same for all the countries (_listing_id, quantity, ..._) and other\n country specific fields (_comment, price and warranty_delay_).\nTherefore, if you wish to edit the _**stock**_ (field :\n'quantity'), the change will apply to all the countries, but for the\n_**comment**_ you will have to change it for each country.\n\nIn the same way, some fields of the `Product` are common for all\ncountries (_weight, EAN, ..._), and others depend on the country\n(_description, title and price_new_).\n\n**COUNTRY_CODES** - Accepted values are :\n\n* AP platform:\n\n  * ja-jp     : Japan\n  * en-au     : Australia\n\n* EU platform:\n\n  * fr-fr     : France\n  * fr-be     : Belgium\n  * es-es     : Spain\n  * de-de     : Germany\n  * de-at     : Austria\n  * it-it     : Italy\n  * en-gb     : United Kingdom\n  * nl-nl     : Netherlands\n  * pt-pt     : Portugal\n  * en-ie     : Ireland\n  * el-gr     : Greece\n  * sk-sk     : Slovakia\n  * sv-se     : Sweden\n\n* US platform:\n\n  * en-us     : United States\n\n### CSV file format\n\nAll files imported through our Back Office or imported using Back Market's API must be in CSV format.\n\nRequired field separator is ';'.\n\nRequired line separator is the line feed '\\n'.\n\nFields must be surrounded by double quotes.\n## Technical Requirements\n\n### API Identification\n>\n> HTTP Header (will remain the same for every API call):\n\n```http\nContent-type: application/json\nAccept: application/json\nAccept-Language: COUNTRY_CODE\nAuthorization: Basic YOUR_ACCESS_TOKEN\nUser-Agent: YOUR_USER_AGENT\n```\n\nEach Integrator or Seller should use the following HTTP Header when calling Back Market API endpoints.\n\nThe User-Agent is mandatory. Any request without it might be refused by our System.\n\nIt should include your company name, application name, version, and a contact email address in this format:\n\n```http\nBM-{CompanyName}-{IntegrationName};company@companydomain.com.\n```\n\nFor example:\n\n```http\nBM-Ebay-Invoices;contact@ebay.com\nBM-bouygues-automations;contact@bouygues.fr\n```\n\n### Web application firewall (WAF) and Bot management\n\nThe WAF or bot management may block your requests for security reason. You'll typically receive an HTTP 403 Forbidden\nresponse, possibly with a response body to tell you to challenge your client with Cloudflare.\n\nIn case you judge that your request should not be blocked by Cloudflare, from the response headers, you can get the value of cf-ray and send it to your seller contact for investigation.\n\nExample HTTP 403 response from WAF:\n\n```http\nHTTP/2 403\ndate: Wed, 16 Apr 2025 11:26:41 GMT\ncontent-type: text/html; charset=UTF-8\nreferrer-policy: same-origin\ncache-control: max-age=15\nexpires: Wed, 16 Apr 2025 11:26:56 GMT\n...\nx-content-type-options: nosniff\nx-frame-options: SAMEORIGIN\nserver: cloudflare\ncf-ray: 931354450813d142-CDG\nalt-svc: h3=\":443\"; ma=86400\n```\n\nExample HTTP 403 response for Bot Management protected endpoints:\n\n```json\n{\n  \"errors\": [\n    {\n      \"code\": \"bot-need-challenge\",\n      \"message\": \"Forbidden\",\n      \"challengePath\": \"/testchallengepage\"\n    }\n  ]\n}\n```\n\n### Traffic limitation\n\nOur standard rate limits are will allow your automations to run fast enough to finish your processes.\nHowever, in case of too many requests beyond what we except on sellers endpoints, you will be presented with an HTTP 429 response from Cloudflare.\n\nUsually you will find the range above 200 requests in 10 seconds being blocked for 10 seconds and for more sensible\nendpoints like catalog for example above 20 requests in 10 seconds being blocked for 10 seconds.\n\n### Data limitation\n\nTo make sure we can handle and process all the incoming data correctly, we have set-up the following limitation:\n**We might not accept more than 2k lines of SKUs to process per hour** on the\n following endpoints ([Update Several listings](#update-several-listings) or\n  on [Update specific listing](#update-specific-listing)) and [Update Listings](#update-listings)) files.\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n**If this limit is reached, Back Market may refuse the task**, in this case you will receive HTTP responses\nwith the \"429 Too Many Requests\" status.\n\nIf you have lots of active SKUs, please take into account the [Best Practice](#best-practices)\npart of the documentation.\n\n### Questions ?\n\nIf you have any questions, please send an email to <partner-support@backmarket.com>\nPlease note that this mail is temporary as we will deploy a new seller support center\nthat will assist you.\n## F.A.Q. and Contact\n\nPlease [click here](https://merchant-support.backmarket.com/hc/en-us) to access your Seller Support Center\n where you can find our F.A.Q. or contact us.\n\nIf you have never signed in to the Seller Support Center, you can\n read this [tutorial](statics/How-to-connect-to-SSC.pdf) which helps you setup you connection for the first time.\n\nIf you have any more questions and are already selling on Back Market, we invite you to contact your account manager.\n## Cookbooks\n\nA list of notebooks showcasing different API use cases:\n\n[Winning the BackBox based on small price efforts](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing)\n"
+  contact:
+    name: Seller Support Center
+    url: https://merchant-support.backmarket.com/hc/en-us
+    x-slack: NA
+    email: NA@NA.com
+servers:
+- url: https://preprod.backmarket.co.jp
+  description: Preprod - AP
+- url: https://www.backmarket.co.jp
+  description: Prod - AP
+- url: https://preprod.backmarket.fr
+  description: Preprod - EU
+- url: https://www.backmarket.fr
+  description: Prod - EU
+- url: https://preprod.backmarket.com
+  description: Preprod - NA
+- url: https://www.backmarket.com
+  description: Prod - NA
+tags:
+- name: Orders
+paths:
+  /ws/orders:
+    get:
+      summary: Get the orders
+      description: "Gets the orders for a given merchant and set of filters.\nRetrieves all the orders that are neither in state=0 (New Order) nor state=8 (Order not paid).\n\n## Orders\n\nSummary of the `Product`/`Listing` structure :\n<img src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/group_order.png\"\nwidth=\"100%\" height=\"auto\" alt=\"Product / Listing structure\">\n\n`Orders` workflow diagram :\n<img src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/orders_workflow.png\"\nwidth=\"100%\" height=\"auto\" alt=\"Orders workflow diagram\">\n\n`Orderlines` workflow diagram :\n<img src=\"https://s3-eu-west-1.amazonaws.com/backmarket-doc-developer/images_to_download/orderlines_workflow.png\"\nwidth=\"100%\" height=\"auto\" alt=\"Orderlines workflow diagram\">\n\nWhen a customer makes a payment on Back Market, an `Order` is to the merchants concerned. Each `Order` is composed of\none or several `Orderlines`.  An `Orderline` is defined by a quantity of a specific listing from an order placed by a\ncustomer to a specific merchant (`Ordeline` contains also specific information about the customer: billing,\nshipping addresses etc.). [_cf._ Figure: _Summary of the Product/Listing structure_]\n\nDiagram _Summary of the Product/Listing structure_, shows an example of a Customer Z who makes a payment to buy 1\nProduct A and 1 Product B from Merchant X, and 4 Products C from Merchant Y._\n\nMerchants only have to deal with `Orderlines` inside of an `Order`. All `Orders` will be treated automatically by our\nservice. Therefore, the state of an `Order` cannot be modified by merchants. Merchants receive an `Order` with the\nstate 1. The processing of an `Order` is not over until all its `Orderlines` have reached a\n<span class=\"success\">final state</span> (_cf._ Table 6).\n\nDuring the shipping, all `Orderlines` are gathered in the same package. Therefore, it is not necessary to specify an\n`Orderline ID` when updating an `Orderline` to the <span class=\"warning\">state 3</span> (All `Orderlines` of this\n`Order` will be set to this state automatically).\n\n### Table 5 - Order State\n\nColor-codes for the `State`:\n<span class=\"info\">New Order</span>, <span class=\"warning\">Temporary States</span>,\n<span class=\"success\"> Final States</span>.\n\n<table class=\"table\">\n  <thead>\n    <tr>\n        <th>State</th>\n        <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n      <tr class=\"info\">\n          <td>0</td>\n          <td>\n              New `Order`. Payment validation is pending. We are doing verifications to check the customer identity.\n              The `Orders` in this `State` must not be shipped.\n          </td>\n      </tr>\n      <tr class=\"warning\">\n          <td>10</td>\n          <td>\n              `Order` is pending. The customer have ordered but still have time to pay. Merchant has to wait for\n              payment, the `Orders` in this `State` must not be shipped.\n          </td>\n      </tr>\n      <tr class=\"warning\">\n          <td>1</td>\n          <td>\n              Payment is checked & validated. The merchant has to process (accept or cancel) the\n              `Orderlines`.\n          </td>\n      </tr>\n      <tr class=\"warning\">\n          <td>3</td>\n          <td>\n              `Order` shipping is pending. The payment and the `Order` (all `Orderlines`) have been validated.\n              The merchant has to ship the package to the customer.\n          </td>\n      </tr>\n      <tr class=\"success\">\n          <td>8</td>\n          <td>\n              Order is not paid. Payment process has failed, the merchant must ignore this `Order`.\n          </td>\n      </tr>\n      <tr class=\"success\">\n          <td>9</td>\n          <td>\n              Order processed. The merchant has shipped the package.\n          </td>\n      </tr>\n  </tbody>\n</table>\n\n### Table 6 - States for Orderlines\n\nColor-codes for the `Orderlines`:\n<span class=\"info\">New Order</span>, <span class=\"warning\">Temporary States</span>, <span class=\"success\">\nFinal States</span>.\n\n<table class=\"table\">\n  <thead>\n    <tr>\n        <th>State</th>\n        <th>Description</th>\n        <th>Possible next states</th>\n    </tr>\n  </thead>\n  <tbody>\n      <tr class=\"info\">\n          <td>0</td>\n          <td>\n              New `Orderline`. The merchant has to wait for payment confirmation.\n          </td>\n          <td>Not possible</td>\n      </tr>\n      <tr class=\"warning\">\n          <td>9</td>\n          <td>\n              `Orderline` is on hold. It needs to be validated by one of our partners before being accepted by the\n              merchant.\n          </td>\n          <td>Not possible</td>\n      </tr>\n      <tr class=\"warning\">\n          <td>8</td>\n          <td>\n              `Orderline` is pending. The customer have ordered but still have time to pay. Merchant has to wait for\n              payment.\n          </td>\n          <td>Not possible</td>\n      </tr>\n      <tr class=\"warning\">\n          <td>1</td>\n          <td>\n              `Orderline` is paid. The merchant has received the payment and must validate or cancel the `Orderline`.\n          </td>\n          <td>State 2 or 4</td>\n      </tr>\n      <tr class=\"warning\">\n          <td>2</td>\n          <td>\n              `Orderline` is accepted by the merchant, who must now prepare the `Product` for shipment.\n          </td>\n          <td>State 3 or 5</td>\n      </tr>\n      <tr class=\"success\">\n          <td>3</td>\n          <td>\n              The merchant has deliver the `Orderline` to the shipping company. The package delivery is in progress.\n          </td>\n          <td>State 6</td>\n      </tr>\n      <tr class=\"success\">\n          <td>4</td>\n          <td>\n              `Orderline` is cancelled. The customer will be refunded for the `Orderline`.\n          </td>\n          <td>Not possible</td>\n      </tr>\n      <tr class=\"success\">\n          <td>5</td>\n          <td>\n              Orderline is refunded before shipping.\n          </td>\n          <td>Not possible</td>\n      </tr>\n      <tr class=\"success\">\n          <td>6</td>\n          <td>\n              Orderline is refunded after shipping. The customer made a refund request.\n          </td>\n          <td>Not possible</td>\n      </tr>\n      <tr class=\"success\">\n          <td>7</td>\n          <td>\n              Orderline is not paid. The payment has been refused by the bank.\n          </td>\n          <td>Not possible</td>\n      </tr>\n  </tbody>\n</table>\n\n### Table 7 - Order model\n\n<table class=\"table\">\n  <thead>\n    <tr>\n        <th>Field name</th>\n        <th>Type/Size</th>\n        <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n      <tr>\n          <td>order_id</td>\n          <td>Int</td>\n          <td>Unique id of the `Order`. Used to update `Orderline(s)` of an `Order` .</td>\n      </tr>\n      <tr>\n          <td>merchant_id</td>\n          <td>Int</td>\n          <td>Unique id of the merchant.</td>\n      </tr>\n      <tr>\n          <td>shipping_address</td>\n          <td>Address</td>\n          <td>Shipping address: please refer to the Table 8 for address description.</td>\n      </tr>\n      <tr>\n          <td>billing_address</td>\n          <td>Address</td>\n          <td>Billing address: please refer to the Table 8 for address description.</td>\n      </tr>\n      <tr>\n          <td>price</td>\n          <td>Decimal</td>\n          <td>`Order` total  price (including taxes) without the shipping price.</td>\n      </tr>\n      <tr>\n          <td>shipping_price</td>\n          <td>Decimal</td>\n          <td>Shipping total price (including taxes).</td>\n      </tr>\n      <tr>\n          <td>currency</td>\n          <td>String/3</td>\n          <td>Used currency.</td>\n      </tr>\n      <tr>\n          <td>shipper</td>\n          <td>String/200</td>\n          <td>Designated shipping company.</td>\n      </tr>\n      <tr>\n          <td>tracking_number</td>\n          <td>String/200</td>\n          <td>Tracking number of the package.</td>\n      </tr>\n      <tr>\n          <td>tracking_url</td>\n          <td>String/300</td>\n          <td>Tracking Url of the package.</td>\n      </tr>\n      <tr>\n          <td>date_creation</td>\n          <td>Datetime</td>\n          <td>Date of the Order in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5) format</td>\n      </tr>\n      <tr>\n          <td>date_modification</td>\n          <td>Datetime</td>\n          <td>Date of the last modification in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5) format</td>\n      </tr>\n      <tr>\n          <td>date_payment</td>\n          <td>Datetime</td>\n          <td>Date of the payment in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5) format</td>\n      </tr>\n      <tr>\n          <td>date_shipping</td>\n          <td>Datetime</td>\n          <td>Date of the shipping in [RFC3339](https://www.rfc-editor.org/rfc/rfc3339#section-5) format</td>\n      </tr>\n      <tr>\n          <td>state</td>\n          <td>Enum (Int)</td>\n          <td>Refere to Table 5 for the Order states details.</td>\n      </tr>\n      <tr>\n          <td>orderlines</td>\n          <td>Array[OrderLine]</td>\n          <td>List of `Orderlines` indexed by SKU (stock keeping unit).</td>\n      </tr>\n      <tr>\n          <td>country_code</td>\n          <td>Enum (String)</td>\n          <td>\n              <div>Accepted-values:</div>\n              <div>fr-fr: France (default)</div>\n              <div>fr-be: Belgium</div>\n              <div>es-es: Spain</div>\n              <div>de-at: Austria</div>\n              <div>de-de: Germany</div>\n              <div>it-it: Italy</div>\n              <div>ja-jp: Japan</div>\n              <div>en-au: Australia</div>\n              <div>en-gb: United Kingdom</div>\n              <div>en-us: United States</div>\n              <div>nl-nl: Netherlands</div>\n              <div>pt-pt: Portugal</div>\n              <div>en-ie: Ireland</div>\n              <div>el-gr: Greece</div>\n              <div>sk-sk: Slovakia</div>\n              <div>sv-se: Sweden</div>\n          </td>\n      </tr>\n  </tbody>\n</table>\n\n### Table 8 - Address model\n\n<table class=\"table\">\n  <thead>\n    <tr>\n        <th>Field name</th>\n        <th>Type/Size</th>\n        <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n      <tr>\n          <td>company</td>\n          <td>String/254</td>\n          <td>Company name.</td>\n      </tr>\n      <tr>\n          <td>last_name</td>\n          <td>String/200</td>\n          <td>Last name.</td>\n      </tr>\n      <tr>\n          <td>last_name_pronunciation</td>\n          <td>String/200</td>\n          <td>Last name pronunciation. This field is only used to handle Kana names for Japan.</td>\n      </tr>\n      <tr>\n          <td>first name</td>\n          <td>String/200</td>\n          <td>First name.</td>\n      </tr>\n      <tr>\n          <td>first_name_pronunciation</td>\n          <td>String/200</td>\n          <td>First name pronunciation. This field is only used to handle Kana names for Japan.</td>\n      </tr>\n      <tr>\n          <td>street</td>\n          <td>String/254</td>\n          <td>Street number and designation.</td>\n      </tr>\n      <tr>\n          <td>street2</td>\n          <td>String/254</td>\n          <td>Floor, door code.</td>\n      </tr>\n      <tr>\n          <td>postal_code</td>\n          <td>String/10</td>\n          <td>Zip code.</td>\n      </tr>\n      <tr>\n          <td>city</td>\n          <td>String/200</td>\n          <td>City.</td>\n      </tr>\n      <tr>\n          <td>country</td>\n          <td>String/100</td>\n          <td>Country.</td>\n      </tr>\n      <tr>\n          <td>phone</td>\n          <td>String/14</td>\n          <td>Phone number.</td>\n      </tr>\n      <tr>\n          <td>email</td>\n          <td>String/200</td>\n          <td>Email address.</td>\n      </tr>\n  </tbody>\n</table>\n\n### Table 9 - OrderLine model\n\n<table class=\"table\">\n  <thead>\n    <tr>\n        <th>Field name</th>\n        <th>Type/Size</th>\n        <th>Description</th>\n    </tr>\n  </thead>\n  <tbody>\n      <tr>\n          <td>listing</td>\n          <td>Listing</td>\n          <td>`Listing` that matches the `Orderline`.</td>\n      </tr>\n      <tr>\n          <td>quantity</td>\n          <td>Int</td>\n          <td>Quantity of products ordered</td>\n      </tr>\n      <tr>\n          <td>price</td>\n          <td>Decimal</td>\n          <td>Unitary price (including taxes) of the `Listing` without shipping costs.</td>\n      </tr>\n      <tr>\n          <td>shipping_price</td>\n          <td>Decimal</td>\n          <td>Unitary price of the shipping (including taxes).</td>\n      </tr>\n      <tr>\n          <td>currency</td>\n          <td>String/3</td>\n          <td>Used currency.</td>\n      </tr>\n      <tr>\n          <td>state</td>\n          <td>Enum (Int)</td>\n          <td>Refere to Table 6 for Orderlines states description.</td>\n      </tr>\n      <tr>\n          <td>return_reason</td>\n          <td>Enum (Int)</td>\n          <td>\n              <div>0: Stock mistake.</div>\n              <div>1: Withdrawal during the legal 14 day period.</div>\n              <div>11: Does not live at provided address.</div>\n              <div>12: The parcel did not reach its destination.</div>\n              <div>13: Lost parcel.</div>\n              <div>21: Faulty product on opening of the package.</div>\n              <div>22: Failure during first use.</div>\n              <div>23: Failure during warranty period.</div>\n              <div>24: Non-compliant product.</div>\n              <div>25: Other.</div>\n          </td>\n      </tr>\n      <tr>\n          <td>return_message</td>\n          <td>String/500</td>\n          <td>Message sent to the customer for a cancellation or a refund.</td>\n      </tr>\n      <tr>\n        <td>backcare</td>\n        <td>Bool</td>\n        <td>True if this orderline is covered by the Backcare service</td>\n      </tr>\n      <tr>\n        <td>backcare_price</td>\n        <td>Int</td>\n        <td>The backcare price in cents.</td>\n  </tbody>\n</table>\n"
+      x-tier: 2
+      operationId: get-ws-list-order
+      tags:
+      - Orders
+      security:
+      - BasicAuth: []
+      parameters:
+      - name: date_creation
+        in: query
+        description: Filter to get orders by their date of creation in RFC3339 format
+        schema:
+          type: string
+          format: date-time
+        example: '2014-06-24T12:55:57Z'
+        required: false
+      - name: date_modification
+        in: query
+        description: Filter to get orders by their date of last modification in RFC3339 format
+        schema:
+          type: string
+          format: date-time
+        example: '2014-06-24T12:55:57Z'
+        required: false
+      - name: country_code
+        in: query
+        description: Filter on the order country of origin
+        schema:
+          $ref: '#/components/schemas/CountryCode'
+        example: fr-fr
+        required: false
+      - name: state
+        in: query
+        description: Filter on the order state. See OrderState object for more details.
+        schema:
+          $ref: '#/components/schemas/OrderState'
+        example: 1
+        required: false
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: Return the orders matching the filter in the query parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 25
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    example: https://www.backmarket.fr/bm/merchants/users?page=3
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    example: https://www.backmarket.fr/bm/merchants/users?page=1
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Webservices unavailable
+  /ws/orders/{order_id}:
+    get:
+      summary: Get a specific order
+      x-tier: 2
+      operationId: get-ws-specific-order
+      tags:
+      - Orders
+      security:
+      - BasicAuth: []
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        required: true
+        description: The order identifier
+        example: 1
+      responses:
+        '200':
+          description: Return the order with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Webservices unavailable
+    post:
+      summary: 'Update a specific order
+
+        '
+      description: 'During shipping all orderlines are gathered in the same package. It is not necessary to specify the SKU when
+
+        updating an order to state 3; indeed, every orderline of this order will be set to this state automatically.
+
+
+        Merchants recover an order on state 1.
+
+        '
+      x-tier: 2
+      operationId: update-ws-specific-order
+      tags:
+      - Orders
+      security:
+      - BasicAuth: []
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        required: true
+        description: The order identifier
+        example: 1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrder'
+      responses:
+        '200':
+          description: Return the order with the specified id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: The listing doesn't exist
+  /ws/orders/{order_id}/invoice:
+    post:
+      summary: 'Update customer invoice for order
+
+        '
+      x-tier: 2
+      operationId: post-ws-specific-order-invoice
+      tags:
+      - Orders
+      security:
+      - BasicAuth: []
+      parameters:
+      - in: path
+        name: order_id
+        schema:
+          type: integer
+        required: true
+        description: The order identifier
+        example: 1
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                invoice:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+      responses:
+        '200':
+          description: The invoice has been updated
+        '400':
+          description: Bad request
+        '403':
+          description: Forbidden
+        '404':
+          description: Order doesn't exist
+components:
+  parameters:
+    Page:
+      description: The page number for pagination
+      example: 2
+      in: query
+      name: page
+      required: false
+      schema:
+        default: 1
+        type: integer
+    PageSize:
+      description: The page size for pagination
+      example: 20
+      in: query
+      name: page-size
+      required: false
+      schema:
+        default: 10
+        type: integer
+        maximum: 50
+  schemas:
+    ReturnReason:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 11
+      - 12
+      - 13
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      description: 'Reason for the return.
+
+
+        | Value | Description                               |
+
+        |-------|-------------------------------------------|
+
+        | 0     | Stock mistake                             |
+
+        | 1     | Withdrawal during the legal 14 day period |
+
+        | 11    | Does not live at provided address         |
+
+        | 12    | The parcel did not reach its destination  |
+
+        | 13    | Lost parcel                               |
+
+        | 21    | Faulty product on opening of the package  |
+
+        | 22    | Failure during first use                  |
+
+        | 23    | Failure during warranty period            |
+
+        | 24    | Non-compliant product                     |
+
+        | 25    | Other                                     |
+
+        '
+      example: 0
+    UpdateOrder:
+      type: object
+      required:
+      - id
+      - new_state
+      properties:
+        order_id:
+          type: integer
+          description: Unique ID of the order. Specify the same order_id in the URL and in the body
+          example: 5978
+        new_state:
+          $ref: '#/components/schemas/OrderLineState'
+        sku:
+          description: Merchant unique identifier of the listing, enables to match an orderline
+          type: string
+          example: IPHONE416GONLIB0
+        imei:
+          description: 'Identifier of product.
+
+
+            Optional and processed if new_state is 3.
+
+            Applicable to any product category.
+
+            Once registered, the value cannot be corrected.
+
+            Only if the order has only one orderline with a quantity of 1.
+
+            The value needs to be a valid IMEI. Once registered, the value cannot be corrected.
+
+            '
+          type: string
+          maxLength: 15
+          example: 01141500934XXXX
+        serial_number:
+          description: 'Identifier of product.
+
+
+            Optional and processed if new_state is 3.
+
+            Applicable to any product category.
+
+            Only if the order has only one orderline with a quantity of 1.
+
+            Once registered, the value cannot be corrected.
+
+            '
+          type: string
+          maxLength: 50
+          example: ''
+        tracking_number:
+          type: string
+          maxLength: 200
+          example: my_tracking_number
+          description: 'Tracking number of the package.
+
+
+            Required if new_state is 3.
+
+            '
+        tracking_url:
+          type: string
+          maxLength: 300
+          format: url
+          example: http://www.colissimo.fr/my_tracking_url
+          description: 'Tracking Url of the package.
+
+
+            Optional and processed if new_state is 3.
+
+            '
+        vat_type:
+          $ref: '#/components/schemas/VatType'
+        date_shipping:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24Z'
+          description: 'Date of shipping.
+
+
+            Optional and processed if new_state is 3.
+
+            '
+        shipper:
+          type: string
+          maxLength: 200
+          description: 'Shipper designated.
+
+
+            Shipper can be replaced if new_state is 3.
+
+            '
+        return_reason:
+          $ref: '#/components/schemas/ReturnReason'
+        return_message:
+          maxLength: 500
+          description: 'Message sent to the customer for a cancellation or a refund.
+
+
+            Optional and processed if new_state is 6.
+
+            '
+          type: string
+          example: We're sorry an error occurred with the order. You'll be reimbursed soon.
+    OrderLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The orderline unique ID
+          example: 37195
+        date_creation:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24.123456Z'
+          description: Date of creation of the orderline
+        state:
+          $ref: '#/components/schemas/OrderLineState'
+        price:
+          description: Price (including taxes) of the listing associated & warranty without the shipping price
+          type: string
+          example: '229.0'
+        shipping_price:
+          description: Unitary shipping price (including taxes)
+          type: string
+          example: '0.00'
+        shipping_delay:
+          description: Shipping time
+          type: integer
+          example: 48
+        currency:
+          type: string
+          description: Currency used
+          example: EUR
+        return_reason:
+          $ref: '#/components/schemas/ReturnReason'
+        return_message:
+          description: Message sent to the customer for a cancellation or a refund
+          type: string
+          example: ''
+        listing:
+          description: SKU of the listing
+          type: string
+          example: IPHONE416GONLIB0
+        listing_id:
+          description: ID of the listing
+          type: integer
+          example: 142
+        orderline_fee:
+          description: BackMarket commission fee amount
+          type: string
+          example: '22.9'
+        product:
+          description: Title of the product
+          type: string
+          example: Apple Iphone 4 16 Go - Noir - D\u00e9bloqu\u00e9
+        quantity:
+          type: integer
+          description: Quantity of products ordered
+          example: 2
+        brand:
+          description: The brand of the product
+          type: string
+          example: apple
+        product_id:
+          description: The product ID
+          type: integer
+          example: 141
+        backcare:
+          description: True if this orderline is covered by the Backcare service
+          type: boolean
+          example: true
+        backcare_price:
+          type: integer
+          description: The backcare price in cents
+          example: 500
+        sales_taxes:
+          description: Sales taxes (country/state dependent)
+          type: string
+          example: '25.8'
+        imei:
+          description: Unique product identifier
+          type: string
+          example: 011415009346880
+        serial_number:
+          description: Unique product identifier
+          type: string
+          example: ''
+        condition:
+          $ref: '#/components/schemas/ProductCondition'
+    ProductCondition:
+      type: integer
+      enum:
+      - 9
+      - 10
+      - 11
+      - 12
+      description: 'Condition of the product.
+
+
+        | Value | Description         |
+
+        |-------|---------------------|
+
+        | 9     | Premium condition   |
+
+        | 1O    | Excellent condition |
+
+        | 11    | Good condition      |
+
+        | 12    | Fair condition      |
+
+        '
+      example: 10
+    CountryCode:
+      type: string
+      enum:
+      - fr-fr
+      - fr-be
+      - es-es
+      - de-de
+      - de-at
+      - it-it
+      - ja-jp
+      - en-au
+      - en-gb
+      - en-us
+      - nl-nl
+      - pt-pt
+      - en-ie
+      - el-gr
+      - sk-sk
+      - sv-se
+      example: fr-fr
+    OrderLineState:
+      type: integer
+      enum:
+      - 0
+      - 9
+      - 8
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      description: 'Orderline state.
+
+
+        | State | Description                                                                                                  | Possible next states |
+
+        |-------|--------------------------------------------------------------------------------------------------------------|----------------------|
+
+        | 0     | New orderline. The merchant has to wait for payment confirmation.                                            | Not possible         |
+
+        | 9     | Orderline is on hold. It needs to be validated by our partner before being accepted by the merchant.         | Not possible         |
+
+        | 8     | Orderline is pending. The customer has ordered but still have time to pay. Merchant has to wait for payment. | Not possible         |
+
+        | 1     | Orderline is paid. The merchant has received the payment and must validate or cancel the orderline.          | 2 or 4               |
+
+        | 2     | Orderline is accepted by the merchant, who must now prepare the product for shipment.                        | 3 or 5               |
+
+        | 3     | The merchant has delivered the orderline to the shipping company. The package delivery is in progress.       | 6                    |
+
+        | 4     | Orderline is cancelled. The customer will be refunded for the orderline.                                     | Not possible         |
+
+        | 5     | Orderline is refunded before shipping.                                                                       | Not possible         |
+
+        | 6     | Orderline is refunded after shipping. The customer made a refund request.                                    | Not possible         |
+
+        | 7     | Orderline is not paid. The payment has been refused by the bank.                                             | Not possible         |
+
+        '
+      example: 1
+    Order:
+      type: object
+      properties:
+        order_id:
+          type: integer
+          description: The unique id of the order. Used to update orderlines of a given order
+          example: 5978
+        shipping_address:
+          $ref: '#/components/schemas/Address'
+        billing_address:
+          $ref: '#/components/schemas/Address'
+        delivery_note:
+          type: string
+          maxLength: 300
+          format: url
+          example: https://example.com/delivery_note/1519221434.69.pdf
+          description: Document to add in package which contains useful information for the customer, related to his order.
+        expected_dispatch_date:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24'
+          description: The shipment expected dispatch date (only applicable for orders not already SENT).
+        tracking_number:
+          type: string
+          maxLength: 200
+          example: my_tracking_number
+          description: Tracking number of the package
+        tracking_url:
+          type: string
+          maxLength: 300
+          format: url
+          example: http://www.colissimo.fr/my_tracking_url
+          description: Tracking Url of the package
+        shipper_display:
+          type: string
+          maxLength: 200
+          example: Colissimo
+          description: Name of the shipper
+        is_backship:
+          type: boolean
+          example: false
+          description: True if the shipper of the order is backship
+        date_creation:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24.123456Z'
+          description: Date of order
+        date_modification:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24Z'
+          description: Date of last modification
+        date_shipping:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24.123456Z'
+          description: Date of shipping
+        date_payment:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24.123Z'
+          description: Date of payment
+        state:
+          $ref: '#/components/schemas/OrderState'
+        orderlines:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderLine'
+          description: List of orderlines of the order. Indexed by SKU
+        price:
+          type: string
+          description: The total price of the order (including taxes) without the shipping price
+          example: '299.25'
+        shipping_price:
+          type: string
+          description: Total shipping price (including taxes)
+          example: '5.99'
+        currency:
+          type: string
+          maxLength: 3
+          description: Currency used for the order
+          example: EUR
+        country_code:
+          $ref: '#/components/schemas/CountryCode'
+        paypal_reference:
+          type:
+          - string
+          - 'null'
+          maxLength: 17
+          description: Paypal reference ID
+          example: null
+        installment_payment:
+          type: boolean
+          example: false
+          description: Whether the customer chose a payment in multiple increments
+        payment_method:
+          description: 'The customer payment method (Eg: CARD, PAYPAL)'
+          type: string
+          example: PAYPAL
+        sales_taxes:
+          description: Sales taxes (country/state dependent)
+          type: string
+          example: '25.8'
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: FR
+        city:
+          type: string
+          example: Paris
+        postalCode:
+          type: string
+          example: '75003'
+        firstName:
+          type: string
+          example: Victor
+        lastName:
+          type: string
+          example: Hugo
+        company:
+          type: string
+          example: backmarket
+        phoneNumber:
+          type: string
+          description: E.164 formatted phone number.
+          example: '+33639981234'
+        state:
+          type: string
+          example: California
+        street:
+          type: string
+          example: 3, Imaginary Street
+        street2:
+          type: string
+          example: Apartement X
+    OrderState:
+      type: integer
+      enum:
+      - 0
+      - 10
+      - 1
+      - 3
+      - 8
+      - 9
+      description: 'Order state.
+
+
+        | State | Description                                                                                                                                                   |
+
+        |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+        | 0     | New order. Payment validation is pending. We are doing verifications to check the customer identity. The orders in this state must not be shipped.            |
+
+        | 10    | Order is pending. The customer has ordered but still has time to pay. The merchant has to wait for payment, and the orders in this state must not be shipped. |
+
+        | 1     | Payment is checked and validated. The merchant has to process (accept or cancel) the orderlines.                                                              |
+
+        | 3     | Order shipping is pending. The payment and the order (i.e. all orderlines) have been validated. The merchant has to ship the package to the customer.         |
+
+        | 8     | Order is not paid. Payment process has failed, and the merchant must ignore this order.                                                                       |
+
+        | 9     | Order processed. The merchant has shipped the package.                                                                                                        |
+
+        '
+      example: 1
+    VatType:
+      type: string
+      enum:
+      - REGULAR
+      - MARGINAL
+      example: MARGINAL
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: Authorization
+      type: apiKey
+      description: 'Token authentication is done with Basic authentication.
+
+        Prefix the value with \"Basic\" and use the token you created in the backoffice in the Integrations option page.'
+    BasicAuth:
+      type: http
+      scheme: basic

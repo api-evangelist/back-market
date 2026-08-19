@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Backbox API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Backbox",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return backbox data per listing list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/listings_bi",
+            "params": [
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query",
+                "description": "The page number for pagination"
+              },
+              {
+                "name": "page-size",
+                "value": "20",
+                "type": "query",
+                "description": "The page size for pagination"
+              }
+            ]
+          },
+          "docs": "\nGet the Backbox data related to your competitors, i.e. your online listings competing in a Backbox. You can call this endpoint twice every hour for each country.\n\nBackbox (previously named Buybox) is the listing displayed at a given time on the website when it has the best ratio quality score per price.\n\nThis endpoint is being deprecated in favor of the /ws/backbox/v1/competitors endpoint.\n"
+        },
+        {
+          "info": {
+            "name": "Get competitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/backbox/v1/competitors/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "7e1f4a8d-b1bb-47aa-9f77-2cca759eb41b",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the Backbox data related to your competitors, i.e. your online listings competing in a Backbox.\n\nYou can call this endpoint twice per second per API token.\n\n[Here is an example](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing) of how you can use the Listings and the BackBox APIs together, in order to adjust your listings' prices in case there are some good opportunities. This can allow you to win more BackBoxes automatically with small prices reductions."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

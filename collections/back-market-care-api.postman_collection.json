@@ -1,0 +1,2234 @@
+{
+  "item": [
+    {
+      "id": "524376da-a830-484e-92aa-c88451708d46",
+      "name": "Care",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3090e689-5288-4f23-9747-b39b28bab28b",
+          "name": "Get a list of Care Folders attached to a Seller",
+          "request": {
+            "name": "Get a list of Care Folders attached to a Seller",
+            "description": {
+              "content": "## Rate Limiting\n\nThis endpoint is rate limited to 520 requests per minute and 4000 per day.\nIf you exceed this limit, you will receive a `429` status code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sav"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "last_id",
+                  "value": "<integer>",
+                  "description": "Retrieve Care Folders with an ID higher than `last_id`"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<integer>",
+                  "description": "Retrieve Care Folders with state equal to `state`.\n  * 0 - OPEN\n  * 9 - CLOSED\n"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderline",
+                  "value": "<integer>",
+                  "description": "Retrieve Care Folders for a specific Orderline"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_modification_date",
+                  "value": "<string>",
+                  "description": "Retrieve Care Folders more recent than `last_modification_date`. Format is YYYY-MM-DD-hh-mm"
+                },
+                {
+                  "disabled": false,
+                  "key": "last_message_date",
+                  "value": "<string>",
+                  "description": "Retrieve Care Folders having messages more recent than `last_message_date`. Format is YYYY-MM-DD-hh-mm"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "<integer>",
+                  "description": "Page number to retrieve (10 entries per page)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1e213c0b-cc60-46b5-a3d9-e79e4713e48b",
+              "name": "Retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "state",
+                      "value": "9"
+                    },
+                    {
+                      "key": "orderline",
+                      "value": "456"
+                    },
+                    {
+                      "key": "last_modification_date",
+                      "value": "1970-01-01-00-00"
+                    },
+                    {
+                      "key": "last_message_date",
+                      "value": "1970-01-01-00-00"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 3,\n  \"next\": \"https://backmarket.fr/ws/sav/?page=2\",\n  \"previous\": \"null\",\n  \"results\": [\n    {\n      \"id\": 123,\n      \"client\": 456,\n      \"merchant\": 789,\n      \"orderline\": 321,\n      \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n      \"date_modification\": \"1970-01-01T00:00:00+00:00\",\n      \"date_last_message\": \"1970-01-01T00:00:00+00:00\",\n      \"date_closed\": \"1970-01-01T00:00:00+00:00\",\n      \"state\": 9,\n      \"lines\": [\n        731,\n        1252,\n        57189\n      ],\n      \"country_code\": \"fr-fr\",\n      \"backcare\": true\n    },\n    {\n      \"id\": 123,\n      \"client\": 456,\n      \"merchant\": 789,\n      \"orderline\": 321,\n      \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n      \"date_modification\": \"1970-01-01T00:00:00+00:00\",\n      \"date_last_message\": \"1970-01-01T00:00:00+00:00\",\n      \"date_closed\": \"1970-01-01T00:00:00+00:00\",\n      \"state\": 9,\n      \"lines\": [\n        731,\n        1252,\n        57189\n      ],\n      \"country_code\": \"fr-fr\",\n      \"backcare\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02e8d518-58cf-4715-92ec-a28169352c51",
+              "name": "Guest user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "state",
+                      "value": "9"
+                    },
+                    {
+                      "key": "orderline",
+                      "value": "456"
+                    },
+                    {
+                      "key": "last_modification_date",
+                      "value": "1970-01-01-00-00"
+                    },
+                    {
+                      "key": "last_message_date",
+                      "value": "1970-01-01-00-00"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "54af7b39-4fd6-4c75-a541-52f51db6a8a2",
+              "name": "Authenticated user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "last_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "state",
+                      "value": "9"
+                    },
+                    {
+                      "key": "orderline",
+                      "value": "456"
+                    },
+                    {
+                      "key": "last_modification_date",
+                      "value": "1970-01-01-00-00"
+                    },
+                    {
+                      "key": "last_message_date",
+                      "value": "1970-01-01-00-00"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cbb3424e-4b03-45e6-aedc-370a0ef26aa1",
+          "name": "Get the details of a Care Folder",
+          "request": {
+            "name": "Get the details of a Care Folder",
+            "description": {
+              "content": "## Rate limiting\n\nThis endpoint is rate limited to 600 requests per minute and 40000 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sav",
+                ":careFolderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "careFolderId",
+                  "description": "(Required) ID of the Care Folder to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "acff8104-db9c-45be-a63d-1a9fac33164c",
+              "name": "Retrieved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"backcare\": true,\n  \"client\": {\n    \"id\": 0,\n    \"username\": \"\",\n    \"first_name\": \"John\",\n    \"last_name\": \"Doe\",\n    \"email\": \"john.doe@mymail.com\"\n  },\n  \"country_code\": \"fr-fr\",\n  \"date_closed\": \"1970-01-01T00:00:00+00:00\",\n  \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n  \"date_last_message\": \"1970-01-01T00:00:00+00:00\",\n  \"date_modification\": \"1970-01-01T00:00:00+00:00\",\n  \"id\": 123,\n  \"lines\": [\n    {\n      \"id\": 123,\n      \"tiles\": [\n        {\n          \"id\": 123,\n          \"name\": \"Technical\"\n        },\n        {\n          \"id\": 123,\n          \"name\": \"Technical\"\n        }\n      ],\n      \"issues\": [\n        {\n          \"customerIssue\": \"BATTERY_NOT_CHARGING\",\n          \"tag\": \"TECHNICAL\"\n        },\n        {\n          \"customerIssue\": \"BATTERY_NOT_CHARGING\",\n          \"tag\": \"TECHNICAL\"\n        }\n      ],\n      \"rate\": 1,\n      \"score\": 1,\n      \"state\": 1,\n      \"withdraw\": false,\n      \"gras_savoye\": false,\n      \"resolution_choice\": \"REPLACE\",\n      \"declared_warranty_state\": \"IN_WARRANTY\",\n      \"return_labels\": [\n        {\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n          \"state\": \"ALIVE\",\n          \"label\": \"https://www.mycdn.com/path/to/label.document\",\n          \"initiator\": \"Merchant\",\n          \"kind\": \"MERCHANT_TO_CUSTOMER\"\n        },\n        {\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n          \"state\": \"ALIVE\",\n          \"label\": \"https://www.mycdn.com/path/to/label.document\",\n          \"initiator\": \"Merchant\",\n          \"kind\": \"MERCHANT_TO_CUSTOMER\"\n        }\n      ]\n    },\n    {\n      \"id\": 123,\n      \"tiles\": [\n        {\n          \"id\": 123,\n          \"name\": \"Technical\"\n        },\n        {\n          \"id\": 123,\n          \"name\": \"Technical\"\n        }\n      ],\n      \"issues\": [\n        {\n          \"customerIssue\": \"BATTERY_NOT_CHARGING\",\n          \"tag\": \"TECHNICAL\"\n        },\n        {\n          \"customerIssue\": \"BATTERY_NOT_CHARGING\",\n          \"tag\": \"TECHNICAL\"\n        }\n      ],\n      \"rate\": 1,\n      \"score\": 1,\n      \"state\": 1,\n      \"withdraw\": false,\n      \"gras_savoye\": false,\n      \"resolution_choice\": \"REPLACE\",\n      \"declared_warranty_state\": \"IN_WARRANTY\",\n      \"return_labels\": [\n        {\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n          \"state\": \"ALIVE\",\n          \"label\": \"https://www.mycdn.com/path/to/label.document\",\n          \"initiator\": \"Merchant\",\n          \"kind\": \"MERCHANT_TO_CUSTOMER\"\n        },\n        {\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n          \"state\": \"ALIVE\",\n          \"label\": \"https://www.mycdn.com/path/to/label.document\",\n          \"initiator\": \"Merchant\",\n          \"kind\": \"MERCHANT_TO_CUSTOMER\"\n        }\n      ]\n    }\n  ],\n  \"merchant\": {\n    \"id\": 123,\n    \"username\": \"rose.bush@companymail.com\",\n    \"first_name\": \"Rose\",\n    \"last_name\": \"Bush\"\n  },\n  \"messages\": [\n    {\n      \"id\": 123,\n      \"message\": \"Lorem ipsum dolor sit amet\",\n      \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n      \"attachments\": [\n        {\n          \"id\": 123,\n          \"attachment\": \"https://www.mycdn.com/path/to/the/attachment.file\",\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\"\n        },\n        {\n          \"id\": 123,\n          \"attachment\": \"https://www.mycdn.com/path/to/the/attachment.file\",\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\"\n        }\n      ],\n      \"initiator\": \"Merchant\",\n      \"kind\": \"MERCHANT_TO_ALL\",\n      \"is_informative\": false\n    },\n    {\n      \"id\": 123,\n      \"message\": \"Lorem ipsum dolor sit amet\",\n      \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n      \"attachments\": [\n        {\n          \"id\": 123,\n          \"attachment\": \"https://www.mycdn.com/path/to/the/attachment.file\",\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\"\n        },\n        {\n          \"id\": 123,\n          \"attachment\": \"https://www.mycdn.com/path/to/the/attachment.file\",\n          \"date_creation\": \"1970-01-01T00:00:00+00:00\"\n        }\n      ],\n      \"initiator\": \"Merchant\",\n      \"kind\": \"MERCHANT_TO_ALL\",\n      \"is_informative\": false\n    }\n  ],\n  \"orderline\": {\n    \"id\": 123,\n    \"order\": {\n      \"order_id\": 123,\n      \"shipping_address\": {\n        \"company\": \"My Company\",\n        \"first_name\": \"John\",\n        \"last_name\": \"Smith\",\n        \"street\": \"1 rue du Paradis\",\n        \"street2\": \" \",\n        \"postal_code\": \"33000\",\n        \"country\": \"FR\",\n        \"city\": \"Bordeaux\",\n        \"phone\": \"string\",\n        \"email\": \"john.smith@mycompany.com\",\n        \"customer_id_number\": \"123\"\n      },\n      \"billing_address\": {\n        \"company\": \"My Company\",\n        \"first_name\": \"John\",\n        \"last_name\": \"Smith\",\n        \"street\": \"1 rue du Paradis\",\n        \"street2\": \" \",\n        \"postal_code\": \"33000\",\n        \"country\": \"FR\",\n        \"city\": \"Bordeaux\",\n        \"phone\": \"string\",\n        \"email\": \"john.smith@mycompany.com\",\n        \"customer_id_number\": \"123\"\n      },\n      \"tracking_number\": \"ABC123\",\n      \"tracking_url\": \"https://www.mycarrier.com/delivery/track\",\n      \"shipper\": 456,\n      \"shipper_display\": \"Shipper\",\n      \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n      \"date_modification\": \"1970-01-01T00:00:00+00:00\",\n      \"date_shipping\": \"1970-01-01T00:00:00+00:00\",\n      \"date_payment\": \"1970-01-01T00:00:00+00:00\",\n      \"state\": 1,\n      \"price\": \"89.99\",\n      \"shipping_price\": \"5.99\",\n      \"currency\": \"EUR\",\n      \"country_code\": \"fr-fr\"\n    },\n    \"snapshot\": {\n      \"id\": 0,\n      \"product\": {\n        \"product_id\": 123,\n        \"category_3\": {\n          \"category_name\": \"Smartphones\",\n          \"parent\": {\n            \"value\": \"<Circular reference to #/components/schemas/category_3 detected>\"\n          }\n        }\n      },\n      \"listing\": 456,\n      \"sku\": \"string\",\n      \"snowden\": false,\n      \"image\": \"https://www.mycdn.com/path/to/the/image.file\"\n    },\n    \"quantity\": 2,\n    \"price\": \"89.99\",\n    \"state\": 2,\n    \"trust_pack_plus\": false\n  },\n  \"state\": 9\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d51cc43-d957-4023-a850-bd208a28014c",
+              "name": "Guest user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0a7a43cf-b8d9-42e8-9d16-43999accf3de",
+              "name": "Authenticated user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1ee5f8e3-ff5f-4e77-a261-a6838f00ec51",
+              "name": "Care Folder does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3f737ef-4b1e-4652-ac43-353403c16bad",
+          "name": "Declare a problem on a Care Folder",
+          "request": {
+            "name": "Declare a problem on a Care Folder",
+            "description": {
+              "content": "Declare a problem on a Care Folder.\n\nThe `problem_type` field specifies the type of problem. If omitted, it defaults to `OTHER`.\n\nAttachments are **mandatory** for the following problem types: `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, `OOW_ITEM`.\n\nFor Care Folders with ID below 100,000,000, only `OTHER` is accepted and no message or attachments can be provided.\n\n## Rate limiting\n\nThis endpoint is rate limited to 750 requests per minute and 1000 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sav",
+                ":careFolderId",
+                "problem"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "careFolderId",
+                  "description": "(Required) ID of the Care Folder on which the problem is declared"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "problem_type",
+                  "value": "OTHER",
+                  "type": "text",
+                  "description": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)"
+                },
+                {
+                  "key": "message",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Optional message to include with the problem declaration."
+                },
+                {
+                  "key": "attachment",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": "The local file(s) to be uploaded with the problem declaration.\n\n**Mandatory** for problem types `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM`.\n\n**Limits:**\n- Maximum file size: 3 MB per file\n- Maximum number of files: 10 files\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2b631479-25aa-48c5-a1a8-db52f624acae",
+              "name": "Declared",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "problem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the problem is declared"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)",
+                        "type": "text/plain"
+                      },
+                      "key": "problem_type",
+                      "value": "OTHER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional message to include with the problem declaration.",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "The package arrived damaged",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7d4e175e-0515-4beb-9afa-6526e8017bc8",
+              "name": "Guest user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "problem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the problem is declared"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)",
+                        "type": "text/plain"
+                      },
+                      "key": "problem_type",
+                      "value": "OTHER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional message to include with the problem declaration.",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "The package arrived damaged",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b2eccc38-68fd-4822-90f6-b96e9221a5e1",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "problem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the problem is declared"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)",
+                        "type": "text/plain"
+                      },
+                      "key": "problem_type",
+                      "value": "OTHER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional message to include with the problem declaration.",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "The package arrived damaged",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "53377754-09aa-4eb5-bdf8-d03dabb768c8",
+              "name": "Care Folder does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "problem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the problem is declared"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)",
+                        "type": "text/plain"
+                      },
+                      "key": "problem_type",
+                      "value": "OTHER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional message to include with the problem declaration.",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "The package arrived damaged",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "69b05e50-44e9-4137-b225-c958402a8d0d",
+              "name": "File too large or too many attachments",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "problem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the problem is declared"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)",
+                        "type": "text/plain"
+                      },
+                      "key": "problem_type",
+                      "value": "OTHER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional message to include with the problem declaration.",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "The package arrived damaged",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Request Entity Too Large",
+              "code": 413,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "13ed7496-0deb-4195-9120-1e79e7f61fa6",
+              "name": "Attachments are mandatory for this problem type / Only OTHER problem type is allowed for IDs lower than 100,000,000 / Cannot declare problem on this Care Folder",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "problem"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the problem is declared"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "The type of problem to declare on the Care Folder.\n\nIf not provided, defaults to `OTHER`.\n\n**Attachment requirements:**\n- `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.\n- All other problem types have optional attachments.\n (This can only be one of ACCOUNT_LOCKED,CODE_LOCKED,DAMAGED_PACKAGE,ITEM_NOT_RECEIVED,MISSING_PART,OOW_ITEM,PROBLEM_NOT_IDENTIFIED,WRONG_ITEM,OTHER)",
+                        "type": "text/plain"
+                      },
+                      "key": "problem_type",
+                      "value": "OTHER",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Optional message to include with the problem declaration.",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "The package arrived damaged",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25fa294a-f850-4042-8ef0-cf55c439ae73",
+          "name": "Create a refund on an Orderline",
+          "request": {
+            "name": "Create a refund on an Orderline",
+            "description": {
+              "content": "## Rate limiting\n\nThis endpoint is rate limited to 500 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sav",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<number>\",\n  \"orderline_pk\": \"<integer>\",\n  \"refund_type\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0096d0e9-d516-4815-b508-613e46f1ddb8",
+              "name": "Refund Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 89.99,\n  \"orderline_pk\": 123,\n  \"refund_type\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "99€ refunded on the sku 123456",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "17446eef-ed73-4981-aa60-27ffba265edc",
+              "name": "Payload not acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 89.99,\n  \"orderline_pk\": 123,\n  \"refund_type\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7aee0d91-f01d-4ff7-8765-a6c1db0b99f8",
+              "name": "Guest user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 89.99,\n  \"orderline_pk\": 123,\n  \"refund_type\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "08be44e4-417e-4dba-8121-37cb12bf1214",
+              "name": "Authenticated user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 89.99,\n  \"orderline_pk\": 123,\n  \"refund_type\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e55e873e-2028-4489-94d9-8838d0f9e7d8",
+              "name": "Orderline does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 89.99,\n  \"orderline_pk\": 123,\n  \"refund_type\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28fc6235-a729-4569-b751-7a043a45c0eb",
+          "name": "Post a message on the After Sales Platform for a Care Folder",
+          "request": {
+            "name": "Post a message on the After Sales Platform for a Care Folder",
+            "description": {
+              "content": "Posting a message to a closed folder will reopen it.\n\n## Rate limiting\n\nThis endpoint is rate limited to 560 requests per minute and 40000 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sav",
+                ":careFolderId",
+                "msg"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "careFolderId",
+                  "description": "(Required) ID of the Care Folder to retrieve"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "message",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "(Required) Message content to be sent on the conversation"
+                },
+                {
+                  "key": "attachment",
+                  "value": "[\"<binary>\",\"<binary>\"]",
+                  "type": "text",
+                  "description": "The local file to be uploaded with the message.\n\n**Limits:**\n- Maximum file size: 3 MB per file\n- Maximum number of files: 10 files\n"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c9c3f56e-ba36-481c-8d70-8af2cf8eb785",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Message content to be sent on the conversation",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "Hi there",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"attachment\": {\n    \"msg\": 123,\n    \"group\": 456,\n    \"sender\": 789,\n    \"attachment\": \"/path/to/my/attachment.file\"\n  },\n  \"attachments\": [\n    {\n      \"msg\": 123,\n      \"group\": 456,\n      \"sender\": 789,\n      \"attachment\": \"/path/to/my/attachment.file\"\n    },\n    {\n      \"msg\": 123,\n      \"group\": 456,\n      \"sender\": 789,\n      \"attachment\": \"/path/to/my/attachment.file\"\n    }\n  ],\n  \"date_creation\": \"1970-01-01T00:00:00+00:00\",\n  \"group\": 456,\n  \"id\": 123,\n  \"message\": \"Hi, how can I help?\",\n  \"sender\": 789\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "61e01917-807b-49e0-b5a4-0dcce54b0019",
+              "name": "Payload not acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Message content to be sent on the conversation",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "Hi there",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "73336c52-f84c-42ed-901d-9917f8fef75a",
+              "name": "Guest user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Message content to be sent on the conversation",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "Hi there",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "186da83a-7e9a-4c5b-b3cb-d4282557d102",
+              "name": "Authenticated user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Message content to be sent on the conversation",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "Hi there",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a50d29e-f1a0-41c6-8d75-b3395d195260",
+              "name": "Care Folder does not exist",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "msg"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder to retrieve"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "(Required) Message content to be sent on the conversation",
+                        "type": "text/plain"
+                      },
+                      "key": "message",
+                      "value": "Hi there",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fac9af69-166f-48e1-8bed-93e2a3cdcd7d",
+          "name": "Declare an item transfer back to customer",
+          "request": {
+            "name": "Declare an item transfer back to customer",
+            "description": {
+              "content": "## Rate limiting\n\nThis endpoint is rate limited to 292 requests per minute and 500 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "sav",
+                ":careFolderId",
+                "item-transfer"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "careFolderId",
+                  "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shipperName\": \"<string>\",\n  \"trackingNumber\": \"<string>\",\n  \"action\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "911b756d-235b-4998-95c1-b7617c0c920b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "item-transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipperName\": \"DHL\",\n  \"trackingNumber\": \"123AZ0672\",\n  \"action\": \"REPAIR\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3a188163-a6e6-4611-b4bd-7ba0c257c36a",
+              "name": "An item transfer with this tracking number already exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "item-transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipperName\": \"DHL\",\n  \"trackingNumber\": \"123AZ0672\",\n  \"action\": \"REPAIR\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "81545e48-fbfe-4ed3-8cf1-f73a2ac568fc",
+              "name": "Authenticated user not allowed",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "item-transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipperName\": \"DHL\",\n  \"trackingNumber\": \"123AZ0672\",\n  \"action\": \"REPAIR\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2501d1e-96fa-461b-8e1d-efc95e840880",
+              "name": "Care folder does not exit",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "item-transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipperName\": \"DHL\",\n  \"trackingNumber\": \"123AZ0672\",\n  \"action\": \"REPAIR\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d6e6fa77-6426-4a78-9b8b-7834b7d3478b",
+              "name": "Cannot create item transfer / Care folders with ID above 100,000,000 are not yet supported on this endpoint due to an ongoing internal migration",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "item-transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipperName\": \"DHL\",\n  \"trackingNumber\": \"123AZ0672\",\n  \"action\": \"REPAIR\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8cbed370-d557-4efa-b5a1-373a1b174bdc",
+              "name": "Shipment registration failed or Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "sav",
+                    ":careFolderId",
+                    "item-transfer"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "careFolderId",
+                      "description": "(Required) ID of the Care Folder on which the item is transferred back to the customer"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"shipperName\": \"DHL\",\n  \"trackingNumber\": \"123AZ0672\",\n  \"action\": \"REPAIR\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://preprod.backmarket.co.jp",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "58c690e3-eb2f-4009-9069-62d36bfa694a",
+    "name": "Back Market - API Guidelines Care API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Table of contents\n\n1. [Introduction](#introduction)\n1. [Getting started](#getting-started)\n1. [Technical requirements](#technical-requirements)\n1. [F.A.Q. and Contact](#faq-and-contact)\n1. [Cookbooks](#cookbooks)\n\n## Introduction\n\nWelcome to Back Market, the leading online marketplace dedicated to refurbished products.\n\nOur back-office and our web-services have been created in order to allow Seller to manage their products\neasily on our marketplace. This documentation is meant to help you integrate our marketplace and learn how to manage\nyour `Products`, `Offers` and `Orders` on Back Market.\n\n### Overview of what this documentation is talking about\n\n* Our Taxonomy : This part will describe the organization and classification of our marketplace\n* Products & Offers : You will learn how to create `Products` as well as create, update and list `Offers` on Back Market\n* Your Orders : The `Orders` workflow, listing and update will be explained\n\nDifferent solutions are offered in order to use our marketplace. It's possible to work with a combination of\nthese solutions or to switch from one to another at a later stage.\n\n1 - Back Market API:\n\nThis is the best solution for big and/or small sellers with their own technical team. Working with our API will\nenable you to synchronize your information with our database in real time. It is especially suitable for sellers\nwith long-tail catalogs as well as a large amount of sales.\n\n2 - Back-office:\n\nOur <a target=\"_blank\" href=\"https://www.backmarket.fr/bo_merchant/\"> back-office</a> offers a graphic user\ninterface which allows you to manage everything simply and efficiently.\n\nOur back-office also gives you the possibility to import and export CSV files\nwith `Products`, `Offers` and `Orders` information.\nThis allows you to work with more `Offers` comfortably.\n\n3 - DEPRECATED FTP :\n\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n### Other information\n\nOn this website, we've collected all the information you might need to get on board as smoothly as possible.\nAlso, be sure to check our [F.A.Q.](#f-a-q-and-contact) to get answers to your questions.\n[Contact us](#f-a-q-and-contact) if you still have further questions.\n\n### Feedback\n\nAt Back Market, we always want to improve our solutions.\nPlease [Give Us Feedback](mailto:<partner-support@backmarket.com>?subject=Feedback Back Market Doc) and let us\n know about possible improvement we could make, be it on this documentation, our web services,\n our back-office or whatever you might think of.\nPlease note that this mail is temporary as we will deploy a new Seller support center\nthat will assist you.\n\n## Getting Started\n\nIf you did not yet read the page on [taxonomy](operations/get-bm-catalog-category#taxonomy), please do it before proceeding.\n\n### Account\n\nAfter validation by our team, each Seller gains access to an account. This account gives you access to the Back\nMarket Back Office and our API.\n\nUse one of the following links to access your Back Office account or create one if you haven't done so already.\nYou will need to provide information about your company and we will get back to you as soon as possible:\n\n* <a target=\"_blank\" href=\"https://www.backmarket.co.jp/bo-seller\">AP platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.fr/bo-seller\">EU platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.com/bo-seller\">US platform</a>\n\nFor creating or accessing an account on the preprod, you can use the following links:\n\n* <a target=\"_blank\" href=\"https://preprod.backmarket.co.jp/bo-seller\">AP preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.fr/bo-seller\">EU preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.com/bo-seller\">US preprod platform</a>\n\n### Country code\n\nBack Market is international so you can sell products abroad. The\ncountry code matches both the targeted language and country for the\naction you'd like to perform (ex: update the price for a listing in\nItaly).\nInformation about every countries are contained in the same instance\nof an object `Product` or a `Listing`.\n\nIndeed, you don't need to create one `Listing` for each country. This\n`Listing` will contain some fields which are the same for all the countries (_listing_id, quantity, ..._) and other\n country specific fields (_comment, price and warranty_delay_).\nTherefore, if you wish to edit the _**stock**_ (field :\n'quantity'), the change will apply to all the countries, but for the\n_**comment**_ you will have to change it for each country.\n\nIn the same way, some fields of the `Product` are common for all\ncountries (_weight, EAN, ..._), and others depend on the country\n(_description, title and price_new_).\n\n**COUNTRY_CODES** - Accepted values are :\n\n* AP platform:\n\n  * ja-jp     : Japan\n  * en-au     : Australia\n\n* EU platform:\n\n  * fr-fr     : France\n  * fr-be     : Belgium\n  * es-es     : Spain\n  * de-de     : Germany\n  * de-at     : Austria\n  * it-it     : Italy\n  * en-gb     : United Kingdom\n  * nl-nl     : Netherlands\n  * pt-pt     : Portugal\n  * en-ie     : Ireland\n  * el-gr     : Greece\n  * sk-sk     : Slovakia\n  * sv-se     : Sweden\n\n* US platform:\n\n  * en-us     : United States\n\n### CSV file format\n\nAll files imported through our Back Office or imported using Back Market's API must be in CSV format.\n\nRequired field separator is ';'.\n\nRequired line separator is the line feed '\\n'.\n\nFields must be surrounded by double quotes.\n## Technical Requirements\n\n### API Identification\n>\n> HTTP Header (will remain the same for every API call):\n\n```http\nContent-type: application/json\nAccept: application/json\nAccept-Language: COUNTRY_CODE\nAuthorization: Basic YOUR_ACCESS_TOKEN\nUser-Agent: YOUR_USER_AGENT\n```\n\nEach Integrator or Seller should use the following HTTP Header when calling Back Market API endpoints.\n\nThe User-Agent is mandatory. Any request without it might be refused by our System.\n\nIt should include your company name, application name, version, and a contact email address in this format:\n\n```http\nBM-{CompanyName}-{IntegrationName};company@companydomain.com.\n```\n\nFor example:\n\n```http\nBM-Ebay-Invoices;contact@ebay.com\nBM-bouygues-automations;contact@bouygues.fr\n```\n\n### Web application firewall (WAF) and Bot management\n\nThe WAF or bot management may block your requests for security reason. You'll typically receive an HTTP 403 Forbidden\nresponse, possibly with a response body to tell you to challenge your client with Cloudflare.\n\nIn case you judge that your request should not be blocked by Cloudflare, from the response headers, you can get the value of cf-ray and send it to your seller contact for investigation.\n\nExample HTTP 403 response from WAF:\n\n```http\nHTTP/2 403\ndate: Wed, 16 Apr 2025 11:26:41 GMT\ncontent-type: text/html; charset=UTF-8\nreferrer-policy: same-origin\ncache-control: max-age=15\nexpires: Wed, 16 Apr 2025 11:26:56 GMT\n...\nx-content-type-options: nosniff\nx-frame-options: SAMEORIGIN\nserver: cloudflare\ncf-ray: 931354450813d142-CDG\nalt-svc: h3=\":443\"; ma=86400\n```\n\nExample HTTP 403 response for Bot Management protected endpoints:\n\n```json\n{\n  \"errors\": [\n    {\n      \"code\": \"bot-need-challenge\",\n      \"message\": \"Forbidden\",\n      \"challengePath\": \"/testchallengepage\"\n    }\n  ]\n}\n```\n\n### Traffic limitation\n\nOur standard rate limits are will allow your automations to run fast enough to finish your processes.\nHowever, in case of too many requests beyond what we except on sellers endpoints, you will be presented with an HTTP 429 response from Cloudflare.\n\nUsually you will find the range above 200 requests in 10 seconds being blocked for 10 seconds and for more sensible\nendpoints like catalog for example above 20 requests in 10 seconds being blocked for 10 seconds.\n\n### Data limitation\n\nTo make sure we can handle and process all the incoming data correctly, we have set-up the following limitation:\n**We might not accept more than 2k lines of SKUs to process per hour** on the\n following endpoints ([Update Several listings](#update-several-listings) or\n  on [Update specific listing](#update-specific-listing)) and [Update Listings](#update-listings)) files.\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n**If this limit is reached, Back Market may refuse the task**, in this case you will receive HTTP responses\nwith the \"429 Too Many Requests\" status.\n\nIf you have lots of active SKUs, please take into account the [Best Practice](#best-practices)\npart of the documentation.\n\n### Questions ?\n\nIf you have any questions, please send an email to <partner-support@backmarket.com>\nPlease note that this mail is temporary as we will deploy a new seller support center\nthat will assist you.\n## F.A.Q. and Contact\n\nPlease [click here](https://merchant-support.backmarket.com/hc/en-us) to access your Seller Support Center\n where you can find our F.A.Q. or contact us.\n\nIf you have never signed in to the Seller Support Center, you can\n read this [tutorial](statics/How-to-connect-to-SSC.pdf) which helps you setup you connection for the first time.\n\nIf you have any more questions and are already selling on Back Market, we invite you to contact your account manager.\n## Cookbooks\n\nA list of notebooks showcasing different API use cases:\n\n[Winning the BackBox based on small price efforts](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing)\n\n\nContact Support:\n Name: Seller Support Center\n Email: NA@NA.com",
+      "type": "text/plain"
+    }
+  }
+}

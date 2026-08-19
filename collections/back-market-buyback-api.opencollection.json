@@ -1,0 +1,399 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Buy Back API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "BuyBack",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List of BuyBack orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders",
+            "params": [
+              {
+                "name": "status",
+                "value": "PAID",
+                "type": "query",
+                "description": "Buyback Order status"
+              },
+              {
+                "name": "productId",
+                "value": "123",
+                "type": "query",
+                "description": "BuyBack product ID"
+              },
+              {
+                "name": "creationDate",
+                "value": "2020-12-02",
+                "type": "query",
+                "description": "BuyBack order minimum creation date"
+              },
+              {
+                "name": "modificationDate",
+                "value": "2020-12-02",
+                "type": "query",
+                "description": "BuyBack order minimum modification date"
+              },
+              {
+                "name": "shippingDate",
+                "value": "2020-12-02",
+                "type": "query",
+                "description": "BuyBack order minimum shipping date"
+              },
+              {
+                "name": "receivedDate",
+                "value": "2020-12-02",
+                "type": "query",
+                "description": "BuyBack order minimum received date"
+              },
+              {
+                "name": "suspendedDate",
+                "value": "2020-12-02",
+                "type": "query",
+                "description": "BuyBack order minimum suspended date"
+              },
+              {
+                "name": "paymentDate",
+                "value": "2020-12-02",
+                "type": "query",
+                "description": "BuyBack order minimum payment date"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List of paginated buyback orders.\nCaller must be an authenticated merchant.\n"
+        },
+        {
+          "info": {
+            "name": "List of BuyBack orders pending reply",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/pending-reply",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              }
+            ]
+          },
+          "docs": "List of paginated BuyBack orders that are pending a reply from the refurbisher.\nCaller must be an authenticated refurbisher.\n"
+        },
+        {
+          "info": {
+            "name": "List of suspend reasons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/suspend-reasons",
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List of suspend reasons that could be used to put a BuyBack order in SUSPENDED state.\nCaller must be an authenticated merchant.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a BuyBack order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/:buybackOrderId",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a single BuyBack order.\nCaller must be an authenticated merchant.\n"
+        },
+        {
+          "info": {
+            "name": "List of a BuyBack order messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/:buybackOrderId/messages",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              }
+            ]
+          },
+          "docs": "List of paginated BuyBack order messages.\nCaller must be an authenticated refurbisher, owner of the provided buyback order.\n"
+        },
+        {
+          "info": {
+            "name": "Post a message on a BuyBack order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/:buybackOrderId/messages",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create BuyBack order messages.\nCaller must be an authenticated refurbisher, owner of the provided buyback order.\n"
+        },
+        {
+          "info": {
+            "name": "Suspend a BuyBack order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/:buybackOrderId/suspend",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Suspend a BuyBack order with the provided reasons.\nCaller must be an authenticated refurbisher, owner of the provided buyback order.\n"
+        },
+        {
+          "info": {
+            "name": "Validate BuyBack order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/:buybackOrderId/validate",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              }
+            ]
+          },
+          "docs": "Validate a BuyBack order by setting the state to VALIDATED. Caller must be an authenticated merchant, owner of the provided buyback order."
+        },
+        {
+          "info": {
+            "name": "Retrieve counter offer reasons",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/orders/:buybackOrderId/counter-offers/reasons",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              }
+            ]
+          },
+          "docs": "Get eligible reasons counter offer reasons for a given buyback order.\nCaller must be an authenticated refurbisher, owner of the provided buyback order.\n"
+        },
+        {
+          "info": {
+            "name": "Make a counteroffer",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v2/orders/:buybackOrderId/counter-offers",
+            "params": [
+              {
+                "name": "buybackOrderId",
+                "value": "US-24527-ABCDE",
+                "type": "path",
+                "description": "BuyBack order id"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            }
+          },
+          "docs": "Make a counter offer on an order.\nCaller must be an authenticated refurbisher, owner of the provided buyback order.\n"
+        },
+        {
+          "info": {
+            "name": "List of BuyBack listings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/listings",
+            "params": [
+              {
+                "name": "productId",
+                "value": "1f9be4c7-19e6-4ebb-a8e2-1995130339f7",
+                "type": "query",
+                "description": "Product ID"
+              },
+              {
+                "name": "cursor",
+                "value": "bfc3e105-7209-4da2-9c25-1dc392e8d68c",
+                "type": "query",
+                "description": "Cursor for the pagination"
+              },
+              {
+                "name": "pageSize",
+                "value": "6",
+                "type": "query",
+                "description": "Page size"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint returns a list of buyback listings based on a set of parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Retrieve a Buyback listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/listings/:buybackListingId",
+            "params": [
+              {
+                "name": "buybackListingId",
+                "value": "3b99e96d-9db7-480f-a32f-2e05edbff30c",
+                "type": "path",
+                "description": "BuyBack listing id"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint returns a single BuyBack listing based on its public id.\n"
+        },
+        {
+          "info": {
+            "name": "Update a Buyback listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/listings/:buybackListingId",
+            "params": [
+              {
+                "name": "buybackListingId",
+                "value": "3b99e96d-9db7-480f-a32f-2e05edbff30c",
+                "type": "path",
+                "description": "BuyBack listing id"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint updates a single BuyBack listing based on its public id. Only price updates are supported as of now.\nNote that, if you want to deactivate a buyback listing, you can simply update the listing price to zero (0) :\nIt will automatically turn the listing offline.\n"
+        },
+        {
+          "info": {
+            "name": "Get buyback competitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/buyback/v1/competitors/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "7e1f4a8d-b1bb-47aa-9f77-2cca759eb41b",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the buyback Backbox data related to your competitors, i.e. your online listings competing in a Backbox.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

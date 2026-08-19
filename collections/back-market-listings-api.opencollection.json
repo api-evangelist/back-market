@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Listings API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get listings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/listings",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "params": [
+              {
+                "name": "publication_state",
+                "value": "2",
+                "type": "query"
+              },
+              {
+                "name": "min_quantity",
+                "value": "0",
+                "type": "query"
+              },
+              {
+                "name": "max_quantity",
+                "value": "100",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query",
+                "description": "The page number for pagination"
+              },
+              {
+                "name": "page-size",
+                "value": "20",
+                "type": "query",
+                "description": "The page size for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nRetrieve all your `Listings`.\n"
+        },
+        {
+          "info": {
+            "name": "Create or update products and listings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/listings",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\n## Create listings\n\nEvery merchant working with us can create a sale offer or a\n\"`Listing`\" of a `Product` in order to sell it on our marketplace. Our algorithm decides which `Listing` will win \"The Backbox\" and therefore which `Listing` will be displayed on our website for the consumer to purchase.\n\nIn this section we will describe an endpoint that allows you either to create `Listings` matching existing `Products` or to create both `Products` and `Listings` for these products at the same time"
+        },
+        {
+          "info": {
+            "name": "Get specific listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/listings/:listingId",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "params": [
+              {
+                "name": "listingId",
+                "value": "da72cf47-1b1f-434a-9224-1f8684ac1bd4",
+                "type": "path",
+                "description": "Unique listing ID provided by Back Market. The UUID format is preferred."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nRetrieve a specific `Listing` to check its information.\n\n### Endpoint\n\nThe 2 following endpoints provide exactly the same response:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/LISTING_ID\n</aside>\n\nOr working with a filter on:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/detail/\n</aside>\n\nIf you don't have either the sku nor the listing_id, you can retrieve\n them by:\n\n**GET** `https://www.backmarket.fr/ws/listings/`\n"
+        },
+        {
+          "info": {
+            "name": "Update specific listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/listings/:listingId",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "params": [
+              {
+                "name": "listingId",
+                "value": "da72cf47-1b1f-434a-9224-1f8684ac1bd4",
+                "type": "path",
+                "description": "Unique listing ID provided by Back Market. The UUID format is preferred."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nIt is possible to update some fields of a specific `Listing`. For example _you might want to add another country to the `Listing`. You might also need to change the price, comment or the available stock (quantity)._\n\nTo put a `Listing` offline, just set its quantity to 0.\n\nThe endpoint below provides the most efficient way to update a specific `Listing`, as the update will be taken into account in real-time. Yet, you can only update one `Listing` at a time on this endpoint as opposed to the end"
+        },
+        {
+          "info": {
+            "name": "Get listing details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/listings/detail",
+            "headers": [
+              {
+                "name": "Accept-Language",
+                "value": "fr-fr"
+              }
+            ],
+            "params": [
+              {
+                "name": "sku",
+                "value": "THEMODEL_RED",
+                "type": "query",
+                "description": "A listing's SKU provided by the seller on listing creation."
+              },
+              {
+                "name": "listing_id",
+                "value": "123",
+                "type": "query",
+                "description": "Unique listing ID provided by Back Market. The UUID format is preferred, see 'id'."
+              },
+              {
+                "name": "id",
+                "value": "ceb5f83a-50d5-4d3b-85a4-a5da80abb64e",
+                "type": "query",
+                "description": "Unique listing ID provided by Back Market."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "\nRetrieve a specific `Listing` to check its information.\n\n### Endpoint\n\nThe 2 following endpoints provide exactly the same response:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/LISTING_ID\n</aside>\n\nOr working with a filter on:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/detail/\n</aside>\n\nIf you don't have either the sku nor the listing_id, you can retrieve\n them by:\n\n**GET** `https://www.backmarket.fr/ws/listings/`\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

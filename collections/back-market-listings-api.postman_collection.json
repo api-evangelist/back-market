@@ -1,0 +1,1934 @@
+{
+  "item": [
+    {
+      "id": "2a5937f8-dd69-4b34-afdd-8c4105d658a5",
+      "name": "Listings",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "221676a4-0c5f-4b39-9e75-53a9714065e7",
+          "name": "Get listings",
+          "request": {
+            "name": "Get listings",
+            "description": {
+              "content": "\nRetrieve all your `Listings`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "listings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "publication_state",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "min_quantity",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "max_quantity",
+                  "value": "<integer>"
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "The page number for pagination"
+                },
+                {
+                  "disabled": false,
+                  "key": "page-size",
+                  "value": "10",
+                  "description": "The page size for pagination"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "47f71f6b-af6e-47b1-bf27-ed2c6ea74ef0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "publication_state",
+                      "value": "2"
+                    },
+                    {
+                      "key": "min_quantity",
+                      "value": "0"
+                    },
+                    {
+                      "key": "max_quantity",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 123,\n  \"next\": \"https://www.backmarket.fr/ws/listings?page=2\",\n  \"previous\": null,\n  \"results\": [\n    {\n      \"id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n      \"listing_id\": 4567,\n      \"product_id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n      \"backmarket_id\": 42,\n      \"title\": \"iPhone 6S - 64Go - Blue - Unlocked\",\n      \"shippings\": [\n        {\n          \"shipping_price\": \"0.00\",\n          \"shipping_delay\": 24,\n          \"shipper\": \"UPS\",\n          \"shipper_display\": \"UPS\",\n          \"country_code\": \"it-it\"\n        },\n        {\n          \"shipping_price\": \"0.00\",\n          \"shipping_delay\": 24,\n          \"shipper\": \"UPS\",\n          \"shipper_display\": \"UPS\",\n          \"country_code\": \"it-it\"\n        }\n      ],\n      \"state\": 4,\n      \"grade\": \"EXCELLENT\",\n      \"quantity\": 12,\n      \"currency\": \"EUR\",\n      \"sku\": \"IPHONE_6S_64GO_BLUE_CORRECT\",\n      \"publication_state\": 2,\n      \"warranty_delay\": 24,\n      \"price\": \"160.99\",\n      \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n      \"min_price\": \"160.99\",\n      \"max_price\": \"199.90\",\n      \"new_battery\": true\n    },\n    {\n      \"id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n      \"listing_id\": 4567,\n      \"product_id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n      \"backmarket_id\": 42,\n      \"title\": \"iPhone 6S - 64Go - Blue - Unlocked\",\n      \"shippings\": [\n        {\n          \"shipping_price\": \"0.00\",\n          \"shipping_delay\": 24,\n          \"shipper\": \"UPS\",\n          \"shipper_display\": \"UPS\",\n          \"country_code\": \"it-it\"\n        },\n        {\n          \"shipping_price\": \"0.00\",\n          \"shipping_delay\": 24,\n          \"shipper\": \"UPS\",\n          \"shipper_display\": \"UPS\",\n          \"country_code\": \"it-it\"\n        }\n      ],\n      \"state\": 4,\n      \"grade\": \"EXCELLENT\",\n      \"quantity\": 12,\n      \"currency\": \"EUR\",\n      \"sku\": \"IPHONE_6S_64GO_BLUE_CORRECT\",\n      \"publication_state\": 2,\n      \"warranty_delay\": 24,\n      \"price\": \"160.99\",\n      \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n      \"min_price\": \"160.99\",\n      \"max_price\": \"199.90\",\n      \"new_battery\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "16b76243-c393-4c62-8669-219dfe904e38",
+              "name": "Unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "publication_state",
+                      "value": "2"
+                    },
+                    {
+                      "key": "min_quantity",
+                      "value": "0"
+                    },
+                    {
+                      "key": "max_quantity",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cedf501a-b4b8-4d98-a8ec-afec582e1eb8",
+              "name": "Forbidden. Authenticated user is not a merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "publication_state",
+                      "value": "2"
+                    },
+                    {
+                      "key": "min_quantity",
+                      "value": "0"
+                    },
+                    {
+                      "key": "max_quantity",
+                      "value": "100"
+                    },
+                    {
+                      "key": "page",
+                      "value": "2"
+                    },
+                    {
+                      "key": "page-size",
+                      "value": "20"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "328ad898-ebc9-4214-87f2-239e61ad2d8f",
+          "name": "Create or update products and listings",
+          "request": {
+            "name": "Create or update products and listings",
+            "description": {
+              "content": "\n## Create listings\n\nEvery merchant working with us can create a sale offer or a\n\"`Listing`\" of a `Product` in order to sell it on our marketplace. Our algorithm decides which `Listing` will win \"The Backbox\" and therefore which `Listing` will be displayed on our website for the consumer to purchase.\n\nIn this section we will describe an endpoint that allows you either to create `Listings` matching existing `Products` or to create both `Products` and `Listings` for these products at the same time.\nWe will also present how to create `Listings` matching existing `Products`. _Please refer to the section [Create products](#create-products) to know how to create both Products and Listings for these Products in the same API call._\n\nNote that we limit the size of the CSV file that you can send to 15000 lines.\n\nYou can find the list of columns for the `catalog` field in the Back Market back-office following the tab \"Options > Batch Listing Creation\".\n\nIn the `catalog` field, a unique (case insensitive) `sku` must be provided by the merchant to identify the `Listing`.\n\nBesides, either the `product_id` field or `ean` must be provided to match the `Product` you'd like to make an offer on. `product_id` prevails in case of conflict.\n\nYou can find the list of columns for the `catalog` field in the Back Market back-office following the tab \"Options > Batch Listing Creation\".\n\n## Update several listings\n\nIt is possible to update several `Listings` at a time using CSV\nfiles, which you can send with an API call. For example _you might want to add another country to the listings. You might also need to change their prices, comments or the available stocks (quantities)._\n\nTo put a `Listing` offline, just set its quantity to 0.\n\nThe endpoint below is not as efficient as the one described in \"update specific listing\", because the update will NOT be taken into account in real-time.\n\nIndeed, you will have to wait for the task to be processed and to check the task for possible errors. Yet, you will be able to update several `Listings` at a time using the endpoint below, as opposed to the one described in \"update specific listing\".\n\nWe advise you not to use this endpoint to deal with stocks. Nevertheless, it can be useful if you'd like to update prices for your whole catalog for instance.\n\nNote that we limit the size of the CSV file that you can send to 15000 lines.\n\nFor the `catalog` field, the `sku` must be provided to match the `Listing` you want to update (sku is case insensitive).\n\n## Create products\n\nIn this section, we'll guide you through the process of creating a `Product` on Back Market.\n\n### Overview\n\nIf you wish to sell a `Product` that is not currently available on Back Market, you can propose the creation of a new `Product`. This proposal will be reviewed and either approved or rejected by our team.\n\n**Important:** It is not possible to create a `Product` without a corresponding `Listing` using our API.\n\n### Creating Products and Listings\n\nThis section explains how to create both `Products` and their corresponding `Listings` in a single API call.\n\n- Each row in the CSV file you upload via the API can perform different actions based on the values provided.\n- You can also [create](#create-listings) and [update](#update-several-listings) `Listings` for existing `Products` within the same API call.\n\n### CSV File Requirements\n\n- The CSV file you submit must not exceed 15,000 lines.\n- You can generate a CSV file with all the required columns based on the product category in your back office by navigating to: **Options > Batch Listing Creation**.\n\nBy following these guidelines, you can efficiently manage your product listings on Back Market.\n\n## Update products\n\nAfter creation, since `Products` are multi-merchant, they cannot be directly updated after validation by our team.\nYou will have to contact us for all requests related to this matter.\n\nIn the case a `Product` hasn't been validated by our team yet, the merchant who created this `Product` can update it as long as it's not been validated. To do so, you need to perform the same actions you made during the [product creation](#create-products), but this time providing modified values.\n\nIf you try to update a `Product`, which is already existing (`EAN` or `Back Market id` match a `Product` in our Database) and has already been validated by our team, it won't return any error but the modification won't be taken into account. The product will still remain unchanged.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "listings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"catalog\": \"<string>\",\n  \"quotechar\": \"<string>\",\n  \"delimiter\": \"<string>\",\n  \"encoding\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5ad0e4a6-d615-4965-8fda-29bd455b1ccf",
+              "name": "OK. Task has been created and will be processed.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog\": \"sku,quantity,price\\nMY_SKU,50,123.45\",\n  \"quotechar\": \"\\\"\",\n  \"delimiter\": \",\",\n  \"encoding\": \"utf-8\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bodymessage\": 2481,\n  \"statuscode\": 200\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96078c61-c3d7-4991-b2a1-63146057cc34",
+              "name": "Request data is invalid. A required field might be missing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog\": \"sku,quantity,price\\nMY_SKU,50,123.45\",\n  \"quotechar\": \"\\\"\",\n  \"delimiter\": \",\",\n  \"encoding\": \"utf-8\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"parameter catalog not found\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d1e64068-c170-41b9-b19d-b09fe3af8a8f",
+              "name": "Unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog\": \"sku,quantity,price\\nMY_SKU,50,123.45\",\n  \"quotechar\": \"\\\"\",\n  \"delimiter\": \",\",\n  \"encoding\": \"utf-8\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "69b1f6ca-0834-412e-aede-f9ea7d073430",
+              "name": "Forbidden. This ingestion channel could be disabled for the merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog\": \"sku,quantity,price\\nMY_SKU,50,123.45\",\n  \"quotechar\": \"\\\"\",\n  \"delimiter\": \",\",\n  \"encoding\": \"utf-8\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a96248e7-bd53-4f8f-a617-59b0f7fa464f",
+              "name": "Too many requests. Client has been rate limited.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"catalog\": \"sku,quantity,price\\nMY_SKU,50,123.45\",\n  \"quotechar\": \"\\\"\",\n  \"delimiter\": \",\",\n  \"encoding\": \"utf-8\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "14d67512-944b-418a-87c3-dfccee55a4a9",
+          "name": "Get specific listing",
+          "request": {
+            "name": "Get specific listing",
+            "description": {
+              "content": "\nRetrieve a specific `Listing` to check its information.\n\n### Endpoint\n\nThe 2 following endpoints provide exactly the same response:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/LISTING_ID\n</aside>\n\nOr working with a filter on:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/detail/\n</aside>\n\nIf you don't have either the sku nor the listing_id, you can retrieve\n them by:\n\n**GET** `https://www.backmarket.fr/ws/listings/`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "listings",
+                ":listingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "listingId",
+                  "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "877a443f-3235-4b13-935b-5e4a454fd6b8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"backmarket_id\": 42,\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"currency\": \"EUR\",\n  \"grade\": \"EXCELLENT\",\n  \"id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n  \"listing_id\": 4567,\n  \"max_price\": \"199.90\",\n  \"min_price\": \"160.99\",\n  \"price\": \"160.99\",\n  \"product_id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n  \"publication_state\": 2,\n  \"quantity\": 12,\n  \"shippings\": [\n    {\n      \"shipping_price\": \"0.00\",\n      \"shipping_delay\": 24,\n      \"shipper\": \"UPS\",\n      \"shipper_display\": \"UPS\",\n      \"country_code\": \"it-it\"\n    },\n    {\n      \"shipping_price\": \"0.00\",\n      \"shipping_delay\": 24,\n      \"shipper\": \"UPS\",\n      \"shipper_display\": \"UPS\",\n      \"country_code\": \"it-it\"\n    }\n  ],\n  \"sku\": \"IPHONE_6S_64GO_BLUE_CORRECT\",\n  \"state\": 4,\n  \"statuscode\": 200,\n  \"title\": \"iPhone 6S - 64Go - Blue - Unlocked\",\n  \"warranty_delay\": 24,\n  \"new_battery\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7f03f484-b2e4-447b-b013-7880799d43a2",
+              "name": "Invalid inputs (bad type…).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c96b91fc-db12-486d-85e9-71a5d0c2c057",
+              "name": "Unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b41c121-5d8f-4de8-8026-750bf6d322b5",
+              "name": "Forbidden. Authenticated user is not a merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e0e8d4ef-ef73-4aee-9671-acd31755902a",
+              "name": "Listing not found, or it does not belong to the authenticated merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a091d10b-c643-4bbb-9093-6a843f593288",
+          "name": "Update specific listing",
+          "request": {
+            "name": "Update specific listing",
+            "description": {
+              "content": "\nIt is possible to update some fields of a specific `Listing`. For example _you might want to add another country to the `Listing`. You might also need to change the price, comment or the available stock (quantity)._\n\nTo put a `Listing` offline, just set its quantity to 0.\n\nThe endpoint below provides the most efficient way to update a specific `Listing`, as the update will be taken into account in real-time. Yet, you can only update one `Listing` at a time on this endpoint as opposed to the endpoint to update several listings.\n\nIf you work with other marketplaces, **DO NOT forget** to update your stocks on Back Market in order not to be compelled to cancel orders. We strongly penalize high cancellation rates in our algorithm, which allocates `Backbox`.\n\nUpdating in real time is especially important when your stock for the listing is close to 0.\n\nWhen an order is made on Back Market, you don't need to decrease the stock in our database since we decrease it automatically.\n\nYou just need to specify field(s) you would like to change. All the others will be kept intact.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "listings",
+                ":listingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "listingId",
+                  "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"comment\": \"<string,null>\",\n  \"warranty_delay\": \"<integer>\",\n  \"quantity\": \"<integer>\",\n  \"shipper_1\": \"<string,null>\",\n  \"shipper_display_1\": \"<string,null>\",\n  \"shipping_delay_1\": \"<integer,null>\",\n  \"shipping_price_1\": \"<string>\",\n  \"shipper_2\": \"<string,null>\",\n  \"shipper_display_2\": \"<string,null>\",\n  \"shipping_delay_2\": \"<integer,null>\",\n  \"shipping_price_2\": \"<string>\",\n  \"shipper_3\": \"<string,null>\",\n  \"shipper_display_3\": \"<string,null>\",\n  \"shipping_delay_3\": \"<integer,null>\",\n  \"shipping_price_3\": \"<string>\",\n  \"min_price\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7a665685-1031-4662-98dc-cd051089996a",
+              "name": "OK. Update processed.\nNote that some processing can be done asynchronously (Backbox, search indexing, etc).\n",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": \"160.99\",\n  \"currency\": \"EUR\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"warranty_delay\": 24,\n  \"quantity\": 12,\n  \"shipper_1\": \"DHL Express\",\n  \"shipper_display_1\": \"DHL Express\",\n  \"shipping_delay_1\": 36,\n  \"shipping_price_1\": \"3.90\",\n  \"shipper_2\": \"DHL Express\",\n  \"shipper_display_2\": \"DHL Express\",\n  \"shipping_delay_2\": 36,\n  \"shipping_price_2\": \"3.90\",\n  \"shipper_3\": \"DHL Express\",\n  \"shipper_display_3\": \"DHL Express\",\n  \"shipping_delay_3\": 36,\n  \"shipping_price_3\": \"3.90\",\n  \"min_price\": \"160.99\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n  \"listing_id\": 4567,\n  \"backmarket_id\": 42,\n  \"title\": \"iPhone 6S - 64Go - Blue - Unlocked\",\n  \"shippings\": [\n    {\n      \"shipping_price\": \"0.00\",\n      \"shipping_delay\": 24,\n      \"shipper\": \"UPS\",\n      \"shipper_display\": \"UPS\",\n      \"country_code\": \"it-it\"\n    },\n    {\n      \"shipping_price\": \"0.00\",\n      \"shipping_delay\": 24,\n      \"shipper\": \"UPS\",\n      \"shipper_display\": \"UPS\",\n      \"country_code\": \"it-it\"\n    }\n  ],\n  \"state\": 4,\n  \"grade\": \"EXCELLENT\",\n  \"quantity\": 12,\n  \"currency\": \"EUR\",\n  \"sku\": \"IPHONE_6S_64GO_BLUE_CORRECT\",\n  \"publication_state\": 2,\n  \"warranty_delay\": 24,\n  \"price\": \"160.99\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"max_price\": \"199.90\",\n  \"statuscode\": 200,\n  \"min_price\": \"160.99\",\n  \"product_id\": \"6d4ad966-db97-4d88-b409-b28cc2a0f8c9\",\n  \"shippings_response\": [\n    \"Shipping method 2 (ACME Company) updated\",\n    \"Shipping method 2 (ACME Company) updated\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "38eb3045-09ee-4f91-b5bd-6781e8d82c9f",
+              "name": "Request data is invalid. A required field might be missing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": \"160.99\",\n  \"currency\": \"EUR\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"warranty_delay\": 24,\n  \"quantity\": 12,\n  \"shipper_1\": \"DHL Express\",\n  \"shipper_display_1\": \"DHL Express\",\n  \"shipping_delay_1\": 36,\n  \"shipping_price_1\": \"3.90\",\n  \"shipper_2\": \"DHL Express\",\n  \"shipper_display_2\": \"DHL Express\",\n  \"shipping_delay_2\": 36,\n  \"shipping_price_2\": \"3.90\",\n  \"shipper_3\": \"DHL Express\",\n  \"shipper_display_3\": \"DHL Express\",\n  \"shipping_delay_3\": 36,\n  \"shipping_price_3\": \"3.90\",\n  \"min_price\": \"160.99\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"parameter catalog not found\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b35b203a-456b-4635-9c86-147d0c92746f",
+              "name": "Unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": \"160.99\",\n  \"currency\": \"EUR\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"warranty_delay\": 24,\n  \"quantity\": 12,\n  \"shipper_1\": \"DHL Express\",\n  \"shipper_display_1\": \"DHL Express\",\n  \"shipping_delay_1\": 36,\n  \"shipping_price_1\": \"3.90\",\n  \"shipper_2\": \"DHL Express\",\n  \"shipper_display_2\": \"DHL Express\",\n  \"shipping_delay_2\": 36,\n  \"shipping_price_2\": \"3.90\",\n  \"shipper_3\": \"DHL Express\",\n  \"shipper_display_3\": \"DHL Express\",\n  \"shipping_delay_3\": 36,\n  \"shipping_price_3\": \"3.90\",\n  \"min_price\": \"160.99\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5c4bef7-537b-43e4-b5ea-a3a4defc17e8",
+              "name": "Forbidden. This ingestion channel could be disabled for the merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": \"160.99\",\n  \"currency\": \"EUR\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"warranty_delay\": 24,\n  \"quantity\": 12,\n  \"shipper_1\": \"DHL Express\",\n  \"shipper_display_1\": \"DHL Express\",\n  \"shipping_delay_1\": 36,\n  \"shipping_price_1\": \"3.90\",\n  \"shipper_2\": \"DHL Express\",\n  \"shipper_display_2\": \"DHL Express\",\n  \"shipping_delay_2\": 36,\n  \"shipping_price_2\": \"3.90\",\n  \"shipper_3\": \"DHL Express\",\n  \"shipper_display_3\": \"DHL Express\",\n  \"shipping_delay_3\": 36,\n  \"shipping_price_3\": \"3.90\",\n  \"min_price\": \"160.99\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fa7694d-ec37-4eb1-9810-db771a913840",
+              "name": "Listing not found, or it does not belong to the authenticated merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": \"160.99\",\n  \"currency\": \"EUR\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"warranty_delay\": 24,\n  \"quantity\": 12,\n  \"shipper_1\": \"DHL Express\",\n  \"shipper_display_1\": \"DHL Express\",\n  \"shipping_delay_1\": 36,\n  \"shipping_price_1\": \"3.90\",\n  \"shipper_2\": \"DHL Express\",\n  \"shipper_display_2\": \"DHL Express\",\n  \"shipping_delay_2\": 36,\n  \"shipping_price_2\": \"3.90\",\n  \"shipper_3\": \"DHL Express\",\n  \"shipper_display_3\": \"DHL Express\",\n  \"shipping_delay_3\": 36,\n  \"shipping_price_3\": \"3.90\",\n  \"min_price\": \"160.99\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5977c96a-4e32-44b7-a754-d7a689974dce",
+              "name": "Too many requests. Client has been rate limited.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "listingId",
+                      "description": "(Required) Unique listing ID provided by Back Market. The UUID format is preferred."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"price\": \"160.99\",\n  \"currency\": \"EUR\",\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"warranty_delay\": 24,\n  \"quantity\": 12,\n  \"shipper_1\": \"DHL Express\",\n  \"shipper_display_1\": \"DHL Express\",\n  \"shipping_delay_1\": 36,\n  \"shipping_price_1\": \"3.90\",\n  \"shipper_2\": \"DHL Express\",\n  \"shipper_display_2\": \"DHL Express\",\n  \"shipping_delay_2\": 36,\n  \"shipping_price_2\": \"3.90\",\n  \"shipper_3\": \"DHL Express\",\n  \"shipper_display_3\": \"DHL Express\",\n  \"shipping_delay_3\": 36,\n  \"shipping_price_3\": \"3.90\",\n  \"min_price\": \"160.99\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a7d7c24f-ac69-4128-a0ed-ba5eb6cb0ad8",
+          "name": "Get listing details",
+          "request": {
+            "name": "Get listing details",
+            "description": {
+              "content": "\nRetrieve a specific `Listing` to check its information.\n\n### Endpoint\n\nThe 2 following endpoints provide exactly the same response:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/LISTING_ID\n</aside>\n\nOr working with a filter on:\n\n<aside class=\"success\">\n HTTP GET request: https://www.backmarket.fr/ws/listings/detail/\n</aside>\n\nIf you don't have either the sku nor the listing_id, you can retrieve\n them by:\n\n**GET** `https://www.backmarket.fr/ws/listings/`\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ws",
+                "listings",
+                "detail"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sku",
+                  "value": "<string>",
+                  "description": "A listing's SKU provided by the seller on listing creation."
+                },
+                {
+                  "disabled": false,
+                  "key": "listing_id",
+                  "value": "<integer>",
+                  "description": "Unique listing ID provided by Back Market. The UUID format is preferred, see 'id'."
+                },
+                {
+                  "disabled": false,
+                  "key": "id",
+                  "value": "<uuid>",
+                  "description": "Unique listing ID provided by Back Market."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                "key": "Accept-Language",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "Authorization"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "67085fa0-f458-44df-a081-81f7f324ae83",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "THEMODEL_RED"
+                    },
+                    {
+                      "key": "listing_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "id",
+                      "value": "ceb5f83a-50d5-4d3b-85a4-a5da80abb64e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"backmarket_id\": 42,\n  \"comment\": \"This is an iPhone 6S - 64Go - Blue working with all operators\",\n  \"currency\": \"EUR\",\n  \"grade\": \"EXCELLENT\",\n  \"id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n  \"listing_id\": 4567,\n  \"max_price\": \"199.90\",\n  \"min_price\": \"160.99\",\n  \"price\": \"160.99\",\n  \"product_id\": \"7a97a1b6-547e-4718-bc72-5b84aca91b09\",\n  \"publication_state\": 2,\n  \"quantity\": 12,\n  \"shippings\": [\n    {\n      \"shipping_price\": \"0.00\",\n      \"shipping_delay\": 24,\n      \"shipper\": \"UPS\",\n      \"shipper_display\": \"UPS\",\n      \"country_code\": \"it-it\"\n    },\n    {\n      \"shipping_price\": \"0.00\",\n      \"shipping_delay\": 24,\n      \"shipper\": \"UPS\",\n      \"shipper_display\": \"UPS\",\n      \"country_code\": \"it-it\"\n    }\n  ],\n  \"sku\": \"IPHONE_6S_64GO_BLUE_CORRECT\",\n  \"state\": 4,\n  \"statuscode\": 200,\n  \"title\": \"iPhone 6S - 64Go - Blue - Unlocked\",\n  \"warranty_delay\": 24,\n  \"new_battery\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22e9aa9f-cd6a-40d2-93a0-f36df873af32",
+              "name": "Invalid inputs (bad type…).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "THEMODEL_RED"
+                    },
+                    {
+                      "key": "listing_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "id",
+                      "value": "ceb5f83a-50d5-4d3b-85a4-a5da80abb64e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "99643885-bc20-4f5a-8cc0-5ca683306010",
+              "name": "Unauthenticated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "THEMODEL_RED"
+                    },
+                    {
+                      "key": "listing_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "id",
+                      "value": "ceb5f83a-50d5-4d3b-85a4-a5da80abb64e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfcf2c74-de98-42ae-9f9a-726022b520c4",
+              "name": "Forbidden. Authenticated user is not a merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "THEMODEL_RED"
+                    },
+                    {
+                      "key": "listing_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "id",
+                      "value": "ceb5f83a-50d5-4d3b-85a4-a5da80abb64e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c783c7d2-fbe0-4cbe-82d6-751d63b2fc04",
+              "name": "Listing not found, or it does not belong to the authenticated merchant.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ws",
+                    "listings",
+                    "detail"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sku",
+                      "value": "THEMODEL_RED"
+                    },
+                    {
+                      "key": "listing_id",
+                      "value": "123"
+                    },
+                    {
+                      "key": "id",
+                      "value": "ceb5f83a-50d5-4d3b-85a4-a5da80abb64e"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Select what market will be used to apply filters and export data.\nPassed as the language code related to this market.\n",
+                    "key": "Accept-Language",
+                    "value": "fr-fr"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"data\": {},\n    \"docLink\": \"string\",\n    \"target\": \"string\"\n  },\n  \"requestId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://preprod.backmarket.co.jp",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d8e9ceb3-1a65-4625-bbba-62bca653ebe4",
+    "name": "Back Market - API Guidelines Listings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "## Table of contents\n\n1. [Introduction](#introduction)\n1. [Getting started](#getting-started)\n1. [Technical requirements](#technical-requirements)\n1. [F.A.Q. and Contact](#faq-and-contact)\n1. [Cookbooks](#cookbooks)\n\n## Introduction\n\nWelcome to Back Market, the leading online marketplace dedicated to refurbished products.\n\nOur back-office and our web-services have been created in order to allow Seller to manage their products\neasily on our marketplace. This documentation is meant to help you integrate our marketplace and learn how to manage\nyour `Products`, `Offers` and `Orders` on Back Market.\n\n### Overview of what this documentation is talking about\n\n* Our Taxonomy : This part will describe the organization and classification of our marketplace\n* Products & Offers : You will learn how to create `Products` as well as create, update and list `Offers` on Back Market\n* Your Orders : The `Orders` workflow, listing and update will be explained\n\nDifferent solutions are offered in order to use our marketplace. It's possible to work with a combination of\nthese solutions or to switch from one to another at a later stage.\n\n1 - Back Market API:\n\nThis is the best solution for big and/or small sellers with their own technical team. Working with our API will\nenable you to synchronize your information with our database in real time. It is especially suitable for sellers\nwith long-tail catalogs as well as a large amount of sales.\n\n2 - Back-office:\n\nOur <a target=\"_blank\" href=\"https://www.backmarket.fr/bo_merchant/\"> back-office</a> offers a graphic user\ninterface which allows you to manage everything simply and efficiently.\n\nOur back-office also gives you the possibility to import and export CSV files\nwith `Products`, `Offers` and `Orders` information.\nThis allows you to work with more `Offers` comfortably.\n\n3 - DEPRECATED FTP :\n\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n### Other information\n\nOn this website, we've collected all the information you might need to get on board as smoothly as possible.\nAlso, be sure to check our [F.A.Q.](#f-a-q-and-contact) to get answers to your questions.\n[Contact us](#f-a-q-and-contact) if you still have further questions.\n\n### Feedback\n\nAt Back Market, we always want to improve our solutions.\nPlease [Give Us Feedback](mailto:<partner-support@backmarket.com>?subject=Feedback Back Market Doc) and let us\n know about possible improvement we could make, be it on this documentation, our web services,\n our back-office or whatever you might think of.\nPlease note that this mail is temporary as we will deploy a new Seller support center\nthat will assist you.\n\n## Getting Started\n\nIf you did not yet read the page on [taxonomy](operations/get-bm-catalog-category#taxonomy), please do it before proceeding.\n\n### Account\n\nAfter validation by our team, each Seller gains access to an account. This account gives you access to the Back\nMarket Back Office and our API.\n\nUse one of the following links to access your Back Office account or create one if you haven't done so already.\nYou will need to provide information about your company and we will get back to you as soon as possible:\n\n* <a target=\"_blank\" href=\"https://www.backmarket.co.jp/bo-seller\">AP platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.fr/bo-seller\">EU platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.com/bo-seller\">US platform</a>\n\nFor creating or accessing an account on the preprod, you can use the following links:\n\n* <a target=\"_blank\" href=\"https://preprod.backmarket.co.jp/bo-seller\">AP preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.fr/bo-seller\">EU preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.com/bo-seller\">US preprod platform</a>\n\n### Country code\n\nBack Market is international so you can sell products abroad. The\ncountry code matches both the targeted language and country for the\naction you'd like to perform (ex: update the price for a listing in\nItaly).\nInformation about every countries are contained in the same instance\nof an object `Product` or a `Listing`.\n\nIndeed, you don't need to create one `Listing` for each country. This\n`Listing` will contain some fields which are the same for all the countries (_listing_id, quantity, ..._) and other\n country specific fields (_comment, price and warranty_delay_).\nTherefore, if you wish to edit the _**stock**_ (field :\n'quantity'), the change will apply to all the countries, but for the\n_**comment**_ you will have to change it for each country.\n\nIn the same way, some fields of the `Product` are common for all\ncountries (_weight, EAN, ..._), and others depend on the country\n(_description, title and price_new_).\n\n**COUNTRY_CODES** - Accepted values are :\n\n* AP platform:\n\n  * ja-jp     : Japan\n  * en-au     : Australia\n\n* EU platform:\n\n  * fr-fr     : France\n  * fr-be     : Belgium\n  * es-es     : Spain\n  * de-de     : Germany\n  * de-at     : Austria\n  * it-it     : Italy\n  * en-gb     : United Kingdom\n  * nl-nl     : Netherlands\n  * pt-pt     : Portugal\n  * en-ie     : Ireland\n  * el-gr     : Greece\n  * sk-sk     : Slovakia\n  * sv-se     : Sweden\n\n* US platform:\n\n  * en-us     : United States\n\n### CSV file format\n\nAll files imported through our Back Office or imported using Back Market's API must be in CSV format.\n\nRequired field separator is ';'.\n\nRequired line separator is the line feed '\\n'.\n\nFields must be surrounded by double quotes.\n## Technical Requirements\n\n### API Identification\n>\n> HTTP Header (will remain the same for every API call):\n\n```http\nContent-type: application/json\nAccept: application/json\nAccept-Language: COUNTRY_CODE\nAuthorization: Basic YOUR_ACCESS_TOKEN\nUser-Agent: YOUR_USER_AGENT\n```\n\nEach Integrator or Seller should use the following HTTP Header when calling Back Market API endpoints.\n\nThe User-Agent is mandatory. Any request without it might be refused by our System.\n\nIt should include your company name, application name, version, and a contact email address in this format:\n\n```http\nBM-{CompanyName}-{IntegrationName};company@companydomain.com.\n```\n\nFor example:\n\n```http\nBM-Ebay-Invoices;contact@ebay.com\nBM-bouygues-automations;contact@bouygues.fr\n```\n\n### Web application firewall (WAF) and Bot management\n\nThe WAF or bot management may block your requests for security reason. You'll typically receive an HTTP 403 Forbidden\nresponse, possibly with a response body to tell you to challenge your client with Cloudflare.\n\nIn case you judge that your request should not be blocked by Cloudflare, from the response headers, you can get the value of cf-ray and send it to your seller contact for investigation.\n\nExample HTTP 403 response from WAF:\n\n```http\nHTTP/2 403\ndate: Wed, 16 Apr 2025 11:26:41 GMT\ncontent-type: text/html; charset=UTF-8\nreferrer-policy: same-origin\ncache-control: max-age=15\nexpires: Wed, 16 Apr 2025 11:26:56 GMT\n...\nx-content-type-options: nosniff\nx-frame-options: SAMEORIGIN\nserver: cloudflare\ncf-ray: 931354450813d142-CDG\nalt-svc: h3=\":443\"; ma=86400\n```\n\nExample HTTP 403 response for Bot Management protected endpoints:\n\n```json\n{\n  \"errors\": [\n    {\n      \"code\": \"bot-need-challenge\",\n      \"message\": \"Forbidden\",\n      \"challengePath\": \"/testchallengepage\"\n    }\n  ]\n}\n```\n\n### Traffic limitation\n\nOur standard rate limits are will allow your automations to run fast enough to finish your processes.\nHowever, in case of too many requests beyond what we except on sellers endpoints, you will be presented with an HTTP 429 response from Cloudflare.\n\nUsually you will find the range above 200 requests in 10 seconds being blocked for 10 seconds and for more sensible\nendpoints like catalog for example above 20 requests in 10 seconds being blocked for 10 seconds.\n\n### Data limitation\n\nTo make sure we can handle and process all the incoming data correctly, we have set-up the following limitation:\n**We might not accept more than 2k lines of SKUs to process per hour** on the\n following endpoints ([Update Several listings](#update-several-listings) or\n  on [Update specific listing](#update-specific-listing)) and [Update Listings](#update-listings)) files.\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n**If this limit is reached, Back Market may refuse the task**, in this case you will receive HTTP responses\nwith the \"429 Too Many Requests\" status.\n\nIf you have lots of active SKUs, please take into account the [Best Practice](#best-practices)\npart of the documentation.\n\n### Questions ?\n\nIf you have any questions, please send an email to <partner-support@backmarket.com>\nPlease note that this mail is temporary as we will deploy a new seller support center\nthat will assist you.\n## F.A.Q. and Contact\n\nPlease [click here](https://merchant-support.backmarket.com/hc/en-us) to access your Seller Support Center\n where you can find our F.A.Q. or contact us.\n\nIf you have never signed in to the Seller Support Center, you can\n read this [tutorial](statics/How-to-connect-to-SSC.pdf) which helps you setup you connection for the first time.\n\nIf you have any more questions and are already selling on Back Market, we invite you to contact your account manager.\n## Cookbooks\n\nA list of notebooks showcasing different API use cases:\n\n[Winning the BackBox based on small price efforts](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing)\n\n\nContact Support:\n Name: Seller Support Center\n Email: NA@NA.com",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Backship API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Backship",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Return deliveries list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/shipping/v1/deliveries",
+            "params": [
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_id",
+                "value": "42",
+                "type": "query",
+                "description": "Order ID"
+              },
+              {
+                "name": "start_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get deliveries created at and after this datetime"
+              },
+              {
+                "name": "end_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get deliveries created before and at this datetime"
+              },
+              {
+                "name": "pickup_start_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get deliveries picked up at and after this datetime"
+              },
+              {
+                "name": "pickup_end_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get deliveries picked up before and at this datetime"
+              },
+              {
+                "name": "order_state",
+                "value": "3",
+                "type": "query",
+                "description": "State of the order"
+              },
+              {
+                "name": "hub_scanned",
+                "value": "true",
+                "type": "query",
+                "description": "Whether shipments label have been scanned"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This API is for merchants who are subscribed to the BackShip service.\n\nOnce an orderline has been accepted via the Orderline API, a shipping label is automatically created corresponding\nto this orderline and can be retrieved from this endpoint via the field `labelUrl`.\nThe state of the orderline must be updated once the product has been shipped.\n"
+        },
+        {
+          "info": {
+            "name": "Return product returns list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/shipping/v1/returns",
+            "params": [
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "order_id",
+                "value": "42",
+                "type": "query",
+                "description": "Order ID"
+              },
+              {
+                "name": "start_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get returns created at and after this datetime"
+              },
+              {
+                "name": "end_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get returns created before and at this datetime"
+              },
+              {
+                "name": "pickup_start_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get returns picked up at and after this datetime"
+              },
+              {
+                "name": "pickup_end_date",
+                "value": "2021-05-05T06:58:31",
+                "type": "query",
+                "description": "Get returns picked up before and at this datetime"
+              },
+              {
+                "name": "order_state",
+                "value": "3",
+                "type": "query",
+                "description": "State of the order"
+              },
+              {
+                "name": "hub_scanned",
+                "value": "true",
+                "type": "query",
+                "description": "Whether shipments label have been scanned"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This API is for merchants who are subscribed to the BackShip service.\n\nOnce a product return has been created, a shipping label is automatically created corresponding to this return\nand can be retrieved from this endpoint via the field `label`.\n"
+        },
+        {
+          "info": {
+            "name": "Return details about a specific delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/shipping/v1/deliveries/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "42",
+                "type": "path",
+                "description": "Delivery ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This API is for merchants who are subscribed to the BackShip service.\n\nOnce an orderline has been accepted via the Orderline API, a shipping label is automatically created\ncorresponding to this orderline and can be retrieved from this endpoint via the field `labelUrl`.\nThe state of the orderline must be updated once the product has been shipped.\n"
+        },
+        {
+          "info": {
+            "name": "Return details about a specific product return",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/shipping/v1/returns/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "42",
+                "type": "path",
+                "description": "Return ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This API is for merchants who are subscribed to the BackShip service.\n\nOnce a product return has been created, a shipping label is automatically created corresponding to this return\nand can be retrieved from this endpoint via the field `label`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

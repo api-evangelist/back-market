@@ -1,0 +1,206 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Back Market - API Guidelines Care API",
+    "version": "0.1.1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Care",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a list of Care Folders attached to a Seller",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/sav",
+            "params": [
+              {
+                "name": "last_id",
+                "value": "123",
+                "type": "query",
+                "description": "Retrieve Care Folders with an ID higher than `last_id`"
+              },
+              {
+                "name": "state",
+                "value": "9",
+                "type": "query",
+                "description": "Retrieve Care Folders with state equal to `state`.\n  * 0 - OPEN\n  * 9 - CLOSED\n"
+              },
+              {
+                "name": "orderline",
+                "value": "456",
+                "type": "query",
+                "description": "Retrieve Care Folders for a specific Orderline"
+              },
+              {
+                "name": "last_modification_date",
+                "value": "1970-01-01-00-00",
+                "type": "query",
+                "description": "Retrieve Care Folders more recent than `last_modification_date`. Format is YYYY-MM-DD-hh-mm"
+              },
+              {
+                "name": "last_message_date",
+                "value": "1970-01-01-00-00",
+                "type": "query",
+                "description": "Retrieve Care Folders having messages more recent than `last_message_date`. Format is YYYY-MM-DD-hh-mm"
+              },
+              {
+                "name": "page",
+                "value": "2",
+                "type": "query",
+                "description": "Page number to retrieve (10 entries per page)."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Rate Limiting\n\nThis endpoint is rate limited to 520 requests per minute and 4000 per day.\nIf you exceed this limit, you will receive a `429` status code.\n"
+        },
+        {
+          "info": {
+            "name": "Get the details of a Care Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://preprod.backmarket.co.jp/ws/sav/:careFolderId",
+            "params": [
+              {
+                "name": "careFolderId",
+                "value": "123",
+                "type": "path",
+                "description": "ID of the Care Folder to retrieve"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Rate limiting\n\nThis endpoint is rate limited to 600 requests per minute and 40000 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n"
+        },
+        {
+          "info": {
+            "name": "Declare a problem on a Care Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/sav/:careFolderId/problem",
+            "params": [
+              {
+                "name": "careFolderId",
+                "value": "123",
+                "type": "path",
+                "description": "ID of the Care Folder on which the problem is declared"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Declare a problem on a Care Folder.\n\nThe `problem_type` field specifies the type of problem. If omitted, it defaults to `OTHER`.\n\nAttachments are **mandatory** for the following problem types: `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, `OOW_ITEM`.\n\nFor Care Folders with ID below 100,000,000, only `OTHER` is accepted and no message or attachments can be provided.\n\n## Rate limiting\n\nThis endpoint is rate limited to 750 requests per minute and 1000 requests per day.\nIf you exceed this limit, you will "
+        },
+        {
+          "info": {
+            "name": "Create a refund on an Orderline",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/sav/refund",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Rate limiting\n\nThis endpoint is rate limited to 500 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n"
+        },
+        {
+          "info": {
+            "name": "Post a message on the After Sales Platform for a Care Folder",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/sav/:careFolderId/msg",
+            "params": [
+              {
+                "name": "careFolderId",
+                "value": "123",
+                "type": "path",
+                "description": "ID of the Care Folder to retrieve"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Posting a message to a closed folder will reopen it.\n\n## Rate limiting\n\nThis endpoint is rate limited to 560 requests per minute and 40000 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n"
+        },
+        {
+          "info": {
+            "name": "Declare an item transfer back to customer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://preprod.backmarket.co.jp/ws/sav/:careFolderId/item-transfer",
+            "params": [
+              {
+                "name": "careFolderId",
+                "value": "123",
+                "type": "path",
+                "description": "ID of the Care Folder on which the item is transferred back to the customer"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "Authorization",
+              "value": "{{Authorization}}",
+              "placement": "header"
+            }
+          },
+          "docs": "## Rate limiting\n\nThis endpoint is rate limited to 292 requests per minute and 500 requests per day.\nIf you exceed this limit, you will receive a `429` status code.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,600 @@
+openapi: 3.2.0
+info:
+  version: 0.1.1
+  title: Back Market - API Guidelines Backship API
+  description: "## Table of contents\n\n1. [Introduction](#introduction)\n1. [Getting started](#getting-started)\n1. [Technical requirements](#technical-requirements)\n1. [F.A.Q. and Contact](#faq-and-contact)\n1. [Cookbooks](#cookbooks)\n\n## Introduction\n\nWelcome to Back Market, the leading online marketplace dedicated to refurbished products.\n\nOur back-office and our web-services have been created in order to allow Seller to manage their products\neasily on our marketplace. This documentation is meant to help you integrate our marketplace and learn how to manage\nyour `Products`, `Offers` and `Orders` on Back Market.\n\n### Overview of what this documentation is talking about\n\n* Our Taxonomy : This part will describe the organization and classification of our marketplace\n* Products & Offers : You will learn how to create `Products` as well as create, update and list `Offers` on Back Market\n* Your Orders : The `Orders` workflow, listing and update will be explained\n\nDifferent solutions are offered in order to use our marketplace. It's possible to work with a combination of\nthese solutions or to switch from one to another at a later stage.\n\n1 - Back Market API:\n\nThis is the best solution for big and/or small sellers with their own technical team. Working with our API will\nenable you to synchronize your information with our database in real time. It is especially suitable for sellers\nwith long-tail catalogs as well as a large amount of sales.\n\n2 - Back-office:\n\nOur <a target=\"_blank\" href=\"https://www.backmarket.fr/bo_merchant/\"> back-office</a> offers a graphic user\ninterface which allows you to manage everything simply and efficiently.\n\nOur back-office also gives you the possibility to import and export CSV files\nwith `Products`, `Offers` and `Orders` information.\nThis allows you to work with more `Offers` comfortably.\n\n3 - DEPRECATED FTP :\n\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n### Other information\n\nOn this website, we've collected all the information you might need to get on board as smoothly as possible.\nAlso, be sure to check our [F.A.Q.](#f-a-q-and-contact) to get answers to your questions.\n[Contact us](#f-a-q-and-contact) if you still have further questions.\n\n### Feedback\n\nAt Back Market, we always want to improve our solutions.\nPlease [Give Us Feedback](mailto:<partner-support@backmarket.com>?subject=Feedback Back Market Doc) and let us\n know about possible improvement we could make, be it on this documentation, our web services,\n our back-office or whatever you might think of.\nPlease note that this mail is temporary as we will deploy a new Seller support center\nthat will assist you.\n\n## Getting Started\n\nIf you did not yet read the page on [taxonomy](operations/get-bm-catalog-category#taxonomy), please do it before proceeding.\n\n### Account\n\nAfter validation by our team, each Seller gains access to an account. This account gives you access to the Back\nMarket Back Office and our API.\n\nUse one of the following links to access your Back Office account or create one if you haven't done so already.\nYou will need to provide information about your company and we will get back to you as soon as possible:\n\n* <a target=\"_blank\" href=\"https://www.backmarket.co.jp/bo-seller\">AP platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.fr/bo-seller\">EU platform</a>\n* <a target=\"_blank\" href=\"https://www.backmarket.com/bo-seller\">US platform</a>\n\nFor creating or accessing an account on the preprod, you can use the following links:\n\n* <a target=\"_blank\" href=\"https://preprod.backmarket.co.jp/bo-seller\">AP preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.fr/bo-seller\">EU preprod platform</a>\n* <a target=\"_blank\" href=\"https://preprod.backmarket.com/bo-seller\">US preprod platform</a>\n\n### Country code\n\nBack Market is international so you can sell products abroad. The\ncountry code matches both the targeted language and country for the\naction you'd like to perform (ex: update the price for a listing in\nItaly).\nInformation about every countries are contained in the same instance\nof an object `Product` or a `Listing`.\n\nIndeed, you don't need to create one `Listing` for each country. This\n`Listing` will contain some fields which are the same for all the countries (_listing_id, quantity, ..._) and other\n country specific fields (_comment, price and warranty_delay_).\nTherefore, if you wish to edit the _**stock**_ (field :\n'quantity'), the change will apply to all the countries, but for the\n_**comment**_ you will have to change it for each country.\n\nIn the same way, some fields of the `Product` are common for all\ncountries (_weight, EAN, ..._), and others depend on the country\n(_description, title and price_new_).\n\n**COUNTRY_CODES** - Accepted values are :\n\n* AP platform:\n\n  * ja-jp     : Japan\n  * en-au     : Australia\n\n* EU platform:\n\n  * fr-fr     : France\n  * fr-be     : Belgium\n  * es-es     : Spain\n  * de-de     : Germany\n  * de-at     : Austria\n  * it-it     : Italy\n  * en-gb     : United Kingdom\n  * nl-nl     : Netherlands\n  * pt-pt     : Portugal\n  * en-ie     : Ireland\n  * el-gr     : Greece\n  * sk-sk     : Slovakia\n  * sv-se     : Sweden\n\n* US platform:\n\n  * en-us     : United States\n\n### CSV file format\n\nAll files imported through our Back Office or imported using Back Market's API must be in CSV format.\n\nRequired field separator is ';'.\n\nRequired line separator is the line feed '\\n'.\n\nFields must be surrounded by double quotes.\n## Technical Requirements\n\n### API Identification\n>\n> HTTP Header (will remain the same for every API call):\n\n```http\nContent-type: application/json\nAccept: application/json\nAccept-Language: COUNTRY_CODE\nAuthorization: Basic YOUR_ACCESS_TOKEN\nUser-Agent: YOUR_USER_AGENT\n```\n\nEach Integrator or Seller should use the following HTTP Header when calling Back Market API endpoints.\n\nThe User-Agent is mandatory. Any request without it might be refused by our System.\n\nIt should include your company name, application name, version, and a contact email address in this format:\n\n```http\nBM-{CompanyName}-{IntegrationName};company@companydomain.com.\n```\n\nFor example:\n\n```http\nBM-Ebay-Invoices;contact@ebay.com\nBM-bouygues-automations;contact@bouygues.fr\n```\n\n### Web application firewall (WAF) and Bot management\n\nThe WAF or bot management may block your requests for security reason. You'll typically receive an HTTP 403 Forbidden\nresponse, possibly with a response body to tell you to challenge your client with Cloudflare.\n\nIn case you judge that your request should not be blocked by Cloudflare, from the response headers, you can get the value of cf-ray and send it to your seller contact for investigation.\n\nExample HTTP 403 response from WAF:\n\n```http\nHTTP/2 403\ndate: Wed, 16 Apr 2025 11:26:41 GMT\ncontent-type: text/html; charset=UTF-8\nreferrer-policy: same-origin\ncache-control: max-age=15\nexpires: Wed, 16 Apr 2025 11:26:56 GMT\n...\nx-content-type-options: nosniff\nx-frame-options: SAMEORIGIN\nserver: cloudflare\ncf-ray: 931354450813d142-CDG\nalt-svc: h3=\":443\"; ma=86400\n```\n\nExample HTTP 403 response for Bot Management protected endpoints:\n\n```json\n{\n  \"errors\": [\n    {\n      \"code\": \"bot-need-challenge\",\n      \"message\": \"Forbidden\",\n      \"challengePath\": \"/testchallengepage\"\n    }\n  ]\n}\n```\n\n### Traffic limitation\n\nOur standard rate limits are will allow your automations to run fast enough to finish your processes.\nHowever, in case of too many requests beyond what we except on sellers endpoints, you will be presented with an HTTP 429 response from Cloudflare.\n\nUsually you will find the range above 200 requests in 10 seconds being blocked for 10 seconds and for more sensible\nendpoints like catalog for example above 20 requests in 10 seconds being blocked for 10 seconds.\n\n### Data limitation\n\nTo make sure we can handle and process all the incoming data correctly, we have set-up the following limitation:\n**We might not accept more than 2k lines of SKUs to process per hour** on the\n following endpoints ([Update Several listings](#update-several-listings) or\n  on [Update specific listing](#update-specific-listing)) and [Update Listings](#update-listings)) files.\nFTP in Back Market is deprecated. If you used to use FTP in order to connect to Back Market\nPlease contact <partner-support@backmarket.com> to help you to setup an API connexion.\n\n**If this limit is reached, Back Market may refuse the task**, in this case you will receive HTTP responses\nwith the \"429 Too Many Requests\" status.\n\nIf you have lots of active SKUs, please take into account the [Best Practice](#best-practices)\npart of the documentation.\n\n### Questions ?\n\nIf you have any questions, please send an email to <partner-support@backmarket.com>\nPlease note that this mail is temporary as we will deploy a new seller support center\nthat will assist you.\n## F.A.Q. and Contact\n\nPlease [click here](https://merchant-support.backmarket.com/hc/en-us) to access your Seller Support Center\n where you can find our F.A.Q. or contact us.\n\nIf you have never signed in to the Seller Support Center, you can\n read this [tutorial](statics/How-to-connect-to-SSC.pdf) which helps you setup you connection for the first time.\n\nIf you have any more questions and are already selling on Back Market, we invite you to contact your account manager.\n## Cookbooks\n\nA list of notebooks showcasing different API use cases:\n\n[Winning the BackBox based on small price efforts](https://colab.research.google.com/drive/12jHZ3AQG8mQjjAvulG9zVvfC_psEOKjh?usp=sharing)\n"
+  contact:
+    name: Seller Support Center
+    url: https://merchant-support.backmarket.com/hc/en-us
+    x-slack: NA
+    email: NA@NA.com
+servers:
+- url: https://preprod.backmarket.co.jp
+  description: Preprod - AP
+- url: https://www.backmarket.co.jp
+  description: Prod - AP
+- url: https://preprod.backmarket.fr
+  description: Preprod - EU
+- url: https://www.backmarket.fr
+  description: Prod - EU
+- url: https://preprod.backmarket.com
+  description: Preprod - NA
+- url: https://www.backmarket.com
+  description: Prod - NA
+tags:
+- name: Backship
+paths:
+  /ws/shipping/v1/deliveries:
+    get:
+      description: 'This API is for merchants who are subscribed to the BackShip service.
+
+
+        Once an orderline has been accepted via the Orderline API, a shipping label is automatically created corresponding
+
+        to this orderline and can be retrieved from this endpoint via the field `labelUrl`.
+
+        The state of the orderline must be updated once the product has been shipped.
+
+        '
+      operationId: GetDeliveries
+      parameters:
+      - description: Page number
+        example: 2
+        in: query
+        name: page
+        schema:
+          type: integer
+      - description: Order ID
+        example: 42
+        in: query
+        name: order_id
+        schema:
+          type: integer
+      - description: Get deliveries created at and after this datetime
+        example: '2021-05-05T06:58:31'
+        in: query
+        name: start_date
+        schema:
+          format: date-time
+          type: string
+      - description: Get deliveries created before and at this datetime
+        example: '2021-05-05T06:58:31'
+        in: query
+        name: end_date
+        schema:
+          format: date-time
+          type: string
+      - description: Get deliveries picked up at and after this datetime
+        example: '2021-05-05T06:58:31'
+        in: query
+        name: pickup_start_date
+        schema:
+          format: date-time
+          type: string
+      - description: Get deliveries picked up before and at this datetime
+        example: '2021-05-05T06:58:31'
+        in: query
+        name: pickup_end_date
+        schema:
+          format: date-time
+          type: string
+      - description: State of the order
+        example: 3
+        in: query
+        name: order_state
+        schema:
+          enum:
+          - 0
+          - 1
+          - 3
+          - 8
+          - 9
+          type: integer
+      - description: Whether shipments label have been scanned
+        example: true
+        in: query
+        name: hub_scanned
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  count:
+                    description: Total number of deliveries
+                    example: 42
+                    type: integer
+                  next:
+                    description: Url to get the next paginated deliveries list. Null if no next page
+                    example: https://preprod.backmarket.fr/ws/shipping/v1/deliveries?page=2
+                    type:
+                    - string
+                    - 'null'
+                  previous:
+                    description: Url to get the previous paginated deliveries list. Null if no previous page
+                    example: https://preprod.backmarket.fr/ws/shipping/v1/deliveries?page=1
+                    type:
+                    - string
+                    - 'null'
+                  results:
+                    description: List of deliveries
+                    items:
+                      $ref: '#/components/schemas/Delivery'
+                    type: array
+                required:
+                - count
+                - next
+                - previous
+                - results
+                type: object
+          description: List of deliveries
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderIdValidationError'
+          description: Unprocessable Entity
+      summary: Return deliveries list
+      tags:
+      - Backship
+      x-category: domain
+      x-tier: 2
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /ws/shipping/v1/returns:
+    get:
+      summary: Return product returns list
+      description: 'This API is for merchants who are subscribed to the BackShip service.
+
+
+        Once a product return has been created, a shipping label is automatically created corresponding to this return
+
+        and can be retrieved from this endpoint via the field `label`.
+
+        '
+      operationId: GetReturns
+      tags:
+      - Backship
+      x-tier: 2
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      parameters:
+      - name: page
+        in: query
+        description: Page number
+        schema:
+          type: integer
+        example: 2
+      - name: order_id
+        in: query
+        description: Order ID
+        schema:
+          type: integer
+        example: 42
+      - name: start_date
+        in: query
+        description: Get returns created at and after this datetime
+        schema:
+          type: string
+          format: date-time
+        example: '2021-05-05T06:58:31'
+      - name: end_date
+        in: query
+        description: Get returns created before and at this datetime
+        schema:
+          type: string
+          format: date-time
+        example: '2021-05-05T06:58:31'
+      - name: pickup_start_date
+        in: query
+        description: Get returns picked up at and after this datetime
+        schema:
+          type: string
+          format: date-time
+        example: '2021-05-05T06:58:31'
+      - name: pickup_end_date
+        in: query
+        description: Get returns picked up before and at this datetime
+        schema:
+          type: string
+          format: date-time
+        example: '2021-05-05T06:58:31'
+      - name: order_state
+        in: query
+        description: State of the order
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+          - 3
+          - 8
+          - 9
+        example: 3
+      - name: hub_scanned
+        in: query
+        description: Whether shipments label have been scanned
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '200':
+          description: List of returns
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                - count
+                - next
+                - previous
+                - results
+                properties:
+                  count:
+                    type: integer
+                    description: Total number of returns
+                    example: 42
+                  next:
+                    type:
+                    - string
+                    - 'null'
+                    description: Url to get the next paginated returns list. Null if no next page
+                    example: https://preprod.backmarket.fr/ws/shipping/v1/returns?page=2
+                  previous:
+                    type:
+                    - string
+                    - 'null'
+                    description: Url to get the previous paginated returns list. Null if no previous page
+                    example: https://preprod.backmarket.fr/ws/shipping/v1/returns?page=1
+                  results:
+                    type: array
+                    description: List of returns
+                    items:
+                      $ref: '#/components/schemas/Return'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderIdValidationError'
+  /ws/shipping/v1/deliveries/{id}:
+    get:
+      description: 'This API is for merchants who are subscribed to the BackShip service.
+
+
+        Once an orderline has been accepted via the Orderline API, a shipping label is automatically created
+
+        corresponding to this orderline and can be retrieved from this endpoint via the field `labelUrl`.
+
+        The state of the orderline must be updated once the product has been shipped.
+
+        '
+      operationId: GetDelivery
+      parameters:
+      - description: Delivery ID
+        example: 42
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Delivery'
+          description: Delivery details
+        '404':
+          description: Delivery entry not found
+      summary: Return details about a specific delivery
+      tags:
+      - Backship
+      x-category: domain
+      x-tier: 2
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+  /ws/shipping/v1/returns/{id}:
+    get:
+      description: 'This API is for merchants who are subscribed to the BackShip service.
+
+
+        Once a product return has been created, a shipping label is automatically created corresponding to this return
+
+        and can be retrieved from this endpoint via the field `label`.
+
+        '
+      operationId: GetReturn
+      parameters:
+      - description: Return ID
+        example: 42
+        in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Return'
+          description: Return details
+        '404':
+          description: Return entry not found
+      summary: Return details about a specific product return
+      tags:
+      - Backship
+      x-category: domain
+      x-tier: 2
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+components:
+  schemas:
+    Delivery:
+      title: Delivery
+      type: object
+      required:
+      - order
+      - shipmentId
+      - carrierId
+      - orderlines
+      - referenceNumber
+      - trackingNumber
+      - trackingUrl
+      - carrierName
+      - hubScanned
+      - invoicedCurrency
+      - invoicedPrice
+      - datePickup
+      - dateCreation
+      - dateDelivery
+      - labelUrl
+      - type
+      - pickupInfo
+      properties:
+        order:
+          type: integer
+          description: Order ID
+          example: 42
+        shipmentId:
+          type: integer
+          description: Shipment ID
+          example: 42
+        carrierId:
+          type: integer
+          description: Carrier ID
+          example: 42
+        orderlines:
+          type: array
+          description: Orderlines
+          items:
+            type: integer
+          example:
+          - 42
+        referenceNumber:
+          type: string
+          description: Reference number
+          example: '1'
+        trackingNumber:
+          type: string
+          description: Tracking number
+          example: Jc2rnTAc4L
+        trackingUrl:
+          type: string
+          description: Tracking url
+          example: https://carrier.com/tracking/Jc2rnTAc4L
+        carrierName:
+          type: string
+          description: Carrier name
+          example: Chronopost
+        hubScanned:
+          type: boolean
+          description: Whether the related shipment label have been scanned
+          example: false
+        invoicedCurrency:
+          type: string
+          description: Invoice currency
+          example: EUR
+        invoicedPrice:
+          type: integer
+          description: Invoiced amount
+          example: 30
+        datePickup:
+          type: string
+          format: date-time
+          description: Pickup date
+          example: '2021-05-05T06:58:31+02:00'
+        dateCreation:
+          type: string
+          format: date-time
+          description: Creation date
+          example: '2021-05-05T06:58:31+02:00'
+        dateDelivery:
+          type: string
+          format: date-time
+          description: Delivery date
+          example: '2021-05-05T06:58:31+02:00'
+        labelUrl:
+          type: string
+          description: Label url
+          example: /static/shipment_labels/eu-9075b45c-d736-4e51-83ec-3f2ae2888e3e-1.pdf
+        type:
+          type: string
+          description: Type of delivery
+          example: DELIVERY
+        pickupInfo:
+          $ref: '#/components/schemas/PickupInfo'
+    PickupInfo:
+      title: Pickup Info
+      type: object
+      required:
+      - confirmationNumber
+      - datePickupActual
+      - datePickupRangeStart
+      - datePickupRangeEnd
+      - datePickupRequested
+      - isCanceled
+      - pickupId
+      properties:
+        confirmationNumber:
+          type: string
+          description: Confirmation number
+          example: 1231NB
+        datePickupActual:
+          type: string
+          description: Actual pickup date
+          example: '2021-05-05T06:58:31+02:00'
+        datePickupRangeStart:
+          type: string
+          description: Start date of pickup
+          example: '2021-05-05T06:58:31+02:00'
+        datePickupRangeEnd:
+          type: string
+          description: End date of pickup
+          example: '2021-05-05T06:58:31+02:00'
+        datePickupRequested:
+          type: string
+          description: Requested date for pickup
+          example: '2021-05-05'
+        isCanceled:
+          type: boolean
+          description: Pickup cancellation state
+          example: false
+        pickupId:
+          type: integer
+          description: Pickup ID
+          example: 42
+    Return:
+      title: Return
+      type: object
+      required:
+      - orderId
+      - orderlineId
+      - shipmentId
+      - dateCreation
+      - referenceNumber
+      - trackingNumber
+      - trackingUrl
+      - carrierId
+      - carrierName
+      - hubScanned
+      - datePickup
+      - dateDelivery
+      - label
+      - invoicedPrice
+      - invoicedCurrency
+      - type
+      properties:
+        orderId:
+          type: integer
+          description: Order ID
+          example: 42
+        orderlineId:
+          type: integer
+          description: Orderline ID
+          example: 42
+        shipmentId:
+          type: integer
+          description: Shipment ID
+          example: 42
+        carrierId:
+          type: integer
+          description: Carrier ID
+          example: 42
+        carrierName:
+          type: string
+          description: Carrier name
+          example: Chronopost
+        dateCreation:
+          type: string
+          format: date-time
+          description: Creation date
+          example: '2021-05-05T06:58:31+02:00'
+        referenceNumber:
+          type: string
+          description: Reference number
+          example: 1-123123-22334
+        trackingNumber:
+          type: string
+          description: Tracking number
+          example: Jc2rnTAc4L
+        trackingUrl:
+          type: string
+          description: Tracking url
+          example: https://carrier.com/tracking/Jc2rnTAc4L
+        hubScanned:
+          type: boolean
+          description: Whether the related shipment label have been scanned
+          example: true
+        datePickup:
+          type: string
+          format: date-time
+          description: Pickup date
+          example: '2021-05-05T06:58:31+02:00'
+        dateDelivery:
+          type: string
+          format: date-time
+          description: Delivery date
+          example: '2021-05-05T06:58:31+02:00'
+        label:
+          type: string
+          description: Label
+          example: http://testserver/static/document.pdf
+        invoicedPrice:
+          type: integer
+          description: Invoiced amount
+          example: 30
+        invoicedCurrency:
+          type: string
+          description: Invoice currency
+          example: EUR
+        type:
+          type: string
+          description: Type of return
+          example: RETURN
+    OrderIdValidationError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: E009
+            message:
+              type: string
+              example: Validation error
+          required:
+          - code
+          - message
+        data:
+          type: object
+          properties:
+            fields:
+              type: object
+              example:
+                orderId:
+                - An integer is needed.
+          required:
+          - fields
+      required:
+      - error
+      - data
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: Authorization
+      type: apiKey
+      description: 'Token authentication is done with Basic authentication.
+
+        Prefix the value with \"Basic\" and use the token you created in the backoffice in the Integrations option page.'
+    BasicAuth:
+      type: http
+      scheme: basic

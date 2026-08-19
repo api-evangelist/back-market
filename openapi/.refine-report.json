@@ -1,0 +1,41 @@
+{
+  "provider": "back-market",
+  "sources": [
+    "back-market-backbox-api-openapi.yml",
+    "back-market-backship-api-openapi.yml",
+    "back-market-buyback-api-openapi.yml",
+    "back-market-care-api-openapi.yml",
+    "back-market-categories-api-openapi.yml",
+    "back-market-listings-api-openapi.yml",
+    "back-market-orderline-api-openapi.yml",
+    "back-market-orders-api-openapi.yml",
+    "back-market-taskmanager-api-openapi.yml"
+  ],
+  "outputs": [
+    "back-market-backbox-api-openapi.yml",
+    "back-market-backship-api-openapi.yml",
+    "back-market-buyback-api-openapi.yml",
+    "back-market-care-api-openapi.yml",
+    "back-market-categories-api-openapi.yml",
+    "back-market-listings-api-openapi.yml",
+    "back-market-orderline-api-openapi.yml",
+    "back-market-orders-api-openapi.yml",
+    "back-market-taskmanager-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "back-market-backbox-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-backship-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-buyback-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-care-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-categories-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-listings-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-orderline-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-orders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-taskmanager-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": []
+}
