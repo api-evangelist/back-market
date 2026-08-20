@@ -26,6 +26,18 @@ tags:
 - Retail
 - Refurbished Electronics
 - Circular Economy
+- Order
+- Listings
+- Product Catalog
+- Logistics
+- Customer-Support
+tags_raw:
+- Company
+- E-Commerce
+- Marketplace
+- Retail
+- Refurbished Electronics
+- Circular Economy
 - Orders
 - Listings
 - Product Catalog
@@ -98,6 +110,8 @@ apis:
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
+  - Buy Back
+  tags_raw:
   - BuyBack
   properties:
   - type: OpenAPI
@@ -248,6 +262,8 @@ apis:
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
+  - Order
+  tags_raw:
   - Orders
   properties:
   - type: OpenAPI
@@ -278,6 +294,8 @@ apis:
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
+  - Task Manager
+  tags_raw:
   - TaskManager
   properties:
   - type: OpenAPI
