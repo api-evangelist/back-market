@@ -13,6 +13,18 @@ description: 'Back Market is a French-founded global online marketplace dedicate
   with a Basic token issued from the seller Back Office, and mirrored by preprod environments
   on every regional platform.'
 url: https://raw.githubusercontent.com/api-evangelist/back-market/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://api.backmarket.dev/statics/backmarket-logo.svg
 x-type: company
 x-source: harvest:secondary-market
