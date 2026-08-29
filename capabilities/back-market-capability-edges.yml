@@ -1,0 +1,36 @@
+slug: back-market
+provider: Back Market
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Transportation & Logistics
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Care
+  spec_file: back-market-care-api-openapi.yml
+  capability_id: BC-430.20
+  capability_id_l1: BC-430
+  capability_name: Complaints & Issue Management
+  confidence: 0.85
+  evidence: POST /ws/sav/{careFolderId}/problem  Declare a problem on a Care Folder; POST /ws/sav/refund  Create
+    a refund on an Orderline
+  reason: 'After-sales service folders: problem declaration, customer messaging, refunds and item transfers
+    — complaint/issue management in customer service.'
+- tag: Orders
+  spec_file: back-market-orders-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: '"Get the orders", "Update a specific order", "Update customer invoice for order"; schemas
+    "OrderState", "OrderLine", "ReturnReason"'
+  reason: Seller-side retrieval and update of marketplace customer orders, including order state and shipment/return
+    handling — order fulfilment orchestration for the merchant. Some ambiguity remains because the tag
+    also covers customer invoice upload, which leans towards receivables, so confidence is moderate.

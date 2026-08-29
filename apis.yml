@@ -338,6 +338,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/back-market-capability-edges.yml
+  name: Back Market Business Capability Map
 - type: Website
   url: https://www.backmarket.com/
 - type: DeveloperPortal
