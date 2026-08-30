@@ -122,7 +122,7 @@ apis:
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
-  - Buy Back
+  - BuyBack
   tags_raw:
   - BuyBack
   properties:
@@ -306,7 +306,7 @@ apis:
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
-  - Task Manager
+  - TaskManager
   tags_raw:
   - TaskManager
   properties:
