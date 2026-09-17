@@ -131,38 +131,6 @@ apis:
     url: data-model/back-market-data-model.yml
   - type: Rules
     url: rules/back-market-rules.yml
-- aid: back-market:back-market-buyback-api
-  name: Back Market Buy Back API
-  description: The BuyBack API from Back Market — 12 operation(s) for buyback.
-  humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
-  tags:
-  - Buy Back
-  tags_raw:
-  - BuyBack
-  properties:
-  - type: OpenAPI
-    url: openapi/back-market-buyback-api-openapi.yml
-  - type: Documentation
-    url: https://api.backmarket.dev/
-  - type: APIReference
-    url: https://api.backmarket.dev/
-  - type: GettingStarted
-    url: https://api.backmarket.dev/#getting-started
-  - type: Authentication
-    url: authentication/back-market-authentication.yml
-  - type: RateLimits
-    url: rate-limits/back-market-rate-limits.yml
-  - type: Sandbox
-    url: sandbox/back-market-sandbox.yml
-  - type: ErrorCatalog
-    url: errors/back-market-problem-types.yml
-  - type: Conventions
-    url: conventions/back-market-conventions.yml
-  - type: DataModel
-    url: data-model/back-market-data-model.yml
-  - type: Rules
-    url: rules/back-market-rules.yml
 - aid: back-market:back-market-care-api
   name: Back Market Care API
   description: The Care API from Back Market — 6 operation(s) for care.
@@ -315,18 +283,46 @@ apis:
     url: data-model/back-market-data-model.yml
   - type: Rules
     url: rules/back-market-rules.yml
-- aid: back-market:back-market-taskmanager-api
-  name: Back Market Task Manager API
-  description: The TaskManager API from Back Market — 1 operation(s) for taskmanager.
+- aid: back-market:back-market-buy-back-api
+  name: Back Market Buy Back API
+  description: The Buy Back API from Back Market — 12 operation(s) for buy back.
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
-  - Task Manager
-  tags_raw:
-  - TaskManager
+  - Buy Back
   properties:
   - type: OpenAPI
-    url: openapi/back-market-taskmanager-api-openapi.yml
+    url: openapi/back-market-buy-back-api-openapi.yml
+  - type: Documentation
+    url: https://api.backmarket.dev/
+  - type: APIReference
+    url: https://api.backmarket.dev/
+  - type: GettingStarted
+    url: https://api.backmarket.dev/#getting-started
+  - type: Authentication
+    url: authentication/back-market-authentication.yml
+  - type: RateLimits
+    url: rate-limits/back-market-rate-limits.yml
+  - type: Sandbox
+    url: sandbox/back-market-sandbox.yml
+  - type: ErrorCatalog
+    url: errors/back-market-problem-types.yml
+  - type: Conventions
+    url: conventions/back-market-conventions.yml
+  - type: DataModel
+    url: data-model/back-market-data-model.yml
+  - type: Rules
+    url: rules/back-market-rules.yml
+- aid: back-market:back-market-task-manager-api
+  name: Back Market task manager API
+  description: The task manager API from Back Market — 1 operation(s) for task manager.
+  humanURL: https://api.backmarket.dev/
+  baseURL: https://www.backmarket.com
+  tags:
+  - task manager
+  properties:
+  - type: OpenAPI
+    url: openapi/back-market-task-manager-api-openapi.yml
   - type: Documentation
     url: https://api.backmarket.dev/
   - type: APIReference
