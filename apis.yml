@@ -319,6 +319,8 @@ apis:
   humanURL: https://api.backmarket.dev/
   baseURL: https://www.backmarket.com
   tags:
+  - Task Manager
+  tags_raw:
   - task manager
   properties:
   - type: OpenAPI
