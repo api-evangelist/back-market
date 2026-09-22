@@ -46,6 +46,10 @@ x-source: harvest:secondary-market
 specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-02'
+x-docs-platform: stoplight
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-20
+x-docs-hosting: github-pages
 tags:
 - Company
 - E-Commerce
