@@ -1,15 +1,7 @@
 {
   "provider": "back-market",
   "sources": [
-    "back-market-backbox-api-openapi.yml",
-    "back-market-backship-api-openapi.yml",
-    "back-market-buyback-api-openapi.yml",
-    "back-market-care-api-openapi.yml",
-    "back-market-categories-api-openapi.yml",
-    "back-market-listings-api-openapi.yml",
-    "back-market-orderline-api-openapi.yml",
-    "back-market-orders-api-openapi.yml",
-    "back-market-taskmanager-api-openapi.yml"
+    "_original/back-market-openapi-original.yml"
   ],
   "outputs": [
     "back-market-backbox-api-openapi.yml",
@@ -22,20 +14,35 @@
     "back-market-orders-api-openapi.yml",
     "back-market-taskmanager-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 2 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
-    "back-market-backbox-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-backship-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-buyback-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-care-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-categories-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-listings-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-orderline-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-orders-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "back-market-taskmanager-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "back-market-openapi-original.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "back-market-openapi-original.yml: declared missing tag: Backbox",
+    "back-market-openapi-original.yml: declared missing tag: Backship",
+    "back-market-openapi-original.yml: declared missing tag: BuyBack",
+    "back-market-openapi-original.yml: declared missing tag: Care",
+    "back-market-openapi-original.yml: declared missing tag: Categories",
+    "back-market-openapi-original.yml: declared missing tag: Listings",
+    "back-market-openapi-original.yml: declared missing tag: Orderline",
+    "back-market-openapi-original.yml: declared missing tag: Orders",
+    "back-market-openapi-original.yml: declared missing tag: TaskManager",
+    "superseded outputs removed: back-market-buy-back-api-openapi.yml, back-market-task-manager-api-openapi.yml",
+    "apis.yml register: written (+2 apis, 9 total)"
   ],
-  "skipped": []
+  "skipped": [
+    "back-market-backbox-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-backship-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-buy-back-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-care-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-listings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-orderline-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-orders-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "back-market-task-manager-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

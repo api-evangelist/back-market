@@ -1,0 +1,161 @@
+openapi: 3.2.0
+info:
+  version: 0.1.1
+  title: Back Market - API Guidelines Task Manager API
+  description: '## Table of contents
+
+
+    1.'
+  contact:
+    name: Seller Support Center
+    url: https://merchant-support.backmarket.com/hc/en-us
+    x-slack: NA
+    email: NA@NA.com
+servers:
+- url: https://preprod.backmarket.co.jp
+  description: Preprod - AP
+- url: https://www.backmarket.co.jp
+  description: Prod - AP
+- url: https://preprod.backmarket.fr
+  description: Preprod - EU
+- url: https://www.backmarket.fr
+  description: Prod - EU
+- url: https://preprod.backmarket.com
+  description: Preprod - NA
+- url: https://www.backmarket.com
+  description: Prod - NA
+tags:
+- name: task manager
+paths:
+  /ws/tasks/{taskId}:
+    get:
+      tags:
+      - task manager
+      summary: Get (batch) task
+      x-tier: 1
+      description: 'When a merchant creates a `Product` and/or `Listing`, we have to check there is no problem _i.e._ that all the mandatory information has been provided. For every creation a `batch ID` will be provided thus allowing you to check the corresponding batch (all errors will be returned).
+
+
+        You will have to check the batch every time you perform a POST request on:
+
+
+        `https://www.backmarket.fr/ws/listings/`.
+
+
+        To create `Listings` and/or `Products` (or update several `Listings`), you need to provide a CSV file through this HTTP POST. You will then get a `batch ID` in the response of your call.
+
+
+        Afterwards you can do another API call on this endpoint (_after an average delay of 5 minutes_) to get the result of the corresponding batch. The field `action_status` will be equal to 9 if the batch is completed with
+
+        success, or else it will be equal to 0.
+
+
+        If the batch is done, you will get the result for each SKU/EAN. If the creation of the `Listing`/`Product` has failed, the errors details will be returned to you.'
+      security:
+      - ApiKeyAuth: []
+      - BasicAuth: []
+      parameters:
+      - name: taskId
+        in: path
+        required: true
+        example: 4312
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  task_id:
+                    type: integer
+                    example: 1011013
+                  action_status:
+                    type: integer
+                    example: 9
+                    description: 'Current task status (0 and 2: todo or in progress, 8: failed, 9: success).
+
+                      Check the TaskStatus enum to get the others.
+
+                      '
+                    enum:
+                    - 0
+                    - 2
+                    - 3
+                    - 7
+                    - 8
+                    - 9
+                  last_action_error:
+                    description: Only filled when the processing has a major failure (status '8').
+                    anyOf:
+                    - {}
+                    - type: string
+                      example: Task has been interrupted.
+                  result:
+                    description: Report of task processing. Content depends on the task action.
+                    example: {}
+                  statuscode:
+                    type: integer
+                    example: 200
+                required:
+                - task_id
+                - action_status
+                - last_action_error
+                - result
+                - statuscode
+        '401':
+          description: Unauthorized. The client making the request is not authenticated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseV1'
+        '404':
+          description: Task does not exist, or is not accessible for the authenticated user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponseV1'
+      operationId: getWsTasksByTaskId
+      x-operation-id-source: derived
+components:
+  schemas:
+    Error:
+      description: ''
+      properties:
+        code:
+          type: string
+        data:
+          type: object
+        docLink:
+          type: string
+        message:
+          type: string
+        target:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    ErrorResponseV1:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        requestId:
+          description: Let you trace errors in applicative logs
+          type: string
+      required:
+      - error
+  securitySchemes:
+    ApiKeyAuth:
+      in: header
+      name: Authorization
+      type: apiKey
+      description: 'Token authentication is done with Basic authentication.
+
+        Prefix the value with \"Basic\" and use the token you created in the backoffice in the Integrations option page.'
+    BasicAuth:
+      type: http
+      scheme: basic
