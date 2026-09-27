@@ -143,6 +143,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    Error:
+      description: ''
+      properties:
+        code:
+          type: string
+        data:
+          type: object
+        docLink:
+          type: string
+        message:
+          type: string
+        target:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     MarketCode:
       type: string
       description: Two-letter country code of the market. Format ISO_3166-2
@@ -164,160 +181,6 @@ components:
       - SE
       - JP
       example: FR
-    MonetaryAmount:
-      title: MonetaryAmount
-      type: object
-      example:
-        amount: '42'
-        currency: EUR
-      properties:
-        amount:
-          type: string
-          pattern: ^\d*(\.\d*)?$
-          description: 'Amount is a human representation of a decimal, without any localization.
-
-
-            Trailing zero in decimal places MAY be passed (eg: "13.0")
-
-
-            Values with more decimal places than the minor unit of the currency MUST NOT be considered as valid.
-
-            The trailing zero guideline has priority over it.
-
-            ```
-
-            {"amount": "13.000", "currency": "EUR"} is also valid, but {"amount": "13.123", "currency": "EUR"} is not.
-
-            ```
-
-
-            Leading zero SHOULD be in the amount if the value is between 0 and 1.
-
-
-            Decimal separator MAY be supplied without decimal places.'
-          example: '42'
-        currency:
-          type: string
-          pattern: ^[A-Z]{3}$
-          description: 'The currency MUST be represented as a code following the ISO 4217 standard:
-
-            "EUR" for euro, "USD" for U.S. dollar, etc.
-
-            '
-          example: EUR
-      required:
-      - amount
-      - currency
-      description: 'Back Market common monetary amount model.
-
-
-
-        Empty monetary amount (ie amount equals 0) property SHOULD be exposed according to the following rules:
-
-        - `{ amount: ''0.00'', currency: ''EUR|USD|...'' }`
-
-        When a monetary amount is 0, and is intended to be displayed. Ex: free warranty, etc.
-
-        - `null` when a monetary amount is 0, and is intended to be hidden.
-
-        Ex: discount: `null`, when a user has no discount.
-
-        - omitted, when a monetary amount is non-existent.
-
-        Ex, when a feature is disabled: backlabel: `null` means BackLabel feature is enabled but not on one particular item,
-
-        while not having backlabel field at all means BackLabel feature is disabled.'
-      x-internal: false
-    Error:
-      description: ''
-      properties:
-        code:
-          type: string
-        data:
-          type: object
-        docLink:
-          type: string
-        message:
-          type: string
-        target:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    Competitor:
-      properties:
-        is_winning:
-          description: Whether or not this competitor is winning the backbox.
-          title: Is Winning
-          type: boolean
-        listing_id:
-          description: The listing public id of this competitor.
-          format: uuid
-          title: Listing Id
-          type: string
-        min_price:
-          anyOf:
-          - $ref: '#/components/schemas/MonetaryAmount'
-          description: The mimimum price set by the competitor.
-        price:
-          allOf:
-          - $ref: '#/components/schemas/MonetaryAmount'
-          description: The target price set by the competitor.
-        price_to_win:
-          allOf:
-          - $ref: '#/components/schemas/MonetaryAmount'
-          description: The price that the competitor must set to win the backbox.
-        product_id:
-          description: The product public id of this competitor.
-          format: uuid
-          title: Product Id
-          type: string
-        winner_price:
-          anyOf:
-          - $ref: '#/components/schemas/MonetaryAmount'
-          description: The price of the backbox i.e. the selling price of the winner.
-        market:
-          anyOf:
-          - $ref: '#/components/schemas/MarketCode'
-          description: The market of the backbox.
-      required:
-      - listing_id
-      - product_id
-      - price
-      - min_price
-      - price_to_win
-      - winner_price
-      - is_winning
-      - market
-      title: Competitor
-      type: object
-    ErrorResponseV3:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-        status:
-          description: HTTP status code
-          type: integer
-        title:
-          description: summary of the problem type
-          type:
-          - string
-          - 'null'
-        type:
-          description: unique problem identifier
-          type:
-          - string
-          - 'null'
-        requestId:
-          description: ID of the request
-          type: string
-      required:
-      - error
-      - status
-      - title
-      - type
     Backbox:
       title: Backbox
       type: object
@@ -392,16 +255,144 @@ components:
 
         '
       example: 10
+    MonetaryAmount:
+      title: MonetaryAmount
+      type: object
+      example:
+        amount: '42'
+        currency: EUR
+      properties:
+        amount:
+          type: string
+          pattern: ^\d*(\.\d*)?$
+          description: 'Amount is a human representation of a decimal, without any localization.
+
+
+            Trailing zero in decimal places MAY be passed (eg: "13.0")
+
+
+            Values with more decimal places than the minor unit of the currency MUST NOT be considered as valid.
+
+            The trailing zero guideline has priority over it.
+
+            ```
+
+            {"amount": "13.000", "currency": "EUR"} is also valid, but {"amount": "13.123", "currency": "EUR"} is not.
+
+            ```
+
+
+            Leading zero SHOULD be in the amount if the value is between 0 and 1.
+
+
+            Decimal separator MAY be supplied without decimal places.'
+          example: '42'
+        currency:
+          type: string
+          pattern: ^[A-Z]{3}$
+          description: 'The currency MUST be represented as a code following the ISO 4217 standard:
+
+            "EUR" for euro, "USD" for U.S. dollar, etc.
+
+            '
+          example: EUR
+      required:
+      - amount
+      - currency
+      description: 'Back Market common monetary amount model.
+
+
+
+        Empty monetary amount (ie amount equals 0) property SHOULD be exposed according to the following rules:
+
+        - `{ amount: ''0.00'', currency: ''EUR|USD|...'' }`
+
+        When a monetary amount is 0, and is intended to be displayed. Ex: free warranty, etc.
+
+        - `null` when a monetary amount is 0, and is intended to be hidden.
+
+        Ex: discount: `null`, when a user has no discount.
+
+        - omitted, when a monetary amount is non-existent.
+
+        Ex, when a feature is disabled: backlabel: `null` means BackLabel feature is enabled but not on one particular item,
+
+        while not having backlabel field at all means BackLabel feature is disabled.'
+      x-internal: false
+    ErrorResponseV3:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        status:
+          description: HTTP status code
+          type: integer
+        title:
+          description: summary of the problem type
+          type:
+          - string
+          - 'null'
+        type:
+          description: unique problem identifier
+          type:
+          - string
+          - 'null'
+        requestId:
+          description: ID of the request
+          type: string
+      required:
+      - error
+      - status
+      - title
+      - type
+    Competitor:
+      properties:
+        is_winning:
+          description: Whether or not this competitor is winning the backbox.
+          title: Is Winning
+          type: boolean
+        listing_id:
+          description: The listing public id of this competitor.
+          format: uuid
+          title: Listing Id
+          type: string
+        min_price:
+          anyOf:
+          - $ref: '#/components/schemas/MonetaryAmount'
+          description: The mimimum price set by the competitor.
+        price:
+          allOf:
+          - $ref: '#/components/schemas/MonetaryAmount'
+          description: The target price set by the competitor.
+        price_to_win:
+          allOf:
+          - $ref: '#/components/schemas/MonetaryAmount'
+          description: The price that the competitor must set to win the backbox.
+        product_id:
+          description: The product public id of this competitor.
+          format: uuid
+          title: Product Id
+          type: string
+        winner_price:
+          anyOf:
+          - $ref: '#/components/schemas/MonetaryAmount'
+          description: The price of the backbox i.e. the selling price of the winner.
+        market:
+          anyOf:
+          - $ref: '#/components/schemas/MarketCode'
+          description: The market of the backbox.
+      required:
+      - listing_id
+      - product_id
+      - price
+      - min_price
+      - price_to_win
+      - winner_price
+      - is_winning
+      - market
+      title: Competitor
+      type: object
   parameters:
-    Page:
-      description: The page number for pagination
-      example: 2
-      in: query
-      name: page
-      required: false
-      schema:
-        default: 1
-        type: integer
     PageSize:
       description: The page size for pagination
       example: 20
@@ -412,6 +403,15 @@ components:
         default: 10
         type: integer
         maximum: 50
+    Page:
+      description: The page number for pagination
+      example: 2
+      in: query
+      name: page
+      required: false
+      schema:
+        default: 1
+        type: integer
   securitySchemes:
     ApiKeyAuth:
       in: header

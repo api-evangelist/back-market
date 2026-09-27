@@ -61,7 +61,7 @@ tags:
 - Listings
 - Product Catalog
 - Logistics
-- Customer-Support
+- Customer Support
 tags_raw:
 - Company
 - E-Commerce
@@ -74,12 +74,13 @@ tags_raw:
 - Product Catalog
 - Logistics
 - Customer Support
+- Customer-Support
 apis:
 - aid: back-market:back-market-backbox-api
   name: Back Market Backbox API
   description: The Backbox API from Back Market — 2 operation(s) for backbox.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Backbox
   properties:
@@ -109,7 +110,7 @@ apis:
   name: Back Market Backship API
   description: The Backship API from Back Market — 4 operation(s) for backship.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Backship
   properties:
@@ -139,7 +140,7 @@ apis:
   name: Back Market Care API
   description: The Care API from Back Market — 6 operation(s) for care.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Care
   properties:
@@ -169,7 +170,7 @@ apis:
   name: Back Market Categories API
   description: The Categories API from Back Market — 2 operation(s) for categories.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Categories
   properties:
@@ -199,7 +200,7 @@ apis:
   name: Back Market Listings API
   description: The Listings API from Back Market — 3 operation(s) for listings.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Listings
   properties:
@@ -229,7 +230,7 @@ apis:
   name: Back Market Orderline API
   description: The Orderline API from Back Market — 1 operation(s) for orderline.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Orderline
   properties:
@@ -259,7 +260,7 @@ apis:
   name: Back Market Orders API
   description: The Orders API from Back Market — 3 operation(s) for orders.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Order
   tags_raw:
@@ -291,7 +292,7 @@ apis:
   name: Back Market Buy Back API
   description: The Buy Back API from Back Market — 12 operation(s) for buy back.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
   - Buy Back
   properties:
@@ -321,10 +322,8 @@ apis:
   name: Back Market task manager API
   description: The task manager API from Back Market — 1 operation(s) for task manager.
   humanURL: https://api.backmarket.dev/
-  baseURL: https://www.backmarket.com
+  baseURL: https://preprod.backmarket.co.jp
   tags:
-  - Task Manager
-  tags_raw:
   - task manager
   properties:
   - type: OpenAPI

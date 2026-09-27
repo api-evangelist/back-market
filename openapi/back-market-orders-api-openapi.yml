@@ -210,44 +210,60 @@ paths:
           description: Order doesn't exist
 components:
   schemas:
-    Address:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 1
-        country:
-          type: string
-          description: ISO 3166-1 alpha-2 country code.
-          example: FR
-        city:
-          type: string
-          example: Paris
-        postalCode:
-          type: string
-          example: '75003'
-        firstName:
-          type: string
-          example: Victor
-        lastName:
-          type: string
-          example: Hugo
-        company:
-          type: string
-          example: backmarket
-        phoneNumber:
-          type: string
-          description: E.164 formatted phone number.
-          example: '+33639981234'
-        state:
-          type: string
-          example: California
-        street:
-          type: string
-          example: 3, Imaginary Street
-        street2:
-          type: string
-          example: Apartement X
+    OrderState:
+      type: integer
+      enum:
+      - 0
+      - 10
+      - 1
+      - 3
+      - 8
+      - 9
+      description: 'Order state.
+
+
+        | State | Description                                                                                                                                                   |
+
+        |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+        | 0     | New order. Payment validation is pending. We are doing verifications to check the customer identity. The orders in this state must not be shipped.            |
+
+        | 10    | Order is pending. The customer has ordered but still has time to pay. The merchant has to wait for payment, and the orders in this state must not be shipped. |
+
+        | 1     | Payment is checked and validated. The merchant has to process (accept or cancel) the orderlines.                                                              |
+
+        | 3     | Order shipping is pending. The payment and the order (i.e. all orderlines) have been validated. The merchant has to ship the package to the customer.         |
+
+        | 8     | Order is not paid. Payment process has failed, and the merchant must ignore this order.                                                                       |
+
+        | 9     | Order processed. The merchant has shipped the package.                                                                                                        |
+
+        '
+      example: 1
+    ProductCondition:
+      type: integer
+      enum:
+      - 9
+      - 10
+      - 11
+      - 12
+      description: 'Condition of the product.
+
+
+        | Value | Description         |
+
+        |-------|---------------------|
+
+        | 9     | Premium condition   |
+
+        | 1O    | Excellent condition |
+
+        | 11    | Good condition      |
+
+        | 12    | Fair condition      |
+
+        '
+      example: 10
     OrderLineState:
       type: integer
       enum:
@@ -290,48 +306,156 @@ components:
 
         '
       example: 1
-    ReturnReason:
-      type: integer
+    VatType:
+      type: string
       enum:
-      - 0
-      - 1
-      - 11
-      - 12
-      - 13
-      - 21
-      - 22
-      - 23
-      - 24
-      - 25
-      description: 'Reason for the return.
-
-
-        | Value | Description                               |
-
-        |-------|-------------------------------------------|
-
-        | 0     | Stock mistake                             |
-
-        | 1     | Withdrawal during the legal 14 day period |
-
-        | 11    | Does not live at provided address         |
-
-        | 12    | The parcel did not reach its destination  |
-
-        | 13    | Lost parcel                               |
-
-        | 21    | Faulty product on opening of the package  |
-
-        | 22    | Failure during first use                  |
-
-        | 23    | Failure during warranty period            |
-
-        | 24    | Non-compliant product                     |
-
-        | 25    | Other                                     |
-
-        '
-      example: 0
+      - REGULAR
+      - MARGINAL
+      example: MARGINAL
+    Address:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        country:
+          type: string
+          description: ISO 3166-1 alpha-2 country code.
+          example: FR
+        city:
+          type: string
+          example: Paris
+        postalCode:
+          type: string
+          example: '75003'
+        firstName:
+          type: string
+          example: Victor
+        lastName:
+          type: string
+          example: Hugo
+        company:
+          type: string
+          example: backmarket
+        phoneNumber:
+          type: string
+          description: E.164 formatted phone number.
+          example: '+33639981234'
+        state:
+          type: string
+          example: California
+        street:
+          type: string
+          example: 3, Imaginary Street
+        street2:
+          type: string
+          example: Apartement X
+    OrderLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: The orderline unique ID
+          example: 37195
+        date_creation:
+          type: string
+          format: date-time
+          example: '2022-04-29T09:35:24.123456Z'
+          description: Date of creation of the orderline
+        state:
+          $ref: '#/components/schemas/OrderLineState'
+        price:
+          description: Price (including taxes) of the listing associated & warranty without the shipping price
+          type: string
+          example: '229.0'
+        shipping_price:
+          description: Unitary shipping price (including taxes)
+          type: string
+          example: '0.00'
+        shipping_delay:
+          description: Shipping time
+          type: integer
+          example: 48
+        currency:
+          type: string
+          description: Currency used
+          example: EUR
+        return_reason:
+          $ref: '#/components/schemas/ReturnReason'
+        return_message:
+          description: Message sent to the customer for a cancellation or a refund
+          type: string
+          example: ''
+        listing:
+          description: SKU of the listing
+          type: string
+          example: IPHONE416GONLIB0
+        listing_id:
+          description: ID of the listing
+          type: integer
+          example: 142
+        orderline_fee:
+          description: BackMarket commission fee amount
+          type: string
+          example: '22.9'
+        product:
+          description: Title of the product
+          type: string
+          example: Apple Iphone 4 16 Go - Noir - D\u00e9bloqu\u00e9
+        quantity:
+          type: integer
+          description: Quantity of products ordered
+          example: 2
+        brand:
+          description: The brand of the product
+          type: string
+          example: apple
+        product_id:
+          description: The product ID
+          type: integer
+          example: 141
+        backcare:
+          description: True if this orderline is covered by the Backcare service
+          type: boolean
+          example: true
+        backcare_price:
+          type: integer
+          description: The backcare price in cents
+          example: 500
+        sales_taxes:
+          description: Sales taxes (country/state dependent)
+          type: string
+          example: '25.8'
+        imei:
+          description: Unique product identifier
+          type: string
+          example: 011415009346880
+        serial_number:
+          description: Unique product identifier
+          type: string
+          example: ''
+        condition:
+          $ref: '#/components/schemas/ProductCondition'
+    CountryCode:
+      type: string
+      enum:
+      - fr-fr
+      - fr-be
+      - es-es
+      - de-de
+      - de-at
+      - it-it
+      - ja-jp
+      - en-au
+      - en-gb
+      - en-us
+      - nl-nl
+      - pt-pt
+      - en-ie
+      - el-gr
+      - sk-sk
+      - sv-se
+      example: fr-fr
     Order:
       type: object
       properties:
@@ -435,62 +559,6 @@ components:
           description: Sales taxes (country/state dependent)
           type: string
           example: '25.8'
-    VatType:
-      type: string
-      enum:
-      - REGULAR
-      - MARGINAL
-      example: MARGINAL
-    OrderState:
-      type: integer
-      enum:
-      - 0
-      - 10
-      - 1
-      - 3
-      - 8
-      - 9
-      description: 'Order state.
-
-
-        | State | Description                                                                                                                                                   |
-
-        |-------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
-
-        | 0     | New order. Payment validation is pending. We are doing verifications to check the customer identity. The orders in this state must not be shipped.            |
-
-        | 10    | Order is pending. The customer has ordered but still has time to pay. The merchant has to wait for payment, and the orders in this state must not be shipped. |
-
-        | 1     | Payment is checked and validated. The merchant has to process (accept or cancel) the orderlines.                                                              |
-
-        | 3     | Order shipping is pending. The payment and the order (i.e. all orderlines) have been validated. The merchant has to ship the package to the customer.         |
-
-        | 8     | Order is not paid. Payment process has failed, and the merchant must ignore this order.                                                                       |
-
-        | 9     | Order processed. The merchant has shipped the package.                                                                                                        |
-
-        '
-      example: 1
-    CountryCode:
-      type: string
-      enum:
-      - fr-fr
-      - fr-be
-      - es-es
-      - de-de
-      - de-at
-      - it-it
-      - ja-jp
-      - en-au
-      - en-gb
-      - en-us
-      - nl-nl
-      - pt-pt
-      - en-ie
-      - el-gr
-      - sk-sk
-      - sv-se
-      example: fr-fr
     UpdateOrder:
       type: object
       required:
@@ -595,126 +663,49 @@ components:
             '
           type: string
           example: We're sorry an error occurred with the order. You'll be reimbursed soon.
-    OrderLine:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: The orderline unique ID
-          example: 37195
-        date_creation:
-          type: string
-          format: date-time
-          example: '2022-04-29T09:35:24.123456Z'
-          description: Date of creation of the orderline
-        state:
-          $ref: '#/components/schemas/OrderLineState'
-        price:
-          description: Price (including taxes) of the listing associated & warranty without the shipping price
-          type: string
-          example: '229.0'
-        shipping_price:
-          description: Unitary shipping price (including taxes)
-          type: string
-          example: '0.00'
-        shipping_delay:
-          description: Shipping time
-          type: integer
-          example: 48
-        currency:
-          type: string
-          description: Currency used
-          example: EUR
-        return_reason:
-          $ref: '#/components/schemas/ReturnReason'
-        return_message:
-          description: Message sent to the customer for a cancellation or a refund
-          type: string
-          example: ''
-        listing:
-          description: SKU of the listing
-          type: string
-          example: IPHONE416GONLIB0
-        listing_id:
-          description: ID of the listing
-          type: integer
-          example: 142
-        orderline_fee:
-          description: BackMarket commission fee amount
-          type: string
-          example: '22.9'
-        product:
-          description: Title of the product
-          type: string
-          example: Apple Iphone 4 16 Go - Noir - D\u00e9bloqu\u00e9
-        quantity:
-          type: integer
-          description: Quantity of products ordered
-          example: 2
-        brand:
-          description: The brand of the product
-          type: string
-          example: apple
-        product_id:
-          description: The product ID
-          type: integer
-          example: 141
-        backcare:
-          description: True if this orderline is covered by the Backcare service
-          type: boolean
-          example: true
-        backcare_price:
-          type: integer
-          description: The backcare price in cents
-          example: 500
-        sales_taxes:
-          description: Sales taxes (country/state dependent)
-          type: string
-          example: '25.8'
-        imei:
-          description: Unique product identifier
-          type: string
-          example: 011415009346880
-        serial_number:
-          description: Unique product identifier
-          type: string
-          example: ''
-        condition:
-          $ref: '#/components/schemas/ProductCondition'
-    ProductCondition:
+    ReturnReason:
       type: integer
       enum:
-      - 9
-      - 10
+      - 0
+      - 1
       - 11
       - 12
-      description: 'Condition of the product.
+      - 13
+      - 21
+      - 22
+      - 23
+      - 24
+      - 25
+      description: 'Reason for the return.
 
 
-        | Value | Description         |
+        | Value | Description                               |
 
-        |-------|---------------------|
+        |-------|-------------------------------------------|
 
-        | 9     | Premium condition   |
+        | 0     | Stock mistake                             |
 
-        | 1O    | Excellent condition |
+        | 1     | Withdrawal during the legal 14 day period |
 
-        | 11    | Good condition      |
+        | 11    | Does not live at provided address         |
 
-        | 12    | Fair condition      |
+        | 12    | The parcel did not reach its destination  |
+
+        | 13    | Lost parcel                               |
+
+        | 21    | Faulty product on opening of the package  |
+
+        | 22    | Failure during first use                  |
+
+        | 23    | Failure during warranty period            |
+
+        | 24    | Non-compliant product                     |
+
+        | 25    | Other                                     |
 
         '
-      example: 10
+      example: 0
   parameters:
-    Page:
-      description: The page number for pagination
-      example: 2
-      in: query
-      name: page
-      required: false
-      schema:
-        default: 1
-        type: integer
     PageSize:
       description: The page size for pagination
       example: 20
@@ -725,6 +716,15 @@ components:
         default: 10
         type: integer
         maximum: 50
+    Page:
+      description: The page number for pagination
+      example: 2
+      in: query
+      name: page
+      required: false
+      schema:
+        default: 1
+        type: integer
   securitySchemes:
     ApiKeyAuth:
       in: header

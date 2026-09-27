@@ -420,6 +420,74 @@ components:
           type: string
           description: Type of return
           example: RETURN
+    PickupInfo:
+      title: Pickup Info
+      type: object
+      required:
+      - confirmationNumber
+      - datePickupActual
+      - datePickupRangeStart
+      - datePickupRangeEnd
+      - datePickupRequested
+      - isCanceled
+      - pickupId
+      properties:
+        confirmationNumber:
+          type: string
+          description: Confirmation number
+          example: 1231NB
+        datePickupActual:
+          type: string
+          description: Actual pickup date
+          example: '2021-05-05T06:58:31+02:00'
+        datePickupRangeStart:
+          type: string
+          description: Start date of pickup
+          example: '2021-05-05T06:58:31+02:00'
+        datePickupRangeEnd:
+          type: string
+          description: End date of pickup
+          example: '2021-05-05T06:58:31+02:00'
+        datePickupRequested:
+          type: string
+          description: Requested date for pickup
+          example: '2021-05-05'
+        isCanceled:
+          type: boolean
+          description: Pickup cancellation state
+          example: false
+        pickupId:
+          type: integer
+          description: Pickup ID
+          example: 42
+    OrderIdValidationError:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: E009
+            message:
+              type: string
+              example: Validation error
+          required:
+          - code
+          - message
+        data:
+          type: object
+          properties:
+            fields:
+              type: object
+              example:
+                orderId:
+                - An integer is needed.
+          required:
+          - fields
+      required:
+      - error
+      - data
     Delivery:
       title: Delivery
       type: object
@@ -514,74 +582,6 @@ components:
           example: DELIVERY
         pickupInfo:
           $ref: '#/components/schemas/PickupInfo'
-    OrderIdValidationError:
-      type: object
-      properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              example: E009
-            message:
-              type: string
-              example: Validation error
-          required:
-          - code
-          - message
-        data:
-          type: object
-          properties:
-            fields:
-              type: object
-              example:
-                orderId:
-                - An integer is needed.
-          required:
-          - fields
-      required:
-      - error
-      - data
-    PickupInfo:
-      title: Pickup Info
-      type: object
-      required:
-      - confirmationNumber
-      - datePickupActual
-      - datePickupRangeStart
-      - datePickupRangeEnd
-      - datePickupRequested
-      - isCanceled
-      - pickupId
-      properties:
-        confirmationNumber:
-          type: string
-          description: Confirmation number
-          example: 1231NB
-        datePickupActual:
-          type: string
-          description: Actual pickup date
-          example: '2021-05-05T06:58:31+02:00'
-        datePickupRangeStart:
-          type: string
-          description: Start date of pickup
-          example: '2021-05-05T06:58:31+02:00'
-        datePickupRangeEnd:
-          type: string
-          description: End date of pickup
-          example: '2021-05-05T06:58:31+02:00'
-        datePickupRequested:
-          type: string
-          description: Requested date for pickup
-          example: '2021-05-05'
-        isCanceled:
-          type: boolean
-          description: Pickup cancellation state
-          example: false
-        pickupId:
-          type: integer
-          description: Pickup ID
-          example: 42
   securitySchemes:
     ApiKeyAuth:
       in: header

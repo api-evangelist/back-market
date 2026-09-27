@@ -851,39 +851,71 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    buyback-counter-offer-reasons:
-      type: array
-      description: List of eligible counter offer reasons for a given buyback order
-      items:
-        type: object
-        properties:
-          id:
-            $ref: '#/components/schemas/buybackCounterOfferReasonCategory'
-          label:
+    buybackKycDocuments:
+      type: string
+      description: Type of the KYC document
+      enum:
+      - PASSPORT
+      - ID
+      - ID_CARD_FRONT
+      - ID_CARD_BACK
+      - BANK_STATEMENT
+      - DRIVING_LICENCE_FRONT
+      - DRIVING_LICENCE_BACK
+      example: PASSPORT
+    MarketCode:
+      type: string
+      description: Two-letter country code of the market. Format ISO_3166-2
+      enum:
+      - FR
+      - BE
+      - DE
+      - IT
+      - ES
+      - GB
+      - AT
+      - NL
+      - US
+      - FI
+      - PT
+      - IE
+      - GR
+      - SK
+      - SE
+      - JP
+      example: FR
+    buybackMessageAuthor:
+      type: string
+      description: Message author
+      enum:
+      - Merchant
+      - Client
+      - BackMarket
+      - Unknown
+      example: Merchant
+    buyback-message:
+      description: Buyback order message sent back by 'ws/buyback/' endpoints
+      type: object
+      properties:
+        body:
+          type: string
+          description: Message content
+          example: Hello world!
+        date:
+          type: string
+          description: Message creation date
+          example: '2019-04-04T14:10:00+02:00'
+        attachments:
+          type: array
+          items:
             type: string
-            example: Aesthetics
-            description: Translated description of the category of counteroffer reasons
-          reasons:
-            type: array
-            description: possible counter offer reasons
-            items:
-              type: object
-              properties:
-                id:
-                  type: string
-                  description: Identifier of the counter offer reason to be declared, this identifier should be sent
-                  example: broken_screen
-                label:
-                  type: string
-                  description: Translated description of the counter offer
-                  example: Broken screen
-            required:
-            - id
-            - label
-        required:
-        - id
-        - label
-        - reasons
+            description: Url of the attachments
+            example: https://storage-server/sourcing_pj/my_attachement.txt
+        author:
+          $ref: '#/components/schemas/buybackMessageAuthor'
+      required:
+      - date
+      - author
     MonetaryAmount:
       title: MonetaryAmount
       type: object
@@ -948,231 +980,6 @@ components:
 
         while not having backlabel field at all means BackLabel feature is disabled.'
       x-internal: false
-    Error:
-      description: ''
-      properties:
-        code:
-          type: string
-        data:
-          type: object
-        docLink:
-          type: string
-        message:
-          type: string
-        target:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    Price:
-      title: Price
-      description: Back Market common Price model
-      oneOf:
-      - $ref: '#/components/schemas/MonetaryAmount'
-      x-internal: false
-    buybackCounterOfferReasonCategory:
-      type: string
-      description: identifier of the counter offer reason category
-      enum:
-      - functional
-      - esthetics
-      - other
-      example: functional
-    ProblemValidationErrorMember:
-      description: ''
-      type: object
-      example:
-        type: /errors/email-conflict
-        title: Email conflict error
-        detail: This email is already taken
-        target: email
-        context:
-          suggestedEmails:
-          - john.doe.123@gmail.com
-          - john.doe.456@gmail.com
-          ageLimit: 18
-      properties:
-        type:
-          type: string
-          minLength: 1
-          example: /errors/email-conflict
-        title:
-          type: string
-          minLength: 1
-          example: Email conflict error
-        detail:
-          type: string
-          minLength: 1
-          example: This email is already taken
-        target:
-          type: string
-          minLength: 1
-          example: email
-        context:
-          type: object
-          example: {}
-      required:
-      - type
-      - title
-      - target
-      x-internal: false
-    buybackOrderState:
-      type: string
-      description: Buyback order state
-      enum:
-      - NEW
-      - PENDING
-      - TO_SEND
-      - SENT
-      - RECEIVED
-      - COUNTER_PROPOSAL
-      - VALIDATED
-      - PAID
-      - MONEY_TRANSFERED
-      - SUSPENDED
-      example: TO_SEND
-    buyback-counter-offer-payload:
-      type: object
-      properties:
-        price:
-          type: number
-          description: counteroffer price
-        comment:
-          type:
-          - string
-          - 'null'
-          maxLength: 200
-          description: Counteroffer explanation message
-          example: The screen is too scratched.
-        reasons:
-          type: array
-          description: List of counteroffer reasons identifiers. Must come from the /counter-offers/reasons endpoint.
-          items:
-            type: string
-            example: parcel_damaged
-        files:
-          type: array
-          uniqueItems: true
-          description: Files that prove the counteroffer is legitimate (.jp(e)g, .png, .pdf)
-          items:
-            type: string
-            format: binary
-      required:
-      - price
-      - reasons
-      - files
-    buyback-paginated-listing-response:
-      title: BuyBack paginated listing response
-      type: object
-      properties:
-        next:
-          type:
-          - string
-          - 'null'
-          title: Next page
-          example: https://www.backmarket.fr/ws/buyback/v1/listings?cursor=87eeccf7-7b1a-4897-8f71-09899b337a97
-        results:
-          items:
-            $ref: '#/components/schemas/buyback-listing'
-          type: array
-          title: Results
-      required:
-      - next
-      - results
-    ErrorResponseV3:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-        status:
-          description: HTTP status code
-          type: integer
-        title:
-          description: summary of the problem type
-          type:
-          - string
-          - 'null'
-        type:
-          description: unique problem identifier
-          type:
-          - string
-          - 'null'
-        requestId:
-          description: ID of the request
-          type: string
-      required:
-      - error
-      - status
-      - title
-      - type
-    buybackListingGrade:
-      type: string
-      description: Quality grade of the buyback order
-      enum:
-      - DIAMOND
-      - PLATINUM
-      - GOLD
-      - SILVER
-      - BRONZE
-      - STALLONE
-      example: DIAMOND
-    Problem:
-      title: Problem Details for HTTP APIs
-      description: Definition of [RFC7807](https://tools.ietf.org/html/rfc7807) problem detail
-      type: object
-      properties:
-        type:
-          type: string
-          description: 'Unique problem identifier.
-
-            The RFC says that it should be an URI but we prefere not to use that as it''s not scalable and user friendly.
-
-            Only readable format are accepted follwoing this pattern "[a-z-/]*", eg (`/errors/authorization-failed`).
-
-            '
-          default: /errors/unknown
-          example: /errors/authorization-failed
-        title:
-          type: string
-          description: 'A short, human-readable summary of the problem type.
-
-            It should not change from occurrence to occurrence of the problem except for purposes of localization.
-
-            '
-          example: Unable to process payment
-        status:
-          type: integer
-          format: int32
-          description: 'The HTTP status code generated by the origin server for this occurrence
-
-            of the problem.
-
-            '
-          minimum: 100
-          maximum: 599
-          example: 503
-        detail:
-          type: string
-          description: 'A human readable explanation specific to this occurrence of the
-
-            problem.
-
-            '
-          example: Payment authorization failed because your card is expired
-        instance:
-          type: string
-          description: 'An absolute URI that identifies the specific occurrence of the problem.
-
-            It may or may not yield further information if dereferenced.
-
-            '
-          example: https://example.org/error/condition
-      required:
-      - type
-      - title
-      - status
-      x-internal: false
     buyback-order-suspension-payload:
       type: object
       properties:
@@ -1187,6 +994,83 @@ components:
             example: parcel_damaged
       required:
       - reasons
+    buyback-base-paginated:
+      title: base_paginated
+      type: object
+      properties:
+        count:
+          type: number
+          description: Total number of objects or items
+          example: 133
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL pointing to the next page
+          example: https://www.backmarket.fr/ws/buyback/v1/orders?page=3
+        previous:
+          type:
+          - string
+          - 'null'
+          description: URL pointing to the previous page
+          example: https://www.backmarket.fr/ws/buyback/v1/orders?page=1
+      required:
+      - count
+      - next
+      - previous
+    buyback-reason:
+      title: Suspend or counter offer reason
+      description: Reason used to suspend a buyback order or make a counter offer on it
+      type: object
+      properties:
+        message:
+          type: string
+          description: Details of the reason
+          example: Empty parcel
+        identifier:
+          type: string
+          description: Identifier of the reason
+          example: parcel_empty
+        category:
+          type: string
+          description: Category of the reason
+          example: Transport issue
+      required:
+      - message
+      - identifier
+    buyback-counter-offer-reasons:
+      type: array
+      description: List of eligible counter offer reasons for a given buyback order
+      items:
+        type: object
+        properties:
+          id:
+            $ref: '#/components/schemas/buybackCounterOfferReasonCategory'
+          label:
+            type: string
+            example: Aesthetics
+            description: Translated description of the category of counteroffer reasons
+          reasons:
+            type: array
+            description: possible counter offer reasons
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  description: Identifier of the counter offer reason to be declared, this identifier should be sent
+                  example: broken_screen
+                label:
+                  type: string
+                  description: Translated description of the counter offer
+                  example: Broken screen
+            required:
+            - id
+            - label
+        required:
+        - id
+        - label
+        - reasons
     ValidationErrorResponseV3:
       type: object
       allOf:
@@ -1221,270 +1105,6 @@ components:
               - type
               - title
               - target
-    ProblemValidation:
-      title: ProblemValidation
-      type: object
-      allOf:
-      - $ref: '#/components/schemas/Problem'
-      - type: object
-        properties:
-          errors:
-            type: array
-            items:
-              $ref: '#/components/schemas/ProblemValidationErrorMember'
-      example:
-        type: /errors/bad-request
-        title: Your request parameters didn't validate.
-        instance: /user/signup
-        status: 400
-        errors:
-        - type: /errors/validation-error
-          title: Email conflict error
-          detail: This email is already taken
-          target: email
-          context:
-            suggestedEmails:
-            - john.doe.123@gmail.com
-            - john.doe.456@gmail.com
-            ageLimit: 18
-        - type: /errors/validation-error
-          title: Password not accepted
-          detail: Password is not accepted due to reason....
-          target: password
-          context:
-            minimumTotal: 8
-            minimumNumber: 2
-            minimumUppercase: 3
-            minimumSpecialCharacter: 2
-      description: ''
-      x-internal: false
-    buyback-base-paginated:
-      title: base_paginated
-      type: object
-      properties:
-        count:
-          type: number
-          description: Total number of objects or items
-          example: 133
-        next:
-          type:
-          - string
-          - 'null'
-          description: URL pointing to the next page
-          example: https://www.backmarket.fr/ws/buyback/v1/orders?page=3
-        previous:
-          type:
-          - string
-          - 'null'
-          description: URL pointing to the previous page
-          example: https://www.backmarket.fr/ws/buyback/v1/orders?page=1
-      required:
-      - count
-      - next
-      - previous
-    buybackCompetitor:
-      properties:
-        listing_id:
-          description: The listing public id of this competitor.
-          format: uuid
-          title: Listing Id
-          type: string
-        product_id:
-          description: The product public id of this competitor.
-          format: uuid
-          title: Product Id
-          type: string
-        market:
-          anyOf:
-          - $ref: '#/components/schemas/MarketCode'
-          description: Two-letter country code of the market. Format ISO_3166-2.
-        price:
-          allOf:
-          - $ref: '#/components/schemas/MonetaryAmount'
-          description: The buyback price set for this competitor.
-        price_to_win:
-          allOf:
-          - $ref: '#/components/schemas/MonetaryAmount'
-          description: The price that the competitor must set to win the buyback backbox.
-        is_winning:
-          description: Whether or not this competitor is winning the buyback backbox.
-          title: Is Winning
-          type: boolean
-      required:
-      - listing_id
-      - product_id
-      - market
-      - price_to_win
-      - winner_price
-      - is_winning
-      title: BuybackCompetitor
-      type: object
-    buyback-listing:
-      description: Buyback listing
-      type: object
-      title: Buyback listing
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-          example: d80340a5-6460-4a9c-a8a6-c1c6d56b11c7
-        productId:
-          type: string
-          format: uuid
-          title: Productid
-          example: 263b4873-3b6b-413e-815e-c3451117893c
-        prices:
-          type: object
-          title: Prices
-          additionalProperties:
-            $ref: '#/components/schemas/Price'
-          example:
-            FR:
-              amount: '34.50'
-              currency: EUR
-        aestheticGradeCode:
-          $ref: '#/components/schemas/buyback-aesthetic-grade-code'
-        sku:
-          type:
-          - string
-          - 'null'
-          title: Sku
-          description: SKU defined by the seller. In case of a trade-in listing, it can be null.
-          example: seller-sku
-        markets:
-          items:
-            type: string
-            pattern: ^[A-Z]{2}$
-            description: 'List of markets in which the listing is online. Market Code MUST be represented as a two-letter code following the ISO 3166-1 alpha-2 standard: "FR" for France, "GB" for Great Britain, etc.'
-            example: FR
-          type: array
-          title: Markets
-      required:
-      - id
-      - productId
-      - prices
-      - aestheticGradeCode
-      - sku
-      - markets
-    buyback-message:
-      description: Buyback order message sent back by 'ws/buyback/' endpoints
-      type: object
-      properties:
-        body:
-          type: string
-          description: Message content
-          example: Hello world!
-        date:
-          type: string
-          description: Message creation date
-          example: '2019-04-04T14:10:00+02:00'
-        attachments:
-          type: array
-          items:
-            type: string
-            description: Url of the attachments
-            example: https://storage-server/sourcing_pj/my_attachement.txt
-        author:
-          $ref: '#/components/schemas/buybackMessageAuthor'
-      required:
-      - date
-      - author
-    buyback-reason:
-      title: Suspend or counter offer reason
-      description: Reason used to suspend a buyback order or make a counter offer on it
-      type: object
-      properties:
-        message:
-          type: string
-          description: Details of the reason
-          example: Empty parcel
-        identifier:
-          type: string
-          description: Identifier of the reason
-          example: parcel_empty
-        category:
-          type: string
-          description: Category of the reason
-          example: Transport issue
-      required:
-      - message
-      - identifier
-    buyback-message-payload:
-      type: object
-      properties:
-        message:
-          type: string
-          minLength: 1
-          description: Counter offer explanation message
-          example: Scratched screen
-        files:
-          type: array
-          uniqueItems: true
-          description: Photos supporting the message. If there is no photo, an empty array should be passed.
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-                minLength: 1
-                description: Name of the photo
-                example: photo_1.jpg
-              content:
-                type: string
-                minLength: 1
-                description: Content of the photo
-                example: binary-content
-            required:
-            - name
-            - content
-      required:
-      - files
-      - message
-    buybackKycDocuments:
-      type: string
-      description: Type of the KYC document
-      enum:
-      - PASSPORT
-      - ID
-      - ID_CARD_FRONT
-      - ID_CARD_BACK
-      - BANK_STATEMENT
-      - DRIVING_LICENCE_FRONT
-      - DRIVING_LICENCE_BACK
-      example: PASSPORT
-    MarketCode:
-      type: string
-      description: Two-letter country code of the market. Format ISO_3166-2
-      enum:
-      - FR
-      - BE
-      - DE
-      - IT
-      - ES
-      - GB
-      - AT
-      - NL
-      - US
-      - FI
-      - PT
-      - IE
-      - GR
-      - SK
-      - SE
-      - JP
-      example: FR
-    buyback-aesthetic-grade-code:
-      title: Buyback aesthetic grade code
-      type: string
-      example: FUNCTIONAL_FLAWLESS
-      enum:
-      - FUNCTIONAL_FLAWLESS
-      - FUNCTIONAL_GOOD
-      - FUNCTIONAL_USED
-      - FUNCTIONAL_CRACKED
-      - NOT_FUNCTIONAL_USED
-      - NOT_FUNCTIONAL_CRACKED
     buyback-order:
       description: Buyback order sent back by 'ws/buyback/' endpoints
       type: object
@@ -1671,15 +1291,395 @@ components:
       - returnAddress
       - originalPrice
       - transferCertificateLink
-    buybackMessageAuthor:
+    buybackCompetitor:
+      properties:
+        listing_id:
+          description: The listing public id of this competitor.
+          format: uuid
+          title: Listing Id
+          type: string
+        product_id:
+          description: The product public id of this competitor.
+          format: uuid
+          title: Product Id
+          type: string
+        market:
+          anyOf:
+          - $ref: '#/components/schemas/MarketCode'
+          description: Two-letter country code of the market. Format ISO_3166-2.
+        price:
+          allOf:
+          - $ref: '#/components/schemas/MonetaryAmount'
+          description: The buyback price set for this competitor.
+        price_to_win:
+          allOf:
+          - $ref: '#/components/schemas/MonetaryAmount'
+          description: The price that the competitor must set to win the buyback backbox.
+        is_winning:
+          description: Whether or not this competitor is winning the buyback backbox.
+          title: Is Winning
+          type: boolean
+      required:
+      - listing_id
+      - product_id
+      - market
+      - price_to_win
+      - winner_price
+      - is_winning
+      title: BuybackCompetitor
+      type: object
+    buyback-message-payload:
+      type: object
+      properties:
+        message:
+          type: string
+          minLength: 1
+          description: Counter offer explanation message
+          example: Scratched screen
+        files:
+          type: array
+          uniqueItems: true
+          description: Photos supporting the message. If there is no photo, an empty array should be passed.
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                minLength: 1
+                description: Name of the photo
+                example: photo_1.jpg
+              content:
+                type: string
+                minLength: 1
+                description: Content of the photo
+                example: binary-content
+            required:
+            - name
+            - content
+      required:
+      - files
+      - message
+    buyback-counter-offer-payload:
+      type: object
+      properties:
+        price:
+          type: number
+          description: counteroffer price
+        comment:
+          type:
+          - string
+          - 'null'
+          maxLength: 200
+          description: Counteroffer explanation message
+          example: The screen is too scratched.
+        reasons:
+          type: array
+          description: List of counteroffer reasons identifiers. Must come from the /counter-offers/reasons endpoint.
+          items:
+            type: string
+            example: parcel_damaged
+        files:
+          type: array
+          uniqueItems: true
+          description: Files that prove the counteroffer is legitimate (.jp(e)g, .png, .pdf)
+          items:
+            type: string
+            format: binary
+      required:
+      - price
+      - reasons
+      - files
+    ErrorResponseV3:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        status:
+          description: HTTP status code
+          type: integer
+        title:
+          description: summary of the problem type
+          type:
+          - string
+          - 'null'
+        type:
+          description: unique problem identifier
+          type:
+          - string
+          - 'null'
+        requestId:
+          description: ID of the request
+          type: string
+      required:
+      - error
+      - status
+      - title
+      - type
+    Error:
+      description: ''
+      properties:
+        code:
+          type: string
+        data:
+          type: object
+        docLink:
+          type: string
+        message:
+          type: string
+        target:
+          type: string
+      required:
+      - code
+      - message
+      type: object
+    Price:
+      title: Price
+      description: Back Market common Price model
+      oneOf:
+      - $ref: '#/components/schemas/MonetaryAmount'
+      x-internal: false
+    buyback-paginated-listing-response:
+      title: BuyBack paginated listing response
+      type: object
+      properties:
+        next:
+          type:
+          - string
+          - 'null'
+          title: Next page
+          example: https://www.backmarket.fr/ws/buyback/v1/listings?cursor=87eeccf7-7b1a-4897-8f71-09899b337a97
+        results:
+          items:
+            $ref: '#/components/schemas/buyback-listing'
+          type: array
+          title: Results
+      required:
+      - next
+      - results
+    buyback-aesthetic-grade-code:
+      title: Buyback aesthetic grade code
       type: string
-      description: Message author
+      example: FUNCTIONAL_FLAWLESS
       enum:
-      - Merchant
-      - Client
-      - BackMarket
-      - Unknown
-      example: Merchant
+      - FUNCTIONAL_FLAWLESS
+      - FUNCTIONAL_GOOD
+      - FUNCTIONAL_USED
+      - FUNCTIONAL_CRACKED
+      - NOT_FUNCTIONAL_USED
+      - NOT_FUNCTIONAL_CRACKED
+    ProblemValidationErrorMember:
+      description: ''
+      type: object
+      example:
+        type: /errors/email-conflict
+        title: Email conflict error
+        detail: This email is already taken
+        target: email
+        context:
+          suggestedEmails:
+          - john.doe.123@gmail.com
+          - john.doe.456@gmail.com
+          ageLimit: 18
+      properties:
+        type:
+          type: string
+          minLength: 1
+          example: /errors/email-conflict
+        title:
+          type: string
+          minLength: 1
+          example: Email conflict error
+        detail:
+          type: string
+          minLength: 1
+          example: This email is already taken
+        target:
+          type: string
+          minLength: 1
+          example: email
+        context:
+          type: object
+          example: {}
+      required:
+      - type
+      - title
+      - target
+      x-internal: false
+    buybackCounterOfferReasonCategory:
+      type: string
+      description: identifier of the counter offer reason category
+      enum:
+      - functional
+      - esthetics
+      - other
+      example: functional
+    Problem:
+      title: Problem Details for HTTP APIs
+      description: Definition of [RFC7807](https://tools.ietf.org/html/rfc7807) problem detail
+      type: object
+      properties:
+        type:
+          type: string
+          description: 'Unique problem identifier.
+
+            The RFC says that it should be an URI but we prefere not to use that as it''s not scalable and user friendly.
+
+            Only readable format are accepted follwoing this pattern "[a-z-/]*", eg (`/errors/authorization-failed`).
+
+            '
+          default: /errors/unknown
+          example: /errors/authorization-failed
+        title:
+          type: string
+          description: 'A short, human-readable summary of the problem type.
+
+            It should not change from occurrence to occurrence of the problem except for purposes of localization.
+
+            '
+          example: Unable to process payment
+        status:
+          type: integer
+          format: int32
+          description: 'The HTTP status code generated by the origin server for this occurrence
+
+            of the problem.
+
+            '
+          minimum: 100
+          maximum: 599
+          example: 503
+        detail:
+          type: string
+          description: 'A human readable explanation specific to this occurrence of the
+
+            problem.
+
+            '
+          example: Payment authorization failed because your card is expired
+        instance:
+          type: string
+          description: 'An absolute URI that identifies the specific occurrence of the problem.
+
+            It may or may not yield further information if dereferenced.
+
+            '
+          example: https://example.org/error/condition
+      required:
+      - type
+      - title
+      - status
+      x-internal: false
+    buyback-listing:
+      description: Buyback listing
+      type: object
+      title: Buyback listing
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+          example: d80340a5-6460-4a9c-a8a6-c1c6d56b11c7
+        productId:
+          type: string
+          format: uuid
+          title: Productid
+          example: 263b4873-3b6b-413e-815e-c3451117893c
+        prices:
+          type: object
+          title: Prices
+          additionalProperties:
+            $ref: '#/components/schemas/Price'
+          example:
+            FR:
+              amount: '34.50'
+              currency: EUR
+        aestheticGradeCode:
+          $ref: '#/components/schemas/buyback-aesthetic-grade-code'
+        sku:
+          type:
+          - string
+          - 'null'
+          title: Sku
+          description: SKU defined by the seller. In case of a trade-in listing, it can be null.
+          example: seller-sku
+        markets:
+          items:
+            type: string
+            pattern: ^[A-Z]{2}$
+            description: 'List of markets in which the listing is online. Market Code MUST be represented as a two-letter code following the ISO 3166-1 alpha-2 standard: "FR" for France, "GB" for Great Britain, etc.'
+            example: FR
+          type: array
+          title: Markets
+      required:
+      - id
+      - productId
+      - prices
+      - aestheticGradeCode
+      - sku
+      - markets
+    buybackListingGrade:
+      type: string
+      description: Quality grade of the buyback order
+      enum:
+      - DIAMOND
+      - PLATINUM
+      - GOLD
+      - SILVER
+      - BRONZE
+      - STALLONE
+      example: DIAMOND
+    ProblemValidation:
+      title: ProblemValidation
+      type: object
+      allOf:
+      - $ref: '#/components/schemas/Problem'
+      - type: object
+        properties:
+          errors:
+            type: array
+            items:
+              $ref: '#/components/schemas/ProblemValidationErrorMember'
+      example:
+        type: /errors/bad-request
+        title: Your request parameters didn't validate.
+        instance: /user/signup
+        status: 400
+        errors:
+        - type: /errors/validation-error
+          title: Email conflict error
+          detail: This email is already taken
+          target: email
+          context:
+            suggestedEmails:
+            - john.doe.123@gmail.com
+            - john.doe.456@gmail.com
+            ageLimit: 18
+        - type: /errors/validation-error
+          title: Password not accepted
+          detail: Password is not accepted due to reason....
+          target: password
+          context:
+            minimumTotal: 8
+            minimumNumber: 2
+            minimumUppercase: 3
+            minimumSpecialCharacter: 2
+      description: ''
+      x-internal: false
+    buybackOrderState:
+      type: string
+      description: Buyback order state
+      enum:
+      - NEW
+      - PENDING
+      - TO_SEND
+      - SENT
+      - RECEIVED
+      - COUNTER_PROPOSAL
+      - VALIDATED
+      - PAID
+      - MONEY_TRANSFERED
+      - SUSPENDED
+      example: TO_SEND
   parameters:
     paymentDate:
       schema:
@@ -1689,22 +1689,6 @@ components:
       name: paymentDate
       description: BuyBack order minimum payment date
       example: '2020-12-02'
-    receivedDate:
-      schema:
-        type: string
-        format: datetime
-      in: query
-      name: receivedDate
-      description: BuyBack order minimum received date
-      example: '2020-12-02'
-    creationDate:
-      schema:
-        type: string
-        format: datetime
-      in: query
-      name: creationDate
-      description: BuyBack order minimum creation date
-      example: '2020-12-02'
     status:
       schema:
         $ref: '#/components/schemas/buybackOrderState'
@@ -1712,13 +1696,13 @@ components:
       name: status
       description: Buyback Order status
       example: PAID
-    modificationDate:
+    creationDate:
       schema:
         type: string
         format: datetime
       in: query
-      name: modificationDate
-      description: BuyBack order minimum modification date
+      name: creationDate
+      description: BuyBack order minimum creation date
       example: '2020-12-02'
     buybackListingId:
       schema:
@@ -1729,20 +1713,13 @@ components:
       in: path
       description: BuyBack listing id
       required: true
-    page:
-      schema:
-        type: integer
-      in: query
-      name: page
-      example: 1
-      description: Page number
-    suspendedDate:
+    receivedDate:
       schema:
         type: string
         format: datetime
       in: query
-      name: suspendedDate
-      description: BuyBack order minimum suspended date
+      name: receivedDate
+      description: BuyBack order minimum received date
       example: '2020-12-02'
     productId:
       schema:
@@ -1759,6 +1736,14 @@ components:
       in: path
       description: BuyBack order id
       required: true
+    suspendedDate:
+      schema:
+        type: string
+        format: datetime
+      in: query
+      name: suspendedDate
+      description: BuyBack order minimum suspended date
+      example: '2020-12-02'
     shippingDate:
       schema:
         type: string
@@ -1766,6 +1751,21 @@ components:
       in: query
       name: shippingDate
       description: BuyBack order minimum shipping date
+      example: '2020-12-02'
+    page:
+      schema:
+        type: integer
+      in: query
+      name: page
+      example: 1
+      description: Page number
+    modificationDate:
+      schema:
+        type: string
+        format: datetime
+      in: query
+      name: modificationDate
+      description: BuyBack order minimum modification date
       example: '2020-12-02'
   securitySchemes:
     ApiKeyAuth:

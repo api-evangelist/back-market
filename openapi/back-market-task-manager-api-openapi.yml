@@ -121,6 +121,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponseV1:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        requestId:
+          description: Let you trace errors in applicative logs
+          type: string
+      required:
+      - error
     Error:
       description: ''
       properties:
@@ -138,16 +148,6 @@ components:
       - code
       - message
       type: object
-    ErrorResponseV1:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-        requestId:
-          description: Let you trace errors in applicative logs
-          type: string
-      required:
-      - error
   securitySchemes:
     ApiKeyAuth:
       in: header
