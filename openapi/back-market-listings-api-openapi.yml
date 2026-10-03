@@ -782,125 +782,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Shipper:
-      type:
-      - string
-      - 'null'
-      description: 'Name of the shipper, the company that manages the delivery.
-
-        Some shippers may not be available in all countries.
-
-        Call us to add your shipper.
-
-        '
-      example: DHL Express
-      enum:
-      - Allied Express
-      - Aramex Australia
-      - Australia Post
-      - Australia Post Express
-      - Austrian Post
-      - BPost
-      - BRT
-      - Chronopost
-      - Chronopost Express
-      - ColisPrivé
-      - Colissimo
-      - Correos
-      - Correos Express
-      - Couriers Please
-      - CTT
-      - Cubyn
-      - Cubyn Express
-      - DB Schenker
-      - Deutsche Post
-      - DHL
-      - DHL DE
-      - DHL Express
-      - DHL  EXPRESS
-      - DHL NL
-      - DHL Parcel Spain
-      - DHL SP
-      - DPD
-      - DPD Benelux
-      - DPD DE
-      - DPD FR
-      - DPD International
-      - DPD UK
-      - DPD UK Express
-      - DTDC Australia
-      - FedEx
-      - FedEx - 2Days
-      - FedEx Express
-      - FedEx International
-      - FedEx - Overnight
-      - Geodis
-      - Girard Agediss - Livraison dans la pièce de votre choix sur RDV
-      - GLS
-      - GLS - DE
-      - GLS - FR
-      - GLS International
-      - GLS - IT
-      - GLS-SPAIN
-      - GLS Spain Express
-      - Hermes - DE
-      - Hermes - UK
-      - Japan Post
-      - Livraison au pied du camion
-      - Livraison dans la pièce de votre choix
-      - Logoix
-      - MRW
-      - Murfy transporteur
-      - NACEX
-      - ParcelForce Express
-      - Parcelforce (Worldwide)
-      - Parcelpoint Pty Ltd
-      - Poste Italiane
-      - Post NL
-      - Private Transporter
-      - Royal Mail
-      - Royal Mail Express
-      - Sagawa
-      - Seino
-      - Sendle
-      - Seur
-      - Socolissimo
-      - Star Track Express
-      - TIPSA
-      - TIPSA Express
-      - TNT
-      - TNT Australia
-      - TNT Express
-      - Tourline
-      - UPS
-      - UPS 2 days
-      - UPS 2nd Day Air
-      - UPS Express
-      - UPS express save
-      - UPS Ground
-      - UPS next day
-      - UPS Overnight
-      - UPS standard
-      - USPS
-      - USPS Express
-      - USPS - First Class
-      - USPS - Priority Mail
-      - USPS - Priority Mail Express
-      - VIR
-      - Yamato
-      - Zeleris
-      - Other
-    AestheticGradeValue:
-      type: string
-      description: Aethestic grade.
-      example: EXCELLENT
-      enum:
-      - PREMIUM
-      - EXCELLENT
-      - VERY_GOOD
-      - GOOD
-      - FAIR
-      - STALLONE
     ListingPublic:
       properties:
         backmarket_id:
@@ -1055,19 +936,17 @@ components:
       - 2
       - 3
       - 4
-    ErrorResponseV1:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-        requestId:
-          description: Let you trace errors in applicative logs
-          type: string
-      required:
-      - error
-    Locale:
-      pattern: ^[a-z]{2}-[a-z]{2}$
+    AestheticGradeValue:
       type: string
+      description: Aethestic grade.
+      example: EXCELLENT
+      enum:
+      - PREMIUM
+      - EXCELLENT
+      - VERY_GOOD
+      - GOOD
+      - FAIR
+      - STALLONE
     Error:
       description: ''
       properties:
@@ -1085,6 +964,134 @@ components:
       - code
       - message
       type: object
+    ErrorResponseV1:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        requestId:
+          description: Let you trace errors in applicative logs
+          type: string
+      required:
+      - error
+    Locale:
+      pattern: ^[a-z]{2}-[a-z]{2}$
+      type: string
+    Shipper:
+      type:
+      - string
+      - 'null'
+      description: 'Name of the shipper, the company that manages the delivery.
+
+        Some shippers may not be available in all countries.
+
+        Call us to add your shipper.
+
+        '
+      example: DHL Express
+      enum:
+      - Allied Express
+      - Aramex Australia
+      - Australia Post
+      - Australia Post Express
+      - Austrian Post
+      - BPost
+      - BRT
+      - Chronopost
+      - Chronopost Express
+      - ColisPrivé
+      - Colissimo
+      - Correos
+      - Correos Express
+      - Couriers Please
+      - CTT
+      - Cubyn
+      - Cubyn Express
+      - DB Schenker
+      - Deutsche Post
+      - DHL
+      - DHL DE
+      - DHL Express
+      - DHL  EXPRESS
+      - DHL NL
+      - DHL Parcel Spain
+      - DHL SP
+      - DPD
+      - DPD Benelux
+      - DPD DE
+      - DPD FR
+      - DPD International
+      - DPD UK
+      - DPD UK Express
+      - DTDC Australia
+      - FedEx
+      - FedEx - 2Days
+      - FedEx Express
+      - FedEx International
+      - FedEx - Overnight
+      - Geodis
+      - Girard Agediss - Livraison dans la pièce de votre choix sur RDV
+      - GLS
+      - GLS - DE
+      - GLS - FR
+      - GLS International
+      - GLS - IT
+      - GLS-SPAIN
+      - GLS Spain Express
+      - Hermes - DE
+      - Hermes - UK
+      - Japan Post
+      - Livraison au pied du camion
+      - Livraison dans la pièce de votre choix
+      - Logoix
+      - MRW
+      - Murfy transporteur
+      - NACEX
+      - ParcelForce Express
+      - Parcelforce (Worldwide)
+      - Parcelpoint Pty Ltd
+      - Poste Italiane
+      - Post NL
+      - Private Transporter
+      - Royal Mail
+      - Royal Mail Express
+      - Sagawa
+      - Seino
+      - Sendle
+      - Seur
+      - Socolissimo
+      - Star Track Express
+      - TIPSA
+      - TIPSA Express
+      - TNT
+      - TNT Australia
+      - TNT Express
+      - Tourline
+      - UPS
+      - UPS 2 days
+      - UPS 2nd Day Air
+      - UPS Express
+      - UPS express save
+      - UPS Ground
+      - UPS next day
+      - UPS Overnight
+      - UPS standard
+      - USPS
+      - USPS Express
+      - USPS - First Class
+      - USPS - Priority Mail
+      - USPS - Priority Mail Express
+      - VIR
+      - Yamato
+      - Zeleris
+      - Other
+  responses:
+    RateLimited:
+      description: Too many requests. Client has been rate limited.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseV1'
   parameters:
     PageSize:
       description: The page size for pagination
@@ -1105,13 +1112,6 @@ components:
       schema:
         default: 1
         type: integer
-  responses:
-    RateLimited:
-      description: Too many requests. Client has been rate limited.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseV1'
   securitySchemes:
     ApiKeyAuth:
       in: header

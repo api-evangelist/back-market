@@ -332,94 +332,6 @@ paths:
       - BasicAuth: []
 components:
   schemas:
-    Return:
-      title: Return
-      type: object
-      required:
-      - orderId
-      - orderlineId
-      - shipmentId
-      - dateCreation
-      - referenceNumber
-      - trackingNumber
-      - trackingUrl
-      - carrierId
-      - carrierName
-      - hubScanned
-      - datePickup
-      - dateDelivery
-      - label
-      - invoicedPrice
-      - invoicedCurrency
-      - type
-      properties:
-        orderId:
-          type: integer
-          description: Order ID
-          example: 42
-        orderlineId:
-          type: integer
-          description: Orderline ID
-          example: 42
-        shipmentId:
-          type: integer
-          description: Shipment ID
-          example: 42
-        carrierId:
-          type: integer
-          description: Carrier ID
-          example: 42
-        carrierName:
-          type: string
-          description: Carrier name
-          example: Chronopost
-        dateCreation:
-          type: string
-          format: date-time
-          description: Creation date
-          example: '2021-05-05T06:58:31+02:00'
-        referenceNumber:
-          type: string
-          description: Reference number
-          example: 1-123123-22334
-        trackingNumber:
-          type: string
-          description: Tracking number
-          example: Jc2rnTAc4L
-        trackingUrl:
-          type: string
-          description: Tracking url
-          example: https://carrier.com/tracking/Jc2rnTAc4L
-        hubScanned:
-          type: boolean
-          description: Whether the related shipment label have been scanned
-          example: true
-        datePickup:
-          type: string
-          format: date-time
-          description: Pickup date
-          example: '2021-05-05T06:58:31+02:00'
-        dateDelivery:
-          type: string
-          format: date-time
-          description: Delivery date
-          example: '2021-05-05T06:58:31+02:00'
-        label:
-          type: string
-          description: Label
-          example: http://testserver/static/document.pdf
-        invoicedPrice:
-          type: integer
-          description: Invoiced amount
-          example: 30
-        invoicedCurrency:
-          type: string
-          description: Invoice currency
-          example: EUR
-        type:
-          type: string
-          description: Type of return
-          example: RETURN
     PickupInfo:
       title: Pickup Info
       type: object
@@ -582,6 +494,94 @@ components:
           example: DELIVERY
         pickupInfo:
           $ref: '#/components/schemas/PickupInfo'
+    Return:
+      title: Return
+      type: object
+      required:
+      - orderId
+      - orderlineId
+      - shipmentId
+      - dateCreation
+      - referenceNumber
+      - trackingNumber
+      - trackingUrl
+      - carrierId
+      - carrierName
+      - hubScanned
+      - datePickup
+      - dateDelivery
+      - label
+      - invoicedPrice
+      - invoicedCurrency
+      - type
+      properties:
+        orderId:
+          type: integer
+          description: Order ID
+          example: 42
+        orderlineId:
+          type: integer
+          description: Orderline ID
+          example: 42
+        shipmentId:
+          type: integer
+          description: Shipment ID
+          example: 42
+        carrierId:
+          type: integer
+          description: Carrier ID
+          example: 42
+        carrierName:
+          type: string
+          description: Carrier name
+          example: Chronopost
+        dateCreation:
+          type: string
+          format: date-time
+          description: Creation date
+          example: '2021-05-05T06:58:31+02:00'
+        referenceNumber:
+          type: string
+          description: Reference number
+          example: 1-123123-22334
+        trackingNumber:
+          type: string
+          description: Tracking number
+          example: Jc2rnTAc4L
+        trackingUrl:
+          type: string
+          description: Tracking url
+          example: https://carrier.com/tracking/Jc2rnTAc4L
+        hubScanned:
+          type: boolean
+          description: Whether the related shipment label have been scanned
+          example: true
+        datePickup:
+          type: string
+          format: date-time
+          description: Pickup date
+          example: '2021-05-05T06:58:31+02:00'
+        dateDelivery:
+          type: string
+          format: date-time
+          description: Delivery date
+          example: '2021-05-05T06:58:31+02:00'
+        label:
+          type: string
+          description: Label
+          example: http://testserver/static/document.pdf
+        invoicedPrice:
+          type: integer
+          description: Invoiced amount
+          example: 30
+        invoicedCurrency:
+          type: string
+          description: Invoice currency
+          example: EUR
+        type:
+          type: string
+          description: Type of return
+          example: RETURN
   securitySchemes:
     ApiKeyAuth:
       in: header
