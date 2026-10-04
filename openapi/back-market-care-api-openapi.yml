@@ -321,189 +321,89 @@ paths:
       - BasicAuth: []
 components:
   schemas:
-    getCareFolderDetailsResponse:
+    postProblemRequest:
       properties:
-        backcare:
-          description: True if Seller subscribed to BackCare
-          example: true
-          type: boolean
-        client:
-          $ref: '#/components/schemas/client'
-        country_code:
-          description: Country locale code, lowercase
-          example: fr-fr
+        problem_type:
+          description: 'The type of problem to declare on the Care Folder.
+
+
+            If not provided, defaults to `OTHER`.
+
+
+            **Attachment requirements:**
+
+            - `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.
+
+            - All other problem types have optional attachments.
+
+            '
           type: string
-        date_closed:
-          description: Date of the Care Folder's closing (ISO 8601 format)
-          example: '1970-01-01T00:00:00+00:00'
-          format: date-time
+          enum:
+          - ACCOUNT_LOCKED
+          - CODE_LOCKED
+          - DAMAGED_PACKAGE
+          - ITEM_NOT_RECEIVED
+          - MISSING_PART
+          - OOW_ITEM
+          - PROBLEM_NOT_IDENTIFIED
+          - WRONG_ITEM
+          - OTHER
+          default: OTHER
+          example: OTHER
+        message:
+          description: Optional message to include with the problem declaration.
           type: string
-        date_creation:
-          description: Date of the Care Folder's creation (ISO 8601 format)
-          example: '1970-01-01T00:00:00+00:00'
-          format: date-time
-          type: string
-        date_last_message:
-          description: Date of the Care Folder's last posted message (ISO 8601 format)
-          example: '1970-01-01T00:00:00+00:00'
-          format: date-time
-          type: string
-        date_modification:
-          description: Date of the Care Folder's last modification (ISO 8601 format)
-          example: '1970-01-01T00:00:00+00:00'
-          format: date-time
-          type: string
-        id:
-          description: ID of the Care Folder
-          example: 123
-          type: integer
-        lines:
+          example: The package arrived damaged
+        attachment:
+          description: 'The local file(s) to be uploaded with the problem declaration.
+
+
+            **Mandatory** for problem types `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM`.
+
+
+            **Limits:**
+
+            - Maximum file size: 3 MB per file
+
+            - Maximum number of files: 10 files
+
+            '
+          example: []
           items:
-            $ref: '#/components/schemas/claim'
+            format: binary
+            type: string
           type: array
-        merchant:
-          $ref: '#/components/schemas/seller'
-        messages:
+      type: object
+    postMessageResponse:
+      properties:
+        attachment:
+          $ref: '#/components/schemas/attachment'
+        attachments:
           items:
-            $ref: '#/components/schemas/message'
+            $ref: '#/components/schemas/attachment'
           type: array
-        orderline:
-          $ref: '#/components/schemas/orderline'
-        state:
-          description: "State of the Care Folder:\n  * 0 - OPEN\n  * 9 - CLOSED\n"
-          enum:
-          - 0
-          - 9
-          example: 9
-          type: integer
-      type: object
-    returnLabel:
-      type: object
-      properties:
         date_creation:
-          type: string
-          description: Label's creation date (ISO 8601 format)
-          format: date-time
+          description: The message's creation date (ISO 8601 format)
           example: '1970-01-01T00:00:00+00:00'
-        state:
+          format: date-time
           type: string
-          description: Label's state
-          enum:
-          - USED
-          - ALIVE
-          - EXPIRED
-          example: ALIVE
-        label:
-          type: string
-          description: URL to the label document
-          example: https://www.mycdn.com/path/to/label.document
-        initiator:
-          type: string
-          description: Entity that initiated the return
-          enum:
-          - Merchant
-          - BackMarket
-          example: Merchant
-        kind:
-          type: string
-          description: The return's direction (SENDER_TO_RECEIVER)
-          enum:
-          - UNSET
-          - CUSTOMER_TO_MERCHANT
-          - MERCHANT_TO_CUSTOMER
-          example: MERCHANT_TO_CUSTOMER
-    seller:
-      type: object
-      properties:
+        group:
+          description: ID of the Care Folder linked to the message
+          example: 456
+          type: integer
         id:
-          type: integer
-          description: ID of the Seller
-          example: 123
-        username:
-          type: string
-          description: Username of the Seller
-          example: rose.bush@companymail.com
-        first_name:
-          type: string
-          description: First name of the Seller
-          example: Rose
-        last_name:
-          type: string
-          description: Last name of the Seller
-          example: Bush
-    category_3:
-      type: object
-      properties:
-        category_name:
-          type: string
-          description: Name of the product's category
-          example: Smartphones
-        parent:
-          deprecated: true
-          description: This field shouldn't be used anymore
-          $ref: '#/components/schemas/category_3'
-    postRefundCreateRequest:
-      properties:
-        amount:
-          description: Amount of the refund. Only if refund type is 6
-          example: 89.99
-          type: number
-        orderline_pk:
-          description: ID of the Orderline to be refund
-          example: 123
-          type: integer
-        refund_type:
-          description: "Type of the refund:\n  * 4 - Full refund for an orderline with state 1\n  * 5 - Full refund for an orderline with state 2\n  * 6 - Partial or full refund for an orderline with state 3\n\nDetails of the orderline states:\n| State | Description                                    |\n|-------|------------------------------------------------|\n| 0     | New Orderline                                  |\n| 1     | Orderline paid by the customer                 |\n| 2     | Orderline accepted by the seller               |\n| 3     | Orderline delivered to the shipping provider   |\n| 4     | Orderline cancelled                            |\n| 5     | Orderline refunded before shipping             |\n| 6     | Orderline refunded after shipping              |\n| 7     | Orderline not paid                             |\n| 8     | Orderline pending customer payment             |\n"
-          enum:
-          - 4
-          - 5
-          - 6
-          example: 4
-          type: integer
-      type: object
-    issue:
-      type: object
-      properties:
-        customerIssue:
-          type: string
-          description: The detailed name of the issue
-          example: BATTERY_NOT_CHARGING
-        tag:
-          type: string
-          description: The tag of the issue
-          example: TECHNICAL
-    message:
-      type: object
-      properties:
-        id:
-          type: integer
           description: ID of the message
           example: 123
+          type: integer
         message:
+          description: Message content
+          example: Hi, how can I help?
           type: string
-          description: Content of the message
-          example: Lorem ipsum dolor sit amet
-        date_creation:
-          type: string
-          description: Message's creation date (ISO 8601 format)
-          format: date-time
-          example: '1970-01-01T00:00:00+00:00'
-        attachments:
-          type: array
-          items:
-            $ref: '#/components/schemas/lightAttachment'
-        initiator:
-          type: string
-          description: Entity that sent the message
-          example: Merchant
-        kind:
-          type: string
-          description: Kind of the message (SENDER_TO_RECEIVER)
-          example: MERCHANT_TO_ALL
-        is_informative:
-          type: boolean
-          description: _true_ if message is informative. Informative message do not trigger LRR
-          example: false
+        sender:
+          description: ID of the user who created the message
+          example: 789
+          type: integer
+      type: object
     careFolder:
       type: object
       properties:
@@ -564,33 +464,26 @@ components:
           type: boolean
           description: True if Seller is backcare
           example: true
-    snapshot:
-      type: object
+    getCareFolderListResponse:
       properties:
-        id:
+        count:
+          description: Number of Care Folders on the current page
+          example: 3
           type: integer
-          description: ID of the snapshot (always returns a static value of 0)
-          deprecated: true
-          example: 0
-        product:
-          $ref: '#/components/schemas/product'
-        listing:
-          type: integer
-          description: id of the listing
-          example: 456
-        sku:
+        next:
+          description: URL to the next page
+          example: https://backmarket.fr/ws/sav/?page=2
           type: string
-          description: SKU of the product
-          example: 0123456789012
-        snowden:
-          type: boolean
-          description: Only for iPhones. _true_ if TouchID is broken, _false_ otherwise. This field shouldn't be used anymore
-          deprecated: true
-          example: false
-        image:
+        previous:
+          description: URL to the previous page
+          example: 'null'
           type: string
-          description: URL of the image
-          example: https://www.mycdn.com/path/to/the/image.file
+        results:
+          description: List of Care Folders
+          items:
+            $ref: '#/components/schemas/careFolder'
+          type: array
+      type: object
     postItemTransferCreateRequest:
       required:
       - shipperName
@@ -613,75 +506,73 @@ components:
           - NOTHING
           type: string
       type: object
-    product:
+    category_3:
       type: object
       properties:
-        product_id:
-          type: integer
-          description: ID of the product
-          example: 123
-        category_3:
+        category_name:
+          type: string
+          description: Name of the product's category
+          example: Smartphones
+        parent:
+          deprecated: true
+          description: This field shouldn't be used anymore
           $ref: '#/components/schemas/category_3'
-    client:
-      type: object
+    getCareFolderDetailsResponse:
       properties:
-        id:
-          type: integer
-          description: ID of the customer (always returns a static value of 0)
-          deprecated: true
-          example: 0
-        username:
+        backcare:
+          description: True if Seller subscribed to BackCare
+          example: true
+          type: boolean
+        client:
+          $ref: '#/components/schemas/client'
+        country_code:
+          description: Country locale code, lowercase
+          example: fr-fr
           type: string
-          description: Username of the customer (always returns empty)
-          deprecated: true
-          example: ''
-        first_name:
-          type: string
-          description: First name of the customer
-          example: John
-        last_name:
-          type: string
-          description: Last name of the customer
-          example: Doe
-        email:
-          type: string
-          description: Email of the customer
-          example: john.doe@mymail.com
-    attachment:
-      type: object
-      properties:
-        msg:
-          type: integer
-          description: ID of the message this attachment is attached to
-          example: 123
-        group:
-          type: integer
-          description: ID of the Care Folder this attachement is attached to
-          example: 456
-        sender:
-          type: integer
-          description: ID of the user that uploaded the attachment
-          example: 789
-        attachment:
-          type: string
-          description: Path to the attachment file
-          example: /path/to/my/attachment.file
-    lightAttachment:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID of the attachment
-          example: 123
-        attachment:
-          type: string
-          description: URL of the attachment
-          example: https://www.mycdn.com/path/to/the/attachment.file
-        date_creation:
-          type: string
-          description: Attachment's creation date
-          format: date-time
+        date_closed:
+          description: Date of the Care Folder's closing (ISO 8601 format)
           example: '1970-01-01T00:00:00+00:00'
+          format: date-time
+          type: string
+        date_creation:
+          description: Date of the Care Folder's creation (ISO 8601 format)
+          example: '1970-01-01T00:00:00+00:00'
+          format: date-time
+          type: string
+        date_last_message:
+          description: Date of the Care Folder's last posted message (ISO 8601 format)
+          example: '1970-01-01T00:00:00+00:00'
+          format: date-time
+          type: string
+        date_modification:
+          description: Date of the Care Folder's last modification (ISO 8601 format)
+          example: '1970-01-01T00:00:00+00:00'
+          format: date-time
+          type: string
+        id:
+          description: ID of the Care Folder
+          example: 123
+          type: integer
+        lines:
+          items:
+            $ref: '#/components/schemas/claim'
+          type: array
+        merchant:
+          $ref: '#/components/schemas/seller'
+        messages:
+          items:
+            $ref: '#/components/schemas/message'
+          type: array
+        orderline:
+          $ref: '#/components/schemas/orderline'
+        state:
+          description: "State of the Care Folder:\n  * 0 - OPEN\n  * 9 - CLOSED\n"
+          enum:
+          - 0
+          - 9
+          example: 9
+          type: integer
+      type: object
     address:
       type: object
       properties:
@@ -729,6 +620,126 @@ components:
           type: string
           description: ID of the customer related to the address
           example: '123'
+    lightAttachment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the attachment
+          example: 123
+        attachment:
+          type: string
+          description: URL of the attachment
+          example: https://www.mycdn.com/path/to/the/attachment.file
+        date_creation:
+          type: string
+          description: Attachment's creation date
+          format: date-time
+          example: '1970-01-01T00:00:00+00:00'
+    orderline:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the orderline
+          example: 123
+        order:
+          $ref: '#/components/schemas/order'
+        snapshot:
+          $ref: '#/components/schemas/snapshot'
+        quantity:
+          type: integer
+          description: Number of products
+          example: 2
+        price:
+          type: string
+          description: Price of the product
+          example: '89.99'
+        state:
+          type: integer
+          description: "State of the orderline:\n  * NEW - 0\n  * PAID - 1\n  * VALIDATED - 2\n  * SHIPPED - 3\n  * CANCELLED - 4\n  * REFUNDED_PRE_DELIVERY - 5\n  * REFUNDED_POST_DELIVERY - 6\n  * NOT_PAID - 7\n"
+          example: 2
+        trust_pack_plus:
+          type: boolean
+          description: Customer bought Trust Pack Plus. This field shouldn't be used anymore
+          deprecated: true
+          example: false
+    client:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the customer (always returns a static value of 0)
+          deprecated: true
+          example: 0
+        username:
+          type: string
+          description: Username of the customer (always returns empty)
+          deprecated: true
+          example: ''
+        first_name:
+          type: string
+          description: First name of the customer
+          example: John
+        last_name:
+          type: string
+          description: Last name of the customer
+          example: Doe
+        email:
+          type: string
+          description: Email of the customer
+          example: john.doe@mymail.com
+    seller:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the Seller
+          example: 123
+        username:
+          type: string
+          description: Username of the Seller
+          example: rose.bush@companymail.com
+        first_name:
+          type: string
+          description: First name of the Seller
+          example: Rose
+        last_name:
+          type: string
+          description: Last name of the Seller
+          example: Bush
+    message:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the message
+          example: 123
+        message:
+          type: string
+          description: Content of the message
+          example: Lorem ipsum dolor sit amet
+        date_creation:
+          type: string
+          description: Message's creation date (ISO 8601 format)
+          format: date-time
+          example: '1970-01-01T00:00:00+00:00'
+        attachments:
+          type: array
+          items:
+            $ref: '#/components/schemas/lightAttachment'
+        initiator:
+          type: string
+          description: Entity that sent the message
+          example: Merchant
+        kind:
+          type: string
+          description: Kind of the message (SENDER_TO_RECEIVER)
+          example: MERCHANT_TO_ALL
+        is_informative:
+          type: boolean
+          description: _true_ if message is informative. Informative message do not trigger LRR
+          example: false
     order:
       type: object
       properties:
@@ -802,148 +813,6 @@ components:
           type: string
           description: Country locale code of the plateform's location, lowercase
           example: fr-fr
-    getCareFolderListResponse:
-      properties:
-        count:
-          description: Number of Care Folders on the current page
-          example: 3
-          type: integer
-        next:
-          description: URL to the next page
-          example: https://backmarket.fr/ws/sav/?page=2
-          type: string
-        previous:
-          description: URL to the previous page
-          example: 'null'
-          type: string
-        results:
-          description: List of Care Folders
-          items:
-            $ref: '#/components/schemas/careFolder'
-          type: array
-      type: object
-    postMessageResponse:
-      properties:
-        attachment:
-          $ref: '#/components/schemas/attachment'
-        attachments:
-          items:
-            $ref: '#/components/schemas/attachment'
-          type: array
-        date_creation:
-          description: The message's creation date (ISO 8601 format)
-          example: '1970-01-01T00:00:00+00:00'
-          format: date-time
-          type: string
-        group:
-          description: ID of the Care Folder linked to the message
-          example: 456
-          type: integer
-        id:
-          description: ID of the message
-          example: 123
-          type: integer
-        message:
-          description: Message content
-          example: Hi, how can I help?
-          type: string
-        sender:
-          description: ID of the user who created the message
-          example: 789
-          type: integer
-      type: object
-    orderline:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID of the orderline
-          example: 123
-        order:
-          $ref: '#/components/schemas/order'
-        snapshot:
-          $ref: '#/components/schemas/snapshot'
-        quantity:
-          type: integer
-          description: Number of products
-          example: 2
-        price:
-          type: string
-          description: Price of the product
-          example: '89.99'
-        state:
-          type: integer
-          description: "State of the orderline:\n  * NEW - 0\n  * PAID - 1\n  * VALIDATED - 2\n  * SHIPPED - 3\n  * CANCELLED - 4\n  * REFUNDED_PRE_DELIVERY - 5\n  * REFUNDED_POST_DELIVERY - 6\n  * NOT_PAID - 7\n"
-          example: 2
-        trust_pack_plus:
-          type: boolean
-          description: Customer bought Trust Pack Plus. This field shouldn't be used anymore
-          deprecated: true
-          example: false
-    tile:
-      type: object
-      properties:
-        id:
-          type: integer
-          description: ID of the tile
-          example: 123
-        name:
-          type: string
-          description: Name of the tile
-          example: Technical
-    postProblemRequest:
-      properties:
-        problem_type:
-          description: 'The type of problem to declare on the Care Folder.
-
-
-            If not provided, defaults to `OTHER`.
-
-
-            **Attachment requirements:**
-
-            - `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM` require at least one attachment.
-
-            - All other problem types have optional attachments.
-
-            '
-          type: string
-          enum:
-          - ACCOUNT_LOCKED
-          - CODE_LOCKED
-          - DAMAGED_PACKAGE
-          - ITEM_NOT_RECEIVED
-          - MISSING_PART
-          - OOW_ITEM
-          - PROBLEM_NOT_IDENTIFIED
-          - WRONG_ITEM
-          - OTHER
-          default: OTHER
-          example: OTHER
-        message:
-          description: Optional message to include with the problem declaration.
-          type: string
-          example: The package arrived damaged
-        attachment:
-          description: 'The local file(s) to be uploaded with the problem declaration.
-
-
-            **Mandatory** for problem types `DAMAGED_PACKAGE`, `ITEM_NOT_RECEIVED`, and `OOW_ITEM`.
-
-
-            **Limits:**
-
-            - Maximum file size: 3 MB per file
-
-            - Maximum number of files: 10 files
-
-            '
-          example: []
-          items:
-            format: binary
-            type: string
-          type: array
-      type: object
     claim:
       type: object
       properties:
@@ -1012,6 +881,102 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/returnLabel'
+    attachment:
+      type: object
+      properties:
+        msg:
+          type: integer
+          description: ID of the message this attachment is attached to
+          example: 123
+        group:
+          type: integer
+          description: ID of the Care Folder this attachement is attached to
+          example: 456
+        sender:
+          type: integer
+          description: ID of the user that uploaded the attachment
+          example: 789
+        attachment:
+          type: string
+          description: Path to the attachment file
+          example: /path/to/my/attachment.file
+    issue:
+      type: object
+      properties:
+        customerIssue:
+          type: string
+          description: The detailed name of the issue
+          example: BATTERY_NOT_CHARGING
+        tag:
+          type: string
+          description: The tag of the issue
+          example: TECHNICAL
+    product:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          description: ID of the product
+          example: 123
+        category_3:
+          $ref: '#/components/schemas/category_3'
+    tile:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the tile
+          example: 123
+        name:
+          type: string
+          description: Name of the tile
+          example: Technical
+    snapshot:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID of the snapshot (always returns a static value of 0)
+          deprecated: true
+          example: 0
+        product:
+          $ref: '#/components/schemas/product'
+        listing:
+          type: integer
+          description: id of the listing
+          example: 456
+        sku:
+          type: string
+          description: SKU of the product
+          example: 0123456789012
+        snowden:
+          type: boolean
+          description: Only for iPhones. _true_ if TouchID is broken, _false_ otherwise. This field shouldn't be used anymore
+          deprecated: true
+          example: false
+        image:
+          type: string
+          description: URL of the image
+          example: https://www.mycdn.com/path/to/the/image.file
+    postRefundCreateRequest:
+      properties:
+        amount:
+          description: Amount of the refund. Only if refund type is 6
+          example: 89.99
+          type: number
+        orderline_pk:
+          description: ID of the Orderline to be refund
+          example: 123
+          type: integer
+        refund_type:
+          description: "Type of the refund:\n  * 4 - Full refund for an orderline with state 1\n  * 5 - Full refund for an orderline with state 2\n  * 6 - Partial or full refund for an orderline with state 3\n\nDetails of the orderline states:\n| State | Description                                    |\n|-------|------------------------------------------------|\n| 0     | New Orderline                                  |\n| 1     | Orderline paid by the customer                 |\n| 2     | Orderline accepted by the seller               |\n| 3     | Orderline delivered to the shipping provider   |\n| 4     | Orderline cancelled                            |\n| 5     | Orderline refunded before shipping             |\n| 6     | Orderline refunded after shipping              |\n| 7     | Orderline not paid                             |\n| 8     | Orderline pending customer payment             |\n"
+          enum:
+          - 4
+          - 5
+          - 6
+          example: 4
+          type: integer
+      type: object
     postMessageRequest:
       properties:
         attachment:
@@ -1037,6 +1002,41 @@ components:
       required:
       - message
       type: object
+    returnLabel:
+      type: object
+      properties:
+        date_creation:
+          type: string
+          description: Label's creation date (ISO 8601 format)
+          format: date-time
+          example: '1970-01-01T00:00:00+00:00'
+        state:
+          type: string
+          description: Label's state
+          enum:
+          - USED
+          - ALIVE
+          - EXPIRED
+          example: ALIVE
+        label:
+          type: string
+          description: URL to the label document
+          example: https://www.mycdn.com/path/to/label.document
+        initiator:
+          type: string
+          description: Entity that initiated the return
+          enum:
+          - Merchant
+          - BackMarket
+          example: Merchant
+        kind:
+          type: string
+          description: The return's direction (SENDER_TO_RECEIVER)
+          enum:
+          - UNSET
+          - CUSTOMER_TO_MERCHANT
+          - MERCHANT_TO_CUSTOMER
+          example: MERCHANT_TO_CUSTOMER
   securitySchemes:
     ApiKeyAuth:
       in: header

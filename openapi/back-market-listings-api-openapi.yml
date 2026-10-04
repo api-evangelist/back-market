@@ -782,6 +782,48 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    ErrorResponseV1:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+        requestId:
+          description: Let you trace errors in applicative logs
+          type: string
+      required:
+      - error
+    ListingStateValue:
+      type: integer
+      description: 'Deprecated, please use the "grade" field. Aethestic grade.
+
+        Values: 9 (Premium), 0 (Excellent), 1 (Very good), 2 (Good), 3 (Fair), 4 (Stallone)
+
+        '
+      example: 4
+      enum:
+      - 9
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+    Error:
+      description: ''
+      properties:
+        code:
+          type: string
+        data:
+          type: object
+        docLink:
+          type: string
+        message:
+          type: string
+        target:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     ListingPublic:
       properties:
         backmarket_id:
@@ -921,62 +963,6 @@ components:
       - min_price
       - max_price
       type: object
-    ListingStateValue:
-      type: integer
-      description: 'Deprecated, please use the "grade" field. Aethestic grade.
-
-        Values: 9 (Premium), 0 (Excellent), 1 (Very good), 2 (Good), 3 (Fair), 4 (Stallone)
-
-        '
-      example: 4
-      enum:
-      - 9
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-    AestheticGradeValue:
-      type: string
-      description: Aethestic grade.
-      example: EXCELLENT
-      enum:
-      - PREMIUM
-      - EXCELLENT
-      - VERY_GOOD
-      - GOOD
-      - FAIR
-      - STALLONE
-    Error:
-      description: ''
-      properties:
-        code:
-          type: string
-        data:
-          type: object
-        docLink:
-          type: string
-        message:
-          type: string
-        target:
-          type: string
-      required:
-      - code
-      - message
-      type: object
-    ErrorResponseV1:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
-        requestId:
-          description: Let you trace errors in applicative logs
-          type: string
-      required:
-      - error
-    Locale:
-      pattern: ^[a-z]{2}-[a-z]{2}$
-      type: string
     Shipper:
       type:
       - string
@@ -1085,13 +1071,20 @@ components:
       - Yamato
       - Zeleris
       - Other
-  responses:
-    RateLimited:
-      description: Too many requests. Client has been rate limited.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponseV1'
+    Locale:
+      pattern: ^[a-z]{2}-[a-z]{2}$
+      type: string
+    AestheticGradeValue:
+      type: string
+      description: Aethestic grade.
+      example: EXCELLENT
+      enum:
+      - PREMIUM
+      - EXCELLENT
+      - VERY_GOOD
+      - GOOD
+      - FAIR
+      - STALLONE
   parameters:
     PageSize:
       description: The page size for pagination
@@ -1112,6 +1105,13 @@ components:
       schema:
         default: 1
         type: integer
+  responses:
+    RateLimited:
+      description: Too many requests. Client has been rate limited.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponseV1'
   securitySchemes:
     ApiKeyAuth:
       in: header

@@ -140,9 +140,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Locale:
-      pattern: ^[a-z]{2}-[a-z]{2}$
-      type: string
     ErrorResponseV1:
       type: object
       properties:
@@ -153,6 +150,36 @@ components:
           type: string
       required:
       - error
+    ErrorResponseV2:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+          minItems: 1
+        requestId:
+          type: string
+          description: Let you trace errors in applicative logs
+      required:
+      - errors
+    Error:
+      description: ''
+      properties:
+        code:
+          type: string
+        data:
+          type: object
+        docLink:
+          type: string
+        message:
+          type: string
+        target:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     CategoryTree:
       type: object
       properties:
@@ -210,36 +237,9 @@ components:
       - is_leaf
       - childrens
       - attributes
-    ErrorResponseV2:
-      type: object
-      properties:
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/Error'
-          minItems: 1
-        requestId:
-          type: string
-          description: Let you trace errors in applicative logs
-      required:
-      - errors
-    Error:
-      description: ''
-      properties:
-        code:
-          type: string
-        data:
-          type: object
-        docLink:
-          type: string
-        message:
-          type: string
-        target:
-          type: string
-      required:
-      - code
-      - message
-      type: object
+    Locale:
+      pattern: ^[a-z]{2}-[a-z]{2}$
+      type: string
   securitySchemes:
     ApiKeyAuth:
       in: header
