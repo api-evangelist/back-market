@@ -1,0 +1,12 @@
+{
+ "url": "https://api.backmarket.dev/bundled_openapi.yaml",
+ "requested_url": "https://api.backmarket.dev/bundled_openapi.yaml",
+ "status": 200,
+ "content_type": "text/yaml",
+ "bytes": 225802,
+ "sha256": "28031e3b5b50f3850f8eab682fbe52a32cbdfbb728d32a2834c8dee926e29dc5",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
