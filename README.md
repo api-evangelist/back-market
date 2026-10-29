@@ -64,18 +64,149 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Back Market is a global online marketplace dedicated exclusively to refurbished consumer
-electronics, operating across 17 countries on three regional platforms (EU, North America,
-Asia-Pacific). For the ~1,800 professional refurbishers who sell on it, Back Market publishes
-a seller-facing REST API — the "Back Market API Guidelines" — covering the marketplace
-taxonomy, product and listing management, orders and orderlines, BuyBack trade-ins, Backship
-deliveries and returns, the Care after-sales platform, and Backbox competitive pricing.
+Back Market is a French-founded global online marketplace dedicated exclusively to refurbished consumer electronics — smartphones, laptops, tablets, consoles, watches, audio and home appliances — operating across 17 countries on three regional platforms (EU via backmarket.fr, North America via backmarket.com, Asia-Pacific via backmarket.co.jp). For the ~1,800 professional refurbishers selling on the platform, Back Market publishes a seller-facing REST API (the "Back Market API Guidelines") covering the marketplace taxonomy, product and listing management, order and orderline workflows, BuyBack (trade-in) orders and listings, Backship deliveries and returns, the Care after-sales platform (claims, messages, refunds, item transfers), and Backbox competitive pricing data. The API is documented as an OpenAPI 3.0.3 contract rendered with Stoplight Elements at api.backmarket.dev, authenticated with a Basic token issued from the seller Back Office, and mirrored by preprod environments on every regional platform.
 
-- Website: https://www.backmarket.com/
-- Developer portal / API Guidelines: https://api.backmarket.dev/
-- OpenAPI 3.0.3 (verbatim): https://api.backmarket.dev/bundled_openapi.yaml
-- Become a seller: https://www.backmarket.com/en-us/seller/home
-- Seller Support Center: https://merchant-support.backmarket.com/hc/en-us
+**Areas:** Company · E-Commerce · Marketplace · Retail · Refurbished Electronics · Circular Economy · Order · Listings · Product Catalog · Logistics · Customer Service
 
-Artifacts in this repo are produced by the API Evangelist enrichment pipeline — see
-`apis.yml` for the full index.
+## Back Market on APIs.io
+
+Everything profiled for Back Market is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/back-market/](https://apis.io/providers/back-market/)** — or go straight to one of the APIs or properties below.
+
+### APIs (9)
+
+- [Back Market Backbox API](https://apis.io/apis/back-market/back-market-backbox-api/) — The Backbox API from Back Market — 2 operation(s) for backbox.
+- [Back Market Backship API](https://apis.io/apis/back-market/back-market-backship-api/) — The Backship API from Back Market — 4 operation(s) for backship.
+- [Back Market Care API](https://apis.io/apis/back-market/back-market-care-api/) — The Care API from Back Market — 6 operation(s) for care.
+- [Back Market Categories API](https://apis.io/apis/back-market/back-market-categories-api/) — The Categories API from Back Market — 2 operation(s) for categories.
+- [Back Market Listings API](https://apis.io/apis/back-market/back-market-listings-api/) — The Listings API from Back Market — 3 operation(s) for listings.
+- [Back Market Orderline API](https://apis.io/apis/back-market/back-market-orderline-api/) — The Orderline API from Back Market — 1 operation(s) for orderline.
+- [Back Market Orders API](https://apis.io/apis/back-market/back-market-orders-api/) — The Orders API from Back Market — 3 operation(s) for orders.
+- [Back Market Buy Back API](https://apis.io/apis/back-market/back-market-buy-back-api/) — The Buy Back API from Back Market — 12 operation(s) for buy back.
+- [Back Market task manager API](https://apis.io/apis/back-market/back-market-task-manager-api/) — The task manager API from Back Market — 1 operation(s) for task manager.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [back-market](https://apis.io/servers/back-market/back-market/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Back Market Agentic Access](https://apis.io/agentic-access/back-market/back-market-agentic-access/)
+
+#### Collections (9)
+
+Postman and Open Collection request collections.
+
+- [Back Market - API Guidelines Backbox API](https://apis.io/collections/back-market/open-back-market-backbox-api/)
+- [Back Market - API Guidelines Backship API](https://apis.io/collections/back-market/open-back-market-backship-api/)
+- [Back Market - API Guidelines Buy Back API](https://apis.io/collections/back-market/open-back-market-buyback-api/)
+- [Back Market - API Guidelines Care API](https://apis.io/collections/back-market/open-back-market-care-api/)
+- [Back Market - API Guidelines Categories API](https://apis.io/collections/back-market/open-back-market-categories-api/)
+- [Back Market - API Guidelines Listings API](https://apis.io/collections/back-market/open-back-market-listings-api/)
+- [Back Market - API Guidelines Orderline API](https://apis.io/collections/back-market/open-back-market-orderline-api/)
+- [Back Market - API Guidelines Orders API](https://apis.io/collections/back-market/open-back-market-orders-api/)
+- [Back Market - API Guidelines Task Manager API](https://apis.io/collections/back-market/open-back-market-taskmanager-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Back Market Api Overlay](https://apis.io/overlays/back-market/back-market-api-overlay/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Back Market API Rules](https://apis.io/rules/back-market/back-market-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Back Market Authentication](https://apis.io/security/back-market/back-market-authentication/)
+- [Back Market Domain Security](https://apis.io/security/back-market/back-market-domain-security/)
+- [Back Market Vulnerability Disclosure](https://apis.io/security/back-market/back-market-vulnerability-disclosure/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Back Market Rate Limits](https://apis.io/rate-limits/back-market/back-market-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.backmarket.com/)
+- [Documentation](https://api.backmarket.dev/)
+- [Getting started](https://api.backmarket.dev/#getting-started)
+- [API reference](https://api.backmarket.dev/)
+- [Sign up](https://www.backmarket.com/en-us/seller/home)
+- [Support](https://merchant-support.backmarket.com/hc/en-us)
+- [Blog](https://www.backmarket.com/en-us/c)
+- [Security](https://www.backmarket.com/.well-known/security.txt)
+- [Terms of service](https://www.backmarket.com/en-us/legal/terms-of-service)
+- [Privacy policy](https://www.backmarket.com/en-us/legal/data-protection)
+- [GitHub](https://github.com/BackMarket)
+
+## API Evangelist rating
+
+**Kin Score 50.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 50.1 |
+| Contract governance | 15.9 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 60.1 |
+| Access clarity | 34.2 |
+
+**Agent readiness 35.1** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 30.4** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/back-market/](https://apis.io/providers/back-market/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Back Market: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/back-market/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
